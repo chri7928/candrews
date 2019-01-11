@@ -16,14 +16,14 @@
   <script>
     function submitForm(){
       var xhr = new XMLHttpRequest(); 
-      xhr.open("POST", "myscript.php"); 
+      xhr.open("POST", "https://pm.maps.arcgis.com/arcgis/tokens/GenerateToken"); 
       xhr.onload=function(event){ alert("The server says: " + event.target.response); }; 
       var formData = new FormData(document.getElementById("myForm")); 
       xhr.send(formData);
     }
   </script>
   
-  <form action="https://pm.maps.arcgis.com/arcgis/tokens/GenerateToken" method="post" name="myForm">
+  <form name="myForm">
     <fieldset>
       <legend>REST Test:</legend>
       username:<br>
@@ -32,7 +32,7 @@
       password:<br>
       <input type="text" name="password" value="">
       <br><br>
-      <input type="button" onclick="alert(document.getElementById('myForm'));" value="Click">
+      <input type="button" onclick="alert('hello');" value="Click">
     </fieldset>
   </form>
 </body>
