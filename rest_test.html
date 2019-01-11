@@ -17,7 +17,8 @@
     function submitForm(){
       var xhr = new XMLHttpRequest(); 
       xhr.open("POST", "https://pm.maps.arcgis.com/arcgis/tokens/GenerateToken"); 
-      xhr.onload=function(event){ document.getElementById("i1").innerHTML=("The server says: " + event.target.response); }; 
+      //xhr.onload=function(event){ document.getElementById("i1").innerHTML=("The server says: " + event.target.response); }; 
+      xhr.onload=function(event){ document.getElementById("i1").innerHTML=("Hello"); }; 
       var formData = new FormData(document.getElementById("myForm")); 
       xhr.send(formData);
     }
@@ -41,7 +42,7 @@
     </fieldset>
   </form>
   
-  <iframe id="i1" name="i1" height="200" width="300">
+  <iframe id="i1" name="i1" height="200" width="600">
   </iframe>
 </body>
 </html>
