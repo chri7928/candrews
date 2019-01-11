@@ -13,9 +13,16 @@
 </head>
 
 <body>
-  <!--<script src="js/scripts.js"></script>-->
+  <script src="js/scripts.js">
+    function submitForm(){
+      var xhr = new XMLHttpRequest(); 
+      xhr.open("POST", "myscript.php"); 
+      xhr.onload=function(event){ alert("The server says: " + event.target.response); }; 
+      var formData = new FormData(document.getElementById("myForm")); xhr.send(formData);
+    }
+  </script>
   
-  <form action="https://pm.maps.arcgis.com/arcgis/tokens/GenerateToken" method="post">
+  <form action="https://pm.maps.arcgis.com/arcgis/tokens/GenerateToken" method="post" name="myForm">
     <fieldset>
       <legend>REST Test:</legend>
       username:<br>
@@ -24,7 +31,7 @@
       password:<br>
       <input type="text" name="password" value="">
       <br><br>
-      <input type="submit" value="Submit">
+      <input type="button" onClick="javascript:submitForm();">
     </fieldset>
   </form>
 </body>
