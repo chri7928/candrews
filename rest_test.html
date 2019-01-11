@@ -17,7 +17,7 @@
     function submitForm(){
       var xhr = new XMLHttpRequest(); 
       xhr.open("POST", "https://pm.maps.arcgis.com/arcgis/tokens/GenerateToken"); 
-      xhr.onload=function(event){ alert("The server says: " + event.target.response); }; 
+      xhr.onload=function(event){ document.getElementById("i1").innerHTML=("The server says: " + event.target.response); }; 
       var formData = new FormData(document.getElementById("myForm")); 
       xhr.send(formData);
     }
@@ -40,5 +40,8 @@
       <input type="button" onclick="submitForm();" value="Click">
     </fieldset>
   </form>
+  
+  <iframe id="i1" name="i1" height="200" width="300">
+  </iframe>
 </body>
 </html>
