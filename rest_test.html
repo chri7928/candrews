@@ -18,7 +18,8 @@
       var xhr = new XMLHttpRequest(); 
       xhr.open("POST", "myscript.php"); 
       xhr.onload=function(event){ alert("The server says: " + event.target.response); }; 
-      var formData = new FormData(document.getElementById("myForm")); xhr.send(formData);
+      var formData = new FormData(document.getElementById("myForm")); 
+      xhr.send(formData);
     }
   </script>
   
@@ -31,7 +32,7 @@
       password:<br>
       <input type="text" name="password" value="">
       <br><br>
-      <input type="button" onclick="submitForm()" value="Click">
+      <input type="button" onclick="alert(document.getElementById('myForm'));" value="Click">
     </fieldset>
   </form>
 </body>
