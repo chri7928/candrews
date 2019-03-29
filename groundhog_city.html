@@ -236,7 +236,8 @@
             
             //Query the scene layer by a distance from the graphic geometry
             var query2 = sceneLayer.createQuery();
-            query2.geometry = geometryEngine.geodesicBuffer(resultGeom, 0.1, "kilometers");//document.getElementById("infectionDistance").value
+            query2.geometry = geometryEngine.geodesicBuffer(resultGeom, 
+              parseInt(document.getElementById("infectionDistance").value)/1000, "kilometers");
             bufferLayer.add(new Graphic({
               geometry: query2.geometry,
               symbol: polySym
@@ -480,6 +481,8 @@
       };
       
       initializeSim(parseInt(document.getElementById("infectionDuration").value));
+      //TODO: make sure the infections array is updated to reflect the correct number of days when the slider is changed
+      //TODO: Disable the sliders when the simulation is running
     }
   </script>
 </body>
