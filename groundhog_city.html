@@ -23,7 +23,6 @@
     var numSeeds = 0;
     var totalBuildings = -1;
     var infectionDay = 0;
-    var infections = []; //will be an array of arrays
     var svDefaultColor = [0,0,255,1];
     var contagiousDistance = 100;
     
@@ -95,7 +94,8 @@
       Graphic, 
       geometryEngine,
       summaryStatistics) {
-        
+      
+      var infections = []; //will be an array of arrays
 
       // Create Map
       var map = new Map({
