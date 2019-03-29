@@ -336,6 +336,9 @@
     
       function runSim(){
         if (isRunning){
+          
+          // TODO
+          
           infectionDay++;
           setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
           document.getElementById("currentDayVal").innerHTML = infectionDay;
@@ -345,7 +348,7 @@
       }
       window.runSim = runSim;
       
-      window.test = function(){alert('Test');}
+     // window.test = function(){alert('Test');}
       
     });
   </script>
@@ -467,7 +470,7 @@
       btn = document.getElementById("resetButton");
       btn.onclick = function(){
         if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
-          window.initializeSim();
+          initializeSim();
         }
         this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/full-rewind-gray.png" alt="Pause">';
         setTimeout(function(){
@@ -475,7 +478,7 @@
              document.getElementById("resetButton").blur();
         }, 200);
       };
-      window.initializeSim();
+      initializeSim();
     }
   </script>
 </body>
