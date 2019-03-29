@@ -35,9 +35,12 @@
     //  Infect adjacent houses
     //  Age infection at each infected house
     //  Update renderer
-    // Show score (Number of houses infected?)
-    // TODO: Create on screen controls - reset, duration, terminal, distance
-    // Show infection %, mortality %
+    // TODO: Show score (Number of houses infected?)
+    // DONE: Create on screen controls - reset, duration, terminal, distance
+    // TODO: Show infection %, mortality %
+    // TODO: Help dialog
+    // TODO: Intro dialog/title dialog
+    // TODO: Add ability to step forward one day >|
     
     // Credits
     // https://www.freeiconspng.com (skull icon)
@@ -470,6 +473,7 @@
              document.getElementById("resetButton").blur();
         }, 200);
       };
+      window.initializeSim();
     }
   </script>
 </body>
