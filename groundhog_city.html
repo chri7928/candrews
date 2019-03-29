@@ -204,7 +204,7 @@
           uniqueValueInfos: [],
           legendOptions: { title: "Infected" }
         };
-        res.uniqueValueInfos = createInfectedRenderers(infectedList, "red");
+        res.uniqueValueInfos = createInfectedRenderers(infections[0], "red");
         return res;
       }
       
@@ -272,12 +272,12 @@
             // now extract the object id from the graphic
             if (isStopped && isReset){
               var tid = graphic.attributes.OBJECTID;
-              var tind = infectedList.findIndex(function(tval){return (tval == tid);});
+              var tind = infections[0].findIndex(function(tval){return (tval == tid);});
               //console.log("tid=" + tid + "  tind=" + tind);
               if (tind > -1){
-                infectedList.splice(tind, 1);
+                infections[0].splice(tind, 1);
               } else {
-                infectedList[infectedList.length] = tid;
+                infections[0][infections[0].length] = tid;
               }
               //console.log(JSON.stringify(graphic));
               //console.log(infectedList);
