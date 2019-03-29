@@ -470,7 +470,7 @@
       btn = document.getElementById("resetButton");
       btn.onclick = function(){
         if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
-          initializeSim(document.getElementById("infectionDuration").value);
+          initializeSim(parseInt(document.getElementById("infectionDuration").value));
         }
         this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/full-rewind-gray.png" alt="Pause">';
         setTimeout(function(){
@@ -478,7 +478,8 @@
              document.getElementById("resetButton").blur();
         }, 200);
       };
-      initializeSim(document.getElementById("infectionDuration").value);
+      alert(parseInt(document.getElementById("infectionDuration").value));
+      initializeSim(parseInt(document.getElementById("infectionDuration").value));
     }
   </script>
 </body>
