@@ -1,9 +1,3 @@
-const https = require('https');
-const url = require('url');
-var fetch = require('node-fetch');
-
-var countCallbacks = 0;
-
 module.exports = {
 	/**
 		Chris Andrews - Code adapted from Yakjive.com
@@ -124,10 +118,6 @@ module.exports = {
 		return false;
 	},
 
-	sleep: function (ms) {
-	  return new Promise(resolve => setTimeout(resolve, ms));
-	},
-
 	int32FromArray: function (a){
 		var result = 0;
 		for (var i = 0; i < 4; i++){
@@ -136,55 +126,5 @@ module.exports = {
 			}
 		}
 		return result;
-	},
-
-	//This version uses fetch with async/await to attempt to save on some url calls. Seems to work.
-	//Assume that you get either JSON or Binary
-	getSafeURL2: async function (tUrl, callback, keepBinary=false){
-//console.log(tUrl);
-		if (countCallbacks > 10000){
-			setTimeout(function(){module.exports.getSafeURL2(tUrl, callback, keepBinary);}, 50);
-			return;
-		}
-		countCallbacks++;
-		var keepTrying = true;
-		do {
-			try {
-				let value = await fetch(tUrl.href);
-				if (keepBinary){
-					value.buffer().then(res => {
-						callback(res);
-					}).catch((e) => {
-						console.log("In fetch binary: ", tUrl.href);
-						console.log(e);
-					});
-				} else {
-					value.json().then(res => {
-						callback(res);
-					}).catch((e) => {
-						console.log("In fetch JSON: ", tUrl.href);
-						console.log(e);
-					});
-				}
-				keepTrying = false;
-			} catch (e) {
-				if ((e.code === 'ETIMEDOUT') || (e.code === 'ECONNRESET')) {
-//					console.log('.');
-				} else {
-					console.log('In getUrl: ' + tUrl.href);
-					console.log(e.code);
-					keepTrying = false;
-				}
-			}
-		} while (keepTrying);
-		countCallbacks--;
-	},
-
-	callbacksDone: function (){
-		return (countCallbacks === 0);
-	},
-
-	getCallbacks: function () {
-		return countCallbacks;
 	}
 }
