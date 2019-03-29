@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Intro to SceneLayer - 4.10</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    
+    #viewDiv {
+      color: #FFFFFF;
+      font-family: "Lucida Console", Times, serif;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    #info {
+      font-family: "Lucida Console", Times, serif;
+      padding: 5px;
+      margin: 5px;
+      width: 120px;
+      text-align: center;
+      border: solid 2px #666;
+      border-radius: 4px;
+      background-color: #000;
+    }
+    
+    #paneDiv {
+      padding: 5px 5px 5px 5px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    #paneDiv:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    #scoreDiv {
+      padding: 5px 5px 5px 5px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    #scoreDiv:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    #runDiv {
+      background-color: rgba(0, 0, 0, 0.0);
+      box-shadow: none;
+    }
+
+    .chkLabel {
+      font-size: 12px;
+    }
+    
+    .slidecontainer {
+      width: 100%;
+    }
+    
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 7px;
+      border-radius: 15px;
+      background: #FF0000;
+      outline: none;
+      opacity: 0.5;
+      -webkit-transition: .3s;
+      transition: opacity .3s;
+    }
+    
+    .slider:hover {
+      opacity: 1;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: url('https://chri7928.github.io/candrews/images/scb40.png');
+      cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: url('https://chri7928.github.io/candrews/images/scb40.png');
+      cursor: pointer;
+    }
+    
+    .sliderVal{
+      color: #DDDDDD;
+      font-size: calc(0.3em + 50%);
+    }
+    
+    #infectionDuration::-webkit-slider-thumb {
+      background: url('https://chri7928.github.io/candrews/images/scb40.png');
+    }
+    
+    #infectionDuration::-moz-range-thumb {
+      background: url('https://chri7928.github.io/candrews/images/scb40.png');
+    }
+    
+    #deathRate::-webkit-slider-thumb {
+      background: url('https://chri7928.github.io/candrews/images/scb40.png');
+    }
+    
+    #deathRate::-moz-range-thumb {
+      background: url('https://chri7928.github.io/candrews/images/scb40.png');
+    }
+    
+    .inputTable{
+      padding: 0px;
+      margin: 0px;
+    }
+    
+    .scoreTable{
+      padding: 0px;
+      margin: 0px;
+      text-align: center;
+    }
+    
+    td {
+      padding: 9px;
+    }
+    
+    #completeInfectionDiv {
+      width: 10px;
+      height: 80px;
+      background-color: #F00;
+    }
+    
+    #currentInfectionDiv {
+      width: 10px;
+      height: 10%;
+      background-color: #00F;
+    }
+    
+    input {
+      border: none;
+    }
+    
+    button {
+      border: none;
+      background-color: rgba(0, 0, 0, 0);
+      padding: 0px;
+      margin: 0px;
+    }
+    button:hover {
+      border: none;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .runButton{
+      padding: 3px;
+      margin-right: 5px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.10/"></script>
+
+  <script>
+  
+    //State variables
+    var isStopped = true;
+    var isReset = true;
+    var isPaused = false;
+    var isRunning = false;
+    
+    const maxInfectionDuration = 6;
+    const maxInfectionDistance = 500; // (m)
+    
+    //Globals
+    var numSeeds = 0;
+    var totalBuildings = -1;
+    var infectionDay = 0;
+    var infections = []; //will be an array of arrays
+    var svDefaultColor = [0,0,255,1];
+    
+  
+    // select infected houses
+    // set ageing duration
+    // set % terminal or reinfectable
+    // set buffer distance
+    // run simulation till pause or to 100 (keep score)
+    //  Infect adjacent houses
+    //  Age infection at each infected house
+    //  Update renderer
+    // Show score (Number of houses infected?)
+    // TODO: Create on screen controls - reset, duration, terminal, distance
+    // Show infection %, mortality %
+    
+    // Credits
+    // https://www.freeiconspng.com (skull icon)
+    
+    function objToString(obj){
+      //console.log("in objToString()");
+      var res = '';
+      if (obj == null){
+        res = 'null';  
+      } else {
+        for (objItem in obj){
+          res += objItem + ' ' + obj[objItem] + ' ' + typeof(objItem) + '\r\n';
+        }
+      }
+      return res;
+    }
+    
+    function createInfectedRenderers(iList, iColor){
+    	var res = [];
+      for (item in iList){
+      	res[res.length] = JSON.parse('{"value": "' + iList[item] + '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": "' + iColor + '","colorMixMode": "replace"}}]}}');
+      }
+      return res;
+    }
+  
+    function setSlider(sName, vName, min, max, current){
+      var slider = document.getElementById(sName);
+      var output = document.getElementById(vName);
+      slider.min = min;
+      slider.max = max;
+      slider.value = current;
+      output.innerHTML = slider.value;
+      
+      slider.oninput = function() {
+        output.innerHTML = this.value;
+      }
+    }
+  
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/layers/SceneLayer",
+      "esri/layers/GraphicsLayer",
+      "esri/Graphic",
+      "esri/geometry/geometryEngine",
+      "esri/renderers/smartMapping/statistics/summaryStatistics"
+    ], function(Map, 
+      SceneView, 
+      SceneLayer, 
+      GraphicsLayer, 
+      Graphic, 
+      geometryEngine,
+      summaryStatistics) {
+        
+
+      // Create Map
+      var map = new Map({
+        basemap: "dark-gray",
+        ground: "world-elevation"
+      });
+
+      // Create the SceneView
+      var view = new SceneView({
+        container: "viewDiv",
+        map: map,
+        camera: {
+          position: [-122.47876, 48.75368, 5000],
+          tilt: 20,
+          heading: 50
+        }
+      });
+
+      // Create a GraphicsLayer to add buffer graphics
+      var bufferLayer = new GraphicsLayer();
+      map.add(bufferLayer);
+
+      // Create SceneLayer and add to the map
+      var sceneLayer = new SceneLayer({
+        portalItem: {
+          id: "fa0e0058ff394dd7a9902ede1d04721b"
+        },
+        popupEnabled: false
+      });
+      map.add(sceneLayer);
+      
+      sceneLayer.when(function(){
+        //view.goTo(sceneLayer.fullExtent);
+        
+        var query = sceneLayer.createQuery();
+        query.where = "YEAR = 2008";
+        query.returnGeometry = true;
+        //query.geometry = sceneLayer.fullExtent;
+        //query.spatialRelationship = "contains";
+        
+        query.outFields = ['YEAR', 'TYPE'];
+        sceneLayer.queryFeatures(query)
+          .then(function(result){
+            //console.log(result.features); // print the features to the console
+            //console.log("Count " + result.features.length);
+            //console.log("Geom " + result.features[0].length);
+            var t = null;
+            var tt = '';
+            for (item in result.features){
+              t = result.features[item].attributes;
+              for (item2 in t){
+                tt += item2 + " " + t[item2] + ",";
+              }
+              tt += '\r\n';
+            }
+            //console.log(tt);
+            tt = '';
+            var g = null;
+            for (item in result.features){
+              g = result.features[item].geometry;
+              //g.symbol.color = [0, 0, 255, 0.3];
+              //console.log("Symbol: " + objToString(g.symbol));
+              t = g.extent;
+              tt += g.type + '\r\n';
+            }
+            view.goTo(t);
+            //console.log(tt);
+          });
+        //console.log('3');
+        summaryStatistics({
+          layer: sceneLayer,
+          field: "YEAR"
+        }).then(function(stats){
+          console.log('Total buildings = ' + stats.count);
+          totalBuildings = stats.count;
+        });
+      });
+
+      // Create MeshSymbol3D for symbolizing SceneLayer
+      var symbol = {
+        type: "mesh-3d", // autocasts as new MeshSymbol3D()
+        symbolLayers: [{
+          type: "fill", // autocasts as new FillSymbol3DLayer()
+          // If the value of material is not assigned, the default color will be grey
+          material: {
+            color: [255, 0, 0]
+          }
+        }]
+      };
+      
+      var infectedList = [1808,1752,1712];
+      
+      function getUniqueValueRenderer() {
+        var res = {
+          type: "unique-value",
+          field: "OBJECTID",
+          defaultSymbol: {
+            type: "mesh-3d", 
+            symbolLayers: [{
+              type: "fill", 
+              material: {
+                color: svDefaultColor,
+                colorMixMode: "replace"
+              }
+            }]
+          },
+          uniqueValueInfos: [],
+          legendOptions: {
+            title: "Infected"
+          }
+        };
+        res.uniqueValueInfos = createInfectedRenderers(infectedList, "red");
+        return res;
+      }
+      
+      sceneLayer.renderer = getUniqueValueRenderer();
+      
+      //for testing
+      var polySym = {
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: [140, 140, 222, 0.5],
+        outline: {
+          color: [0, 0, 0, 0.5],
+          width: 2
+        }
+      };
+      
+      function getNeighbors(oid){
+        //Query the scene layer by id to get the graphic
+        
+        var query = sceneLayer.createQuery();
+        query.where = "OBJECTID = " + oid;
+        query.returnGeometry = true;
+        query.outFields = ['YEAR', 'TYPE'];
+        var resultGeom = null;
+        sceneLayer.queryFeatures(query)
+          .then(function(result){
+            resultGeom = result.features[0].geometry;
+            //console.log("resultGeom = " + resultGeom.type);
+            
+            //Query the scene layer by a distance from the graphic geometry
+            var query2 = sceneLayer.createQuery();
+            query2.geometry = geometryEngine.geodesicBuffer(resultGeom, 0.1, "kilometers");
+            bufferLayer.add(new Graphic({
+              geometry: query2.geometry,
+              symbol: polySym
+            }));
+            query2.spatialRelationship = "intersects";
+            query2.outFields = ['OBJECTID', 'YEAR', 'TYPE'];
+            sceneLayer.queryFeatures(query2)
+              .then(function(result2){
+                for (item in result2.features){
+                  t = result2.features[item].attributes.OBJECTID;
+                  //console.log(t);
+                  
+                  //TODO: Add results to the newly infected list
+                  
+                }
+              });
+          });
+          
+        //return an array of the neighbor OBJECTIDs minus the id of the input graphic 
+      }
+
+      // capture click events on the view
+      view.on("click", function(event) {
+        // get the returned screen x, y coordinates and use it
+        // with hitTest to find if any graphics were clicked
+        // (using promise chaining for cleaner code and error handling)
+        view.hitTest(event).then(function(response) {
+          var result = response.results[0];
+          if (result && result.graphic) {
+            return result.graphic;
+          }
+        }).then(function(graphic) {
+          if (graphic){// for some reason this is coming across as undefined
+            // now extract the object id from the graphic
+            if (isStopped && isReset){
+              var tid = graphic.attributes.OBJECTID;
+              var tind = infectedList.findIndex(function(tval){return (tval == tid);});
+              //console.log("tid=" + tid + "  tind=" + tind);
+              if (tind > -1){
+                infectedList.splice(tind, 1);
+              } else {
+                infectedList[infectedList.length] = tid;
+              }
+              //console.log(JSON.stringify(graphic));
+              //console.log(infectedList);
+              sceneLayer.renderer = getUniqueValueRenderer();
+              getNeighbors(tid);
+            }
+          } else {
+            console.log("got undefined graphic");
+          }
+        }).catch(function(error) {
+          console.error(error);
+        });
+      });
+
+      view.ui.add("paneDiv", "bottom-left");
+      view.ui.add("runDiv", "bottom-right");
+      view.ui.add("scoreDiv", "top-right");
+        
+      function initializeSim(infectionDuration){
+       //Clear any graphics layers
+       //Set up the infections array
+       infections = [];
+       for (iD = 0; iD < infectionDuration; iD++){
+        infections[infections.length] = [];
+       }
+       //Clear numSeeds
+       numSeeds = 0;
+       //Clear infection day
+       infectionDay = 0;
+        
+       isStopped = true;
+       isReset = true;
+       isPaused = false;
+       isRunning = false;
+       
+       bufferLayer.removeAll();
+       setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
+       document.getElementById("currentDayVal").innerHTML = "0";
+      }
+      window.initializeSim = initializeSim;
+      
+      //Change the position of a vertical progress indicator
+      function setProgress(divName, val, down, textSpan, textVal) {
+      	if (!down){
+        	val = 100 - val;
+        }
+        var elem = document.getElementById(divName);   
+        elem.style.height = val + '%'; 
+        if (textVal){
+          document.getElementById(textSpan).innerHTML = textVal;
+        }
+      }
+      window.setProgress = setProgress;
+    
+      function runSim(){
+        if (isRunning){
+          infectionDay++;
+          setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
+          document.getElementById("currentDayVal").innerHTML = infectionDay;
+        } else if (isPaused) {
+        }
+        setTimeout("runSim();", 500);
+      }
+      window.runSim = runSim;
+      
+      window.test = function(){alert('Test');}
+      
+    });
+  </script>
+</head>
+
+<body onload="main();">
+  <div id="viewDiv">
+  </div>
+  <div id="paneDiv">
+    <div class="slidecontainer">
+      <table class="inputTable">
+        <tr>
+          <td colspan=2>PARASOL Corp Simulation Settings</td>
+        </tr>
+        <tr>
+          <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionDuration"></td>
+          <td class="sliderVal">Infection Duration: <span id="infectionDurationVal"></span> days</td>
+        </tr>
+        <tr>
+          <td><input type="range" min="1" max="100" value="50" class="slider" id="deathRate"></td>
+          <td class="sliderVal">Death rate: <span id="deathRateVal"></span>%</td>
+        </tr>
+        <tr>
+          <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionDistance"></td>
+          <td class="sliderVal">Infection distance: <span id="infectionDistanceVal"></span> m</td>
+        </tr>
+        <tr>
+          <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionRate"></td>
+          <td class="sliderVal">Infection rate: <span id="infectionRateVal"></span>%</td>
+        </tr>
+        <tr>
+          <td class="sliderVal">    
+            <label>Total score at 100 days:</label></td>
+          <td class="sliderVal"><input type="checkbox"
+                name="modulation" id="modulation" checked></td>
+        </tr>
+        </table>
+    </div>
+  </div>
+  <div id="runDiv">
+      <button id="resetButton" class="runButton"><img src="https://chri7928.github.io/candrews/images/full-rewind-red.png" alt="Reset"/>
+      <button id="stopButton" class="runButton"><img src="https://chri7928.github.io/candrews/images/stop-red.png" alt="Stop"/>
+      </button><button id="playButton" class="runButton"><img src="https://chri7928.github.io/candrews/images/play-red.png" alt="Play">
+      </button><button id="pauseButton" class="runButton"><img src="https://chri7928.github.io/candrews/images/pause-red.png" alt="Pause"></button></form></div>
+  <div id="scoreDiv">
+      <table class="scoreTable">
+        <tr>
+          <td colspan=2 align="center">
+            <div id="completeInfectionDiv">
+            <div id="currentInfectionDiv"></div>
+          </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <span id="currentInfectedVal"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                Day <span id="currentDayVal"></span>
+            </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    function main(){
+      setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, 3);
+      setSlider("deathRate","deathRateVal", 0, 100, 50);
+      setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100);
+      setSlider("infectionRate","infectionRateVal", 0, 100, 100);
+      
+      setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
+      document.getElementById("currentDayVal").innerHTML = "0";
+      
+      var btn = document.getElementById("stopButton");
+      btn.onclick = function(){
+        if (isRunning){
+          isStopped = true;
+          isPaused = false;
+          isRunning = false;
+        }
+        this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/stop-gray.png" alt="stop">';
+        setTimeout(function(){
+             document.getElementById("stopButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/stop-red.png" alt="stop">';
+             document.getElementById("stopButton").blur();
+        }, 200);
+      };
+      btn = document.getElementById("playButton");
+      btn.onclick = function(){
+        if ((isStopped && isReset) || isPaused){
+          if(!isPaused){
+            runSim();
+          }
+          isRunning = true;
+          isStopped = false;
+          isPaused = false;
+          isReset = false;
+        }
+        this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/play-gray.png" alt="Pause">';
+        setTimeout(function(){
+             document.getElementById("playButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/play-red.png" alt="play">';
+             document.getElementById("playButton").blur();
+        }, 200);
+      };
+      btn = document.getElementById("pauseButton");
+      btn.onclick = function(){
+        if (isRunning){
+          isPaused = true;
+          isRunning = false;
+        }
+        this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/pause-gray.png" alt="Pause">';
+        setTimeout(function(){
+             document.getElementById("pauseButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/pause-red.png" alt="Pause">';
+             document.getElementById("pauseButton").blur();
+        }, 200);
+      };
+      btn = document.getElementById("resetButton");
+      btn.onclick = function(){
+        if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
+          window.initializeSim();
+        }
+        this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/full-rewind-gray.png" alt="Pause">';
+        setTimeout(function(){
+             document.getElementById("resetButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/full-rewind-red.png" alt="Pause">';
+             document.getElementById("resetButton").blur();
+        }, 200);
+      };
+    }
+  </script>
+</body>
+</html>
