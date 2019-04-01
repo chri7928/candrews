@@ -14,10 +14,10 @@ function main(){
       isPaused = false;
       isRunning = false;
     }
-    this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/stop-gray.png" alt="stop">';
+    this.innerHTML = '<img src="images/stop-gray.png" alt="stop">';
     setTimeout(function(){
-         document.getElementById("stopButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/stop-red.png" alt="stop">';
-         document.getElementById("stopButton").blur();
+         btn.innerHTML = '<img src="images/stop-red.png" alt="stop">';
+         btn.blur();
     }, 200);
   };
   btn = document.getElementById("playButton");
@@ -31,10 +31,10 @@ function main(){
       isPaused = false;
       isReset = false;
     }
-    this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/play-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="images/play-gray.png" alt="Pause">';
     setTimeout(function(){
-         document.getElementById("playButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/play-red.png" alt="play">';
-         document.getElementById("playButton").blur();
+         btn.innerHTML = '<img src="images/play-red.png" alt="play">';
+         btn.blur();
     }, 200);
   };
   btn = document.getElementById("pauseButton");
@@ -43,10 +43,10 @@ function main(){
       isPaused = true;
       isRunning = false;
     }
-    this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/pause-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="images/pause-gray.png" alt="Pause">';
     setTimeout(function(){
-         document.getElementById("pauseButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/pause-red.png" alt="Pause">';
-         document.getElementById("pauseButton").blur();
+         btn.innerHTML = '<img src="images/pause-red.png" alt="Pause">';
+         btn.blur();
     }, 200);
   };
   btn = document.getElementById("resetButton");
@@ -54,12 +54,29 @@ function main(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
       initializeSim(parseInt(document.getElementById("infectionDuration").value));
     }
-    this.innerHTML = '<img src="https://chri7928.github.io/candrews/images/full-rewind-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="images/full-rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
-         document.getElementById("resetButton").innerHTML = '<img src="https://chri7928.github.io/candrews/images/full-rewind-red.png" alt="Pause">';
-         document.getElementById("resetButton").blur();
+         btn.innerHTML = '<img src="images/full-rewind-red.png" alt="Reset simulation">';
+         btn.blur();
     }, 200);
   };
+
+  //preload the mouseover images for the play buttons
+  var images = [
+    "info-gray.png",
+    "play-gray.png",
+    "stop-gray.png",
+    "pause-gray.png",
+    "full-rewind-gray.png",
+    "play-step-gray.png",
+    "home-gray.png"
+  ];
+
+  var imageArr = [];
+  for (img in images){
+    imageArr[imageArr.length] = new Image();
+    imageArr[imageArr.length].src = "images/" + img;
+  }
 
   initializeSim(parseInt(document.getElementById("infectionDuration").value));
   //TODO: make sure the infections array is updated to reflect the correct number of days when the slider is changed
