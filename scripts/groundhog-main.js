@@ -16,8 +16,9 @@ function main(){
     }
     this.innerHTML = '<img src="/images/stop-gray.png" alt="stop">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="/images/stop-red.png" alt="stop">';
-         btn.blur();
+         var tbtn = document.getElementById("stopButton");
+         tbtn.innerHTML = '<img src="/images/stop-red.png" alt="stop">';
+         tbtn.blur();
     }, 200);
   };
   btn = document.getElementById("playButton");
@@ -33,8 +34,9 @@ function main(){
     }
     this.innerHTML = '<img src="/images/play-gray.png" alt="Pause">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="/images/play-red.png" alt="play">';
-         btn.blur();
+         var tbtn = document.getElementById("playButton");
+         tbtn.innerHTML = '<img src="/images/play-red.png" alt="play">';
+         tbtn.blur();
     }, 200);
   };
   btn = document.getElementById("pauseButton");
@@ -45,8 +47,9 @@ function main(){
     }
     this.innerHTML = '<img src="/images/pause-gray.png" alt="Pause">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="/images/pause-red.png" alt="Pause">';
-         btn.blur();
+         var tbtn = document.getElementById("pauseButton");
+         tbtn.innerHTML = '<img src="/images/pause-red.png" alt="Pause">';
+         tbtn.blur();
     }, 200);
   };
   btn = document.getElementById("resetButton");
@@ -56,8 +59,9 @@ function main(){
     }
     this.innerHTML = '<img src="/images/full-rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="/images/full-rewind-red.png" alt="Reset simulation">';
-         btn.blur();
+         var tbtn = document.getElementById("resetButton");
+         tbtn.innerHTML = '<img src="/images/full-rewind-red.png" alt="Reset simulation">';
+         tbtn.blur();
     }, 200);
   };
 
