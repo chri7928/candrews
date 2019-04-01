@@ -78,8 +78,9 @@ function main(){
 
   var imageArr = [images.length];
   for (img in images){
-    imageArr[imageArr.length] = new Image(); alert(img + " " + imageArr[imageArr.length]);
-    imageArr[imageArr.length].src = "images/" + img;
+    alert(new Image());
+    imageArr[imageArr.length] = new Image();
+    imageArr[imageArr.length].src = "images/" + images[img];
   }
 
   initializeSim(parseInt(document.getElementById("infectionDuration").value));
