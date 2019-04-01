@@ -335,6 +335,7 @@
       }
       window.setProgress = setProgress;
 
+      //Run the Simulation
       function runSim(){
         if (isRunning){
 
@@ -349,8 +350,12 @@
       }
       window.runSim = runSim;
 
-     // window.test = function(){alert('Test');}
-
+      //reset the map extent to a helpful extent
+      function resetMap(){
+        //TODO: Goto extent of infected buildings
+        view.goTo(sceneLayer.fullExtent);
+      }
+      window.resetMap = resetMap;
     });
   </script>
 </head>

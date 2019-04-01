@@ -79,7 +79,7 @@ function main(){
   btn = document.getElementById("homeButton");
   btn.onclick = function(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
-      //TODO
+      resetMap();
     }
     this.innerHTML = '<img src="images/home-gray.png" alt="Reset map">';
     setTimeout(function(){
