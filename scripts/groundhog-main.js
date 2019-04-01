@@ -76,9 +76,9 @@ function main(){
     "home-gray.png"
   ];
 
-  var imageArr = [];
+  var imageArr = [images.length];
   for (img in images){
-    imageArr[imageArr.length] = new Image();
+    imageArr[imageArr.length] = new Image(); alert(img + " " + imageArr[imageArr.length]);
     imageArr[imageArr.length].src = "images/" + img;
   }
 
