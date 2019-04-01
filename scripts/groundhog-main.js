@@ -14,10 +14,10 @@ function main(){
       isPaused = false;
       isRunning = false;
     }
-    this.innerHTML = '<img src="/images/stop-gray.png" alt="stop">';
+    this.innerHTML = '<img src="images/stop-gray.png" alt="stop">';
     setTimeout(function(){
          var tbtn = document.getElementById("stopButton");
-         tbtn.innerHTML = '<img src="/images/stop-red.png" alt="stop">';
+         tbtn.innerHTML = '<img src="images/stop-red.png" alt="stop">';
          tbtn.blur();
     }, 200);
   };
@@ -32,10 +32,10 @@ function main(){
       isPaused = false;
       isReset = false;
     }
-    this.innerHTML = '<img src="/images/play-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="images/play-gray.png" alt="Pause">';
     setTimeout(function(){
          var tbtn = document.getElementById("playButton");
-         tbtn.innerHTML = '<img src="/images/play-red.png" alt="play">';
+         tbtn.innerHTML = '<img src="images/play-red.png" alt="play">';
          tbtn.blur();
     }, 200);
   };
@@ -45,10 +45,10 @@ function main(){
       isPaused = true;
       isRunning = false;
     }
-    this.innerHTML = '<img src="/images/pause-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="images/pause-gray.png" alt="Pause">';
     setTimeout(function(){
          var tbtn = document.getElementById("pauseButton");
-         tbtn.innerHTML = '<img src="/images/pause-red.png" alt="Pause">';
+         tbtn.innerHTML = '<img src="images/pause-red.png" alt="Pause">';
          tbtn.blur();
     }, 200);
   };
@@ -57,10 +57,10 @@ function main(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
       initializeSim(parseInt(document.getElementById("infectionDuration").value));
     }
-    this.innerHTML = '<img src="/images/full-rewind-gray.png" alt="Reset simulation">';
+    this.innerHTML = '<img src="images/full-rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
          var tbtn = document.getElementById("resetButton");
-         tbtn.innerHTML = '<img src="/images/full-rewind-red.png" alt="Reset simulation">';
+         tbtn.innerHTML = '<img src="images/full-rewind-red.png" alt="Reset simulation">';
          tbtn.blur();
     }, 200);
   };
