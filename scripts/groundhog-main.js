@@ -64,6 +64,42 @@ function main(){
          tbtn.blur();
     }, 200);
   };
+  btn = document.getElementById("playStepButton");
+  btn.onclick = function(){
+    if (isPaused){
+      //TODO
+    }
+    this.innerHTML = '<img src="images/play-step-gray.png" alt="Play one step">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("playStepButton");
+         tbtn.innerHTML = '<img src="images/play-step-red.png" alt="Play one step">';
+         tbtn.blur();
+    }, 200);
+  };
+  btn = document.getElementById("homeButton");
+  btn.onclick = function(){
+    if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
+      //TODO
+    }
+    this.innerHTML = '<img src="images/home-gray.png" alt="Reset map">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("homeButton");
+         tbtn.innerHTML = '<img src="images/home-red.png" alt="Reset map">';
+         tbtn.blur();
+    }, 200);
+  };
+  btn = document.getElementById("infoButton");
+  btn.onclick = function(){
+    if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
+      //TODO
+    }
+    this.innerHTML = '<img src="images/info-gray.png" alt="Info">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("infoButton");
+         tbtn.innerHTML = '<img src="images/info-red.png" alt="Info">';
+         tbtn.blur();
+    }, 200);
+  };
 
   //preload the mouseover images for the play buttons
   var images = [
