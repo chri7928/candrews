@@ -14,9 +14,9 @@ function main(){
       isPaused = false;
       isRunning = false;
     }
-    this.innerHTML = '<img src="images/stop-gray.png" alt="stop">';
+    this.innerHTML = '<img src="/images/stop-gray.png" alt="stop">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="images/stop-red.png" alt="stop">';
+         btn.innerHTML = '<img src="/images/stop-red.png" alt="stop">';
          btn.blur();
     }, 200);
   };
@@ -31,9 +31,9 @@ function main(){
       isPaused = false;
       isReset = false;
     }
-    this.innerHTML = '<img src="images/play-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="/images/play-gray.png" alt="Pause">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="images/play-red.png" alt="play">';
+         btn.innerHTML = '<img src="/images/play-red.png" alt="play">';
          btn.blur();
     }, 200);
   };
@@ -43,9 +43,9 @@ function main(){
       isPaused = true;
       isRunning = false;
     }
-    this.innerHTML = '<img src="images/pause-gray.png" alt="Pause">';
+    this.innerHTML = '<img src="/images/pause-gray.png" alt="Pause">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="images/pause-red.png" alt="Pause">';
+         btn.innerHTML = '<img src="/images/pause-red.png" alt="Pause">';
          btn.blur();
     }, 200);
   };
@@ -54,9 +54,9 @@ function main(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
       initializeSim(parseInt(document.getElementById("infectionDuration").value));
     }
-    this.innerHTML = '<img src="images/full-rewind-gray.png" alt="Reset simulation">';
+    this.innerHTML = '<img src="/images/full-rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
-         btn.innerHTML = '<img src="images/full-rewind-red.png" alt="Reset simulation">';
+         btn.innerHTML = '<img src="/images/full-rewind-red.png" alt="Reset simulation">';
          btn.blur();
     }, 200);
   };
@@ -75,7 +75,7 @@ function main(){
   var imageArr = [];
   for (img in images){
     imageArr[imageArr.length] = new Image();
-    imageArr[imageArr.length].src = "images/" + img;
+    imageArr[imageArr.length].src = "/images/" + img;
   }
 
   initializeSim(parseInt(document.getElementById("infectionDuration").value));
