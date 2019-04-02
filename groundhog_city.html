@@ -363,7 +363,6 @@
       //Run the Simulation
       function runSim(){
         if (isRunning || isRunningOneStep){
-
           if (infectionDay == 0){
             var simParams = "\r\nSim Params\r\n";
             simParams += "mortalityRate: " + mortalityRate + "\r\n";
@@ -387,6 +386,7 @@
           var tempBuffer = null;
           var newlyInfected = [];
 
+          // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
           for (age in infected){
             for (iid in infected[age]){
               query = sceneLayer.createQuery();
