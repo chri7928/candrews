@@ -1,13 +1,17 @@
 function main(){
   // Set the slider values and oninput events
-  setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, 3);
+  setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, maxAge, function(){
+    maxAge = document.getElementById("infectionDuration").value;
+  });
   setSlider("deathRate","deathRateVal", 0, 100, 50, function(){
     mortalityRate = document.getElementById("deathRate").value/100;
   });
   setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100, function(){
     infectionDistance = document.getElementById("infectionDistance").value;
   });
-  setSlider("infectionRate","infectionRateVal", 0, 100, 100);
+  setSlider("infectionRate","infectionRateVal", 0, 100, 100, function(){
+    infectionRate = document.getElementById("infectionRate").value/100;
+  });
 
   //Set the initial progress of the infection
   setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));

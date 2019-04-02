@@ -26,7 +26,9 @@
     var infectionDay = 0;
     var svDefaultColor = [0,0,255,1];
     var infectionDistance = 100;
-    var mortalityRate = 0;
+    var mortalityRate = 0; // 0..1
+    var maxAge = 3;
+    var infectionRate = 1; // 0..1
 
 
     // select infected houses
@@ -354,6 +356,15 @@
       function runSim(){
         if (isRunning || isRunningOneStep){
 
+          if (infectionDay == 0){
+            var simParams = "";
+            simParams += "mortalityRate: " + mortalityRate + "\r\n";
+            simParams += "infectionDistance: " + infectionDistance + "\r\n";
+            simParams += "infectionDuration: " + infectionDuration + "\r\n";
+            simParams += "infectionRate: " + infectionRate + "\r\n";
+            console.log(simParams);
+          }
+
           // TODO: Create simulation logic
           // Loop through the current infected list
 
@@ -407,6 +418,7 @@
                 for (item in result2.features){
                   t = result2.features[item].attributes.OBJECTID;
                   // Add results to the newly infected list
+                  // TODO: change this to factor in infectionRate
                   newlyInfected.push(t); // do I need to parseInt here?
                 }
               });
@@ -426,6 +438,7 @@
               }
             }
           } // end if bigBuffer != null
+          console.log("bigBuffer is null: " + (bigBuffer == null));
 
           // Calculate if the current oldest infected should be cleared or killed; if killed, add them to the deceased list
           for (old in infected[infected.length-1]){
@@ -434,6 +447,7 @@
             }
           }
           deceased.sort();
+          console.log("Deceased count: " + deceased.length);
 
           // Age the arrays of the infected list
           for (ai = 0; ai < infected.length - 1; ai++){
