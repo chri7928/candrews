@@ -443,7 +443,8 @@
           // Add the new items from the temp array to the 0 position of infected list
           infected[0] = newlyInfected;
 
-          //redraw the renderers
+          // TODO: redraw the renderers
+          sceneLayer.renderer = getUniqueValueRenderer();
 
           //update the progress indicator
           var count = 0;
@@ -461,7 +462,7 @@
         if (!isRunningOneStep){
           setTimeout("runSim();", 500);
         }
-      }
+      } // end runSim
       window.runSim = runSim;
 
       //reset the map extent to a helpful extent
