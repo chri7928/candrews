@@ -99,11 +99,13 @@
 
     #minParamsDiv {
       padding: 0px;
+      margin: 0px;
       float: right;
     }
 
     #restoreDiv {
       padding: 0px;
+      margin: 0px;
       display: none;
     }
 
