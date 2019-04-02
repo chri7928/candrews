@@ -76,10 +76,9 @@
 
       slider.oninput = function() {
         output.innerHTML = this.value;
-      }
-
-      if (execCode){
-        execCode();
+        if (execCode){
+          execCode();
+        }
       }
     }
 
