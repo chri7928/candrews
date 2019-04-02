@@ -1,10 +1,11 @@
 function main(){
   // Set the slider values and oninput events
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, 3);
-  setSlider("deathRate","deathRateVal", 0, 100, 50);
+  setSlider("deathRate","deathRateVal", 0, 100, 50, function(){
+    mortalityRate = document.getElementById("deathRate").value/100;
+  });
   setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100, function(){
     infectionDistance = document.getElementById("infectionDistance").value;
-    //console.log("Setting infectionDistance to" + infectionDistance);
   });
   setSlider("infectionRate","infectionRateVal", 0, 100, 100);
 

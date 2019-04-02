@@ -26,6 +26,7 @@
     var infectionDay = 0;
     var svDefaultColor = [0,0,255,1];
     var infectionDistance = 100;
+    var mortalityRate = 0;
 
 
     // select infected houses
@@ -298,7 +299,7 @@
               //console.log(JSON.stringify(graphic));
               //console.log(infectedList);
               sceneLayer.renderer = getUniqueValueRenderer();
-              getNeighbors(tid);
+              //getNeighbors(tid); This was a test method.  Don't need to do this any longer.
             }
           } else {
             console.log("got undefined graphic");
@@ -353,20 +354,107 @@
       function runSim(){
         if (isRunning || isRunningOneStep){
 
-          // TODO
-          // Loop through the current infectedList
-          // Create the buffers
-          // Union the buffers together
-          // Draw the unioned buffer
-          // Intersect the unioned geometry with the layer to get the feature set
-          // Add all new featureIDs to an array
-          // Calculate if the current oldest infections should be cleared or killed; if killed, add them to the dead list
-          // Age the arrays of infectedList
-          //
+          // TODO: Create simulation logic
+          // Loop through the current infected list
 
+          // Create a geometry to use to union the buffers
+          var query = null;
+          var resultGeom = null;
+          var bigBuffer = null;
+          var tempBuffer = null;
+          var newlyInfected = [];
+
+          for (age in infections){
+            for (iid in infections[age]){
+              query = sceneLayer.createQuery();
+              query.where = "OBJECTID = " + oid;
+              query.returnGeometry = true;
+              query.outFields = ['YEAR', 'TYPE'];
+              // Query the feature to get the grapic
+              sceneLayer.queryFeatures(query)
+                .then(function(result){
+                  resultGeom = result.features[0].geometry;
+                  //console.log("resultGeom = " + resultGeom.type);
+
+                  // Create the buffer based on the graphic and infectionDistance
+                  tempBuffer = geometryEngine.geodesicBuffer(resultGeom,
+                    parseInt(infectionDistance)/1000, "kilometers");
+
+                  // Union the buffer to the combined buffer geometry
+                  if (bigBuffer == null){
+                    bigBuffer = tempBuffer;
+                  } else {
+                    bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
+                  }
+                });
+            }
+          }
+
+          if (bigBuffer != null){
+            // Draw the unioned buffer
+            bufferLayer.add(new Graphic({
+              geometry: bigBuffer,
+              symbol: polySym
+            }));
+
+            // Intersect the unioned geometry with the layer to get the feature set
+            var query2 = sceneLayer.createQuery();
+            query2.geometry = bigBuffer;
+            query2.spatialRelationship = "intersects";
+            query2.outFields = ['OBJECTID', 'YEAR', 'TYPE'];
+            sceneLayer.queryFeatures(query2)
+              .then(function(result2){
+                for (item in result2.features){
+                  t = result2.features[item].attributes.OBJECTID;
+                  // Add results to the newly infected list
+                  newlyInfected.push(t); // do I need to parseInt here?
+                }
+              });
+
+            if (newlyInfected.length > 1){
+              // Sort newlyInfected
+              newlyInfected.sort(function(a, b){return a-b}); // assuming IDs are numbers
+
+              // Deduplicate newlyInfected
+              var tt = 1;
+              while (tt < newlyInfected.length){
+                if(newlyInfected[tt] == newlyInfected[tt-1]){
+                  newlyInfected.splice(tt, 1);
+                } else {
+                  tt++;
+                }
+              }
+            }
+          } // end if bigBuffer != null
+
+          // Calculate if the current oldest infections should be cleared or killed; if killed, add them to the deceased list
+          for (old in infections[infections.length-1]){
+            if (Math.random() < mortalityRate){
+              deceased.push(infections[infections.length-1][old]);
+            }
+          }
+          deceased.sort();
+
+          // Age the arrays of the infected list
+          for (ai = 0; ai < infected.length - 1; ai++){
+            infected[ai + 1] = infected[ai];
+          }
+
+          // Add the new items from the temp array to the 0 position of infected list
+          infected[0] = newlyInfected;
+
+          //redraw the renderers
+
+          //update the progress indicator
+          var count = 0;
+          for (age in infections){
+            count += infections[age].length;
+          }
+          count += deceased.length;
+          var pctCount = Math.round(count/totalBuildings*100, 2);
+          setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
 
           infectionDay++;
-          setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
           document.getElementById("currentDayVal").innerHTML = infectionDay;
         } else if (isPaused) {
         }
