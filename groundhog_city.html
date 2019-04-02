@@ -391,17 +391,17 @@
             for (iid in infected[age]){
               query = sceneLayer.createQuery();
               query.where = "OBJECTID = " + infected[age][iid];
+              console.log(query.where);
               query.returnGeometry = true;
               query.outFields = ['YEAR', 'TYPE'];
               // Query the feature to get the grapic
               sceneLayer.queryFeatures(query)
                 .then(function(result){
                   resultGeom = result.features[0].geometry;
-                  //console.log("resultGeom = " + resultGeom.type);
+                  console.log("resultGeom = " + resultGeom.type);
 
                   // Create the buffer based on the graphic and infectionDistance
-                  tempBuffer = geometryEngine.geodesicBuffer(resultGeom,
-                    parseInt(infectionDistance)/1000, "kilometers");
+                  tempBuffer = geometryEngine.geodesicBuffer(resultGeom, infectionDistance/1000, "kilometers");
 
                   // Union the buffer to the combined buffer geometry
                   if (bigBuffer == null){
