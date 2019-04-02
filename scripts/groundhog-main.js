@@ -104,7 +104,7 @@ function main(){
   };
   btn = document.getElementById("minParamsButton");
   btn.onclick = function(){
-    document.getElementById("slidecontainer").style.display = "none";
+    document.getElementById("paramsDiv").style.display = "none";
     document.getElementById("restoreDiv").style.display = "block";
     this.innerHTML = '<img src="images/minimize-gray.png" alt="Minimize">';
     setTimeout(function(){
@@ -115,7 +115,7 @@ function main(){
   };
   btn = document.getElementById("restoreButton");
   btn.onclick = function(){
-    document.getElementById("slidecontainer").style.display = "block";
+    document.getElementById("paramsDiv").style.display = "block";
     document.getElementById("restoreDiv").style.display = "none";
     this.innerHTML = '<img src="images/restore-gray.png" alt="Restore">';
     setTimeout(function(){
