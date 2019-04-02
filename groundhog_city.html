@@ -241,7 +241,8 @@
             //Query the scene layer by a distance from the graphic geometry
             var query2 = sceneLayer.createQuery();
             query2.geometry = geometryEngine.geodesicBuffer(resultGeom,
-              parseInt(document.getElementById("infectionDistance").value)/1000, "kilometers");
+              parseInt(infectionDistance)/1000, "kilometers");
+            console.log("Using infectionDistance variable");
             bufferLayer.add(new Graphic({
               geometry: query2.geometry,
               symbol: polySym
