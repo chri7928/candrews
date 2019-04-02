@@ -3,7 +3,6 @@ function main(){
   setSlider("deathRate","deathRateVal", 0, 100, 50);
   setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100, function(){
     infectionDistance = document.getElementById("infectionDistance").value;
-    alert("In infectionDistance");
   });
   setSlider("infectionRate","infectionRateVal", 0, 100, 100);
 
