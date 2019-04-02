@@ -371,6 +371,9 @@
             simParams += "infectionDuration: " + infectionDuration + "\r\n";
             simParams += "infectionRate: " + infectionRate + "\r\n";
             simParams += "initial infection count: " + infected[0].length + "\r\n";
+            for (ii in infected[0]){
+              simParams += "   ID: " + infected[0][ii] + "\r\n";
+            }
             console.log(simParams);
           }
 
