@@ -113,13 +113,13 @@ function main(){
          tbtn.blur();
     }, 200);
   };
-  btn = document.getElementById("restoreParamsButton");
+  btn = document.getElementById("restoreButton");
   btn.onclick = function(){
     document.getElementById("slidecontainer").style.display = "block";
     document.getElementById("restoreDiv").style.display = "none";
     this.innerHTML = '<img src="images/restore-gray.png" alt="Restore">';
     setTimeout(function(){
-         var tbtn = document.getElementById("restoreParamsButton");
+         var tbtn = document.getElementById("restoreButton");
          tbtn.innerHTML = '<img src="images/restore-red.png" alt="Restore">';
          tbtn.blur();
     }, 200);
