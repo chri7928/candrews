@@ -1,7 +1,10 @@
 function main(){
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, 3);
   setSlider("deathRate","deathRateVal", 0, 100, 50);
-  setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100);
+  setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100, function(){
+    infectionDistance = document.getElementById("infectionDistance").value;
+    alert("In infectionDistance");
+  });
   setSlider("infectionRate","infectionRateVal", 0, 100, 100);
 
   setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));

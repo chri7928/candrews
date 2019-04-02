@@ -17,14 +17,14 @@
     var isRunning = false;
 
     const maxInfectionDuration = 6;
-    const maxInfectionDistance = 500; // (m)
+    const maxInfectionDistance = 300; // (m)
 
     //Globals
     var numSeeds = 0;
     var totalBuildings = -1;
     var infectionDay = 0;
     var svDefaultColor = [0,0,255,1];
-    var contagiousDistance = 100;
+    var infectionDistance = 100;
 
 
     // select infected houses
@@ -66,7 +66,7 @@
       return res;
     }
 
-    function setSlider(sName, vName, min, max, current){
+    function setSlider(sName, vName, min, max, current, execCode){
       var slider = document.getElementById(sName);
       var output = document.getElementById(vName);
       slider.min = min;
@@ -76,6 +76,10 @@
 
       slider.oninput = function() {
         output.innerHTML = this.value;
+      }
+
+      if (execCode){
+        execCode();
       }
     }
 
