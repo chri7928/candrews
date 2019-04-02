@@ -15,6 +15,7 @@
     var isReset = true;
     var isPaused = false;
     var isRunning = false;
+    var isRunningOneStep = false;
 
     const maxInfectionDuration = 6;
     const maxInfectionDistance = 300; // (m)
@@ -341,7 +342,7 @@
 
       //Run the Simulation
       function runSim(){
-        if (isRunning){
+        if (isRunning || isRunningOneStep){
 
           // TODO
 
@@ -350,7 +351,9 @@
           document.getElementById("currentDayVal").innerHTML = infectionDay;
         } else if (isPaused) {
         }
-        setTimeout("runSim();", 500);
+        if (!isRunningOneStep){
+          setTimeout("runSim();", 500);
+        }
       }
       window.runSim = runSim;
 

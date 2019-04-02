@@ -44,6 +44,25 @@ function main(){
          tbtn.blur();
     }, 200);
   };
+  btn = document.getElementById("playStepButton");
+  btn.onclick = function(){
+    if (isPaused){
+      if(!isPaused){
+        runSim();
+      }
+      isRunning = false;
+      isStopped = false;
+      //isPaused = true;
+      isReset = false;
+      isRunningOneStep = false;
+    }
+    this.innerHTML = '<img src="images/play-step-gray.png" alt="Play one step">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("playStepButton");
+         tbtn.innerHTML = '<img src="images/play-step-red.png" alt="Play one step">';
+         tbtn.blur();
+    }, 200);
+  };
   btn = document.getElementById("pauseButton");
   btn.onclick = function(){
     if (isRunning){
@@ -66,18 +85,6 @@ function main(){
     setTimeout(function(){
          var tbtn = document.getElementById("resetButton");
          tbtn.innerHTML = '<img src="images/full-rewind-red.png" alt="Reset simulation">';
-         tbtn.blur();
-    }, 200);
-  };
-  btn = document.getElementById("playStepButton");
-  btn.onclick = function(){
-    if (isPaused){
-      //TODO
-    }
-    this.innerHTML = '<img src="images/play-step-gray.png" alt="Play one step">';
-    setTimeout(function(){
-         var tbtn = document.getElementById("playStepButton");
-         tbtn.innerHTML = '<img src="images/play-step-red.png" alt="Play one step">';
          tbtn.blur();
     }, 200);
   };
