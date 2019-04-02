@@ -323,9 +323,13 @@
         }
         console.log('Initialized infected[]: ' + infected);
       }
+      window.resetInfected = resetInfected;
 
       function initializeSim(infectionDuration){
        //tODO: Clear any graphics layers
+
+      //init infected array
+      resetInfected();
 
        //Clear numSeeds
        numSeeds = 0;

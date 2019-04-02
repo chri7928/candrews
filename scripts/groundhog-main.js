@@ -2,6 +2,7 @@ function main(){
   // Set the slider values and oninput events
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, infectionDuration, function(){
     infectionDuration = document.getElementById("infectionDuration").value;
+    resetInfected();
   });
   setSlider("deathRate","deathRateVal", 0, 100, 50, function(){
     mortalityRate = document.getElementById("deathRate").value/100;
