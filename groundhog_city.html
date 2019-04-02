@@ -367,7 +367,7 @@
           for (age in infected){
             for (iid in infected[age]){
               query = sceneLayer.createQuery();
-              query.where = "OBJECTID = " + oid;
+              query.where = "OBJECTID = " + infected[age][iid];
               query.returnGeometry = true;
               query.outFields = ['YEAR', 'TYPE'];
               // Query the feature to get the grapic
