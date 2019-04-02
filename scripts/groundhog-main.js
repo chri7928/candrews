@@ -100,6 +100,28 @@ function main(){
          tbtn.blur();
     }, 200);
   };
+  btn = document.getElementById("minParamsButton");
+  btn.onclick = function(){
+    document.getElementById("slidecontainer").style.display = "none";
+    document.getElementById("restoreDiv").style.display = "block";
+    this.innerHTML = '<img src="images/minimize-gray.png" alt="Minimize">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("minParamsButton");
+         tbtn.innerHTML = '<img src="images/minimize-red.png" alt="Minimize">';
+         tbtn.blur();
+    }, 200);
+  };
+  btn = document.getElementById("restoreParamsButton");
+  btn.onclick = function(){
+    document.getElementById("slidecontainer").style.display = "block";
+    document.getElementById("restoreDiv").style.display = "none";
+    this.innerHTML = '<img src="images/restore-gray.png" alt="Restore">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("restoreParamsButton");
+         tbtn.innerHTML = '<img src="images/restore-red.png" alt="Restore">';
+         tbtn.blur();
+    }, 200);
+  };
 
   //preload the mouseover images for the play buttons
   var images = [
@@ -109,7 +131,8 @@ function main(){
     "pause-gray.png",
     "full-rewind-gray.png",
     "play-step-gray.png",
-    "home-gray.png"
+    "home-gray.png",
+    "minimize-gray.png"
   ];
 
   var imageArr = [images.length];

@@ -364,10 +364,16 @@
   <div id="viewDiv">
   </div>
   <div id="paneDiv">
+    <div id="restoreDiv">
+      <button id="restoreButton" class="runButton"><img id="minParamsButton" src="images/maximize-red.png"></button>
+    </div>
     <div class="slidecontainer">
       <table class="inputTable">
         <tr>
-          <td colspan=2>PARASOL Corp Simulation Settings<div id="minParamsDiv">X</div></td>
+          <td colspan=2>PARASOL Corp Simulation Settings
+            <div id="minParamsDiv"><button id="minParamsButton" class="runButton"><img id="minParamsImg" src="images/minimize-red.png"></button>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionDuration"></td>
