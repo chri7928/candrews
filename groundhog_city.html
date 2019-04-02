@@ -27,7 +27,7 @@
     var svDefaultColor = [0,0,255,1];
     var infectionDistance = 100;
     var mortalityRate = 0; // 0..1
-    var maxAge = 3;
+    var infectionDuration = 3;
     var infectionRate = 1; // 0..1
 
 
@@ -315,14 +315,18 @@
       view.ui.add("runDiv", "bottom-right");
       view.ui.add("scoreDiv", "top-right");
 
+      function resetInfected(){
+        //Set up the infected array
+        infected = [];
+        for (iD = 0; iD < infectionDuration; iD++){
+         infected.push([]);
+        }
+        console.log('Initialized infected[]: ' + infected);
+      }
+
       function initializeSim(infectionDuration){
-       //Clear any graphics layers
-       //Set up the infected array
-       infected = [];
-       for (iD = 0; iD < infectionDuration; iD++){
-        infected[infected.length] = [];
-       }
-       console.log(infected);
+       //tODO: Clear any graphics layers
+
        //Clear numSeeds
        numSeeds = 0;
        //Clear infection day
@@ -468,6 +472,7 @@
           count += deceased.length;
           var pctCount = Math.round(count/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
+          console.log("Total infected + deceased: " + count);
 
           infectionDay++;
           document.getElementById("currentDayVal").innerHTML = infectionDay;
