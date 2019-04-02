@@ -47,12 +47,10 @@ function main(){
   btn = document.getElementById("playStepButton");
   btn.onclick = function(){
     if (isPaused){
-      if(!isPaused){
-        runSim();
-      }
+      isRunningOneStep = true;
+      runSim();
       isRunning = false;
       isStopped = false;
-      //isPaused = true;
       isReset = false;
       isRunningOneStep = false;
     }
