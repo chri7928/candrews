@@ -100,7 +100,7 @@
       geometryEngine,
       summaryStatistics) {
 
-      var infections = []; //will be an array of arrays
+      var infected = []; //will be an array of arrays
       var deceased = [];// will be an array of ids
 
       // Create Map
@@ -219,7 +219,7 @@
           uniqueValueInfos: [],
           legendOptions: { title: "Infected" }
         };
-        res.uniqueValueInfos = createInfectedRenderers(infections[0], "red");
+        res.uniqueValueInfos = createInfectedRenderers(infected[0], "red");
         return res;
       }
 
@@ -289,12 +289,12 @@
             // now extract the object id from the graphic
             if (isStopped && isReset){
               var tid = graphic.attributes.OBJECTID;
-              var tind = infections[0].findIndex(function(tval){return (tval == tid);});
+              var tind = infected[0].findIndex(function(tval){return (tval == tid);});
               //console.log("tid=" + tid + "  tind=" + tind);
               if (tind > -1){
-                infections[0].splice(tind, 1);
+                infected[0].splice(tind, 1);
               } else {
-                infections[0][infections[0].length] = tid;
+                infected[0][infected[0].length] = tid;
               }
               //console.log(JSON.stringify(graphic));
               //console.log(infectedList);
@@ -315,12 +315,12 @@
 
       function initializeSim(infectionDuration){
        //Clear any graphics layers
-       //Set up the infections array
-       infections = [];
+       //Set up the infected array
+       infected = [];
        for (iD = 0; iD < infectionDuration; iD++){
-        infections[infections.length] = [];
+        infected[infected.length] = [];
        }
-       console.log(infections);
+       console.log(infected);
        //Clear numSeeds
        numSeeds = 0;
        //Clear infection day
@@ -364,8 +364,8 @@
           var tempBuffer = null;
           var newlyInfected = [];
 
-          for (age in infections){
-            for (iid in infections[age]){
+          for (age in infected){
+            for (iid in infected[age]){
               query = sceneLayer.createQuery();
               query.where = "OBJECTID = " + oid;
               query.returnGeometry = true;
@@ -427,10 +427,10 @@
             }
           } // end if bigBuffer != null
 
-          // Calculate if the current oldest infections should be cleared or killed; if killed, add them to the deceased list
-          for (old in infections[infections.length-1]){
+          // Calculate if the current oldest infected should be cleared or killed; if killed, add them to the deceased list
+          for (old in infected[infected.length-1]){
             if (Math.random() < mortalityRate){
-              deceased.push(infections[infections.length-1][old]);
+              deceased.push(infected[infected.length-1][old]);
             }
           }
           deceased.sort();
@@ -447,8 +447,8 @@
 
           //update the progress indicator
           var count = 0;
-          for (age in infections){
-            count += infections[age].length;
+          for (age in infected){
+            count += infected[age].length;
           }
           count += deceased.length;
           var pctCount = Math.round(count/totalBuildings*100, 2);
