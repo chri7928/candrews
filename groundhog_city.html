@@ -365,11 +365,12 @@
         if (isRunning || isRunningOneStep){
 
           if (infectionDay == 0){
-            var simParams = "";
+            var simParams = "\r\nSim Params\r\n";
             simParams += "mortalityRate: " + mortalityRate + "\r\n";
             simParams += "infectionDistance: " + infectionDistance + "\r\n";
             simParams += "infectionDuration: " + infectionDuration + "\r\n";
             simParams += "infectionRate: " + infectionRate + "\r\n";
+            simParams += "initial infection count: " + infected[0].length + "\r\n";
             console.log(simParams);
           }
 
