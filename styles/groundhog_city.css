@@ -28,7 +28,7 @@
     }
 
     #paneDiv {
-      padding: 5px 5px 5px 5px;
+      padding: 0px;
       background-color: rgba(0, 0, 0, 0.1);
     }
 
@@ -98,10 +98,12 @@
     }
 
     #minParamsDiv {
+      padding: 0px;
       float: right;
     }
 
     #restoreDiv {
+      padding: 0px;
       display: none;
     }
 
