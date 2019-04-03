@@ -402,7 +402,7 @@
                 query = new Query();
                 query.objectIds = [oid];
                 query.returnGeometry = true;
-                query.outFields = ['TYPE'];
+                query.outFields = ['*'];
                 // Query the feature to get the grapic
                 // Note converted from .then to async/await becuase of the better flow control
                 let myquery = sceneLayerView.queryFeatures(query);
