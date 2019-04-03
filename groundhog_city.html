@@ -18,15 +18,15 @@
     var isRunningOneStep = false;
 
     const maxInfectionDuration = 6;
-    const maxInfectionDistance = 200; // (m)
+    const maxInfectionDistance = 60; // (m)
 
     //Globals
     var numSeeds = 0;
     var totalBuildings = -1;
     var infectionDay = 0;
     var svDefaultColor = [0,0,255,1];
-    var infectionDistance = 25;
-    var mortalityRate = 0; // 0..1
+    var infectionDistance = 35;
+    var mortalityRate = 1; // 0..1
     var infectionDuration = 3;
     var infectionRate = 1; // 0..1
 
@@ -491,6 +491,7 @@
               deceased.push(infected[infected.length-1][old]);
 
               // TODO: Remove from infectedGeometry
+              infectedGeometry.delete(infected[infected.length-1][old]);
             }
           }
           deceased.sort();
@@ -504,19 +505,20 @@
           // Add the new items from the temp array to the 0 position of infected list
           infected[0] = newlyInfected;
 
-          // TODO: redraw the renderers
+          // DONE: redraw the renderers
           sceneLayer.renderer = getUniqueValueRenderer();
 
           //update the progress indicator
           var count = 0;
           for (age in infected){
             count += infected[age].length;
-            console.log("Age " + age + ": " + infected[age].length);
-            console.log(infected[age]);
+            //console.log("Age " + age + ": " + infected[age].length);
+            //console.log(infected[age]);
           }
-          console.log("Dead: " + deceased.length);
-          console.log(deceased);
+          //console.log("Dead: " + deceased.length);
+          //console.log(deceased);
           console.log("Day: " + infectionDay + " Infected: " + count + " Deceased: " + deceased.length);
+          console.log("Infected geometry count: " + infectedGeometry.length);
           count += deceased.length;
           var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
