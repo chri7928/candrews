@@ -462,11 +462,11 @@
 
           // Age the arrays of the infected list
           for (ai = 0; ai < infected.length - 1; ai++){
-            infected[ai + 1] = infected[ai];
+            infected[ai + 1] = [].concat(infected[ai]);
           }
 
           // Add the new items from the temp array to the 0 position of infected list
-          infected[0] = newlyInfected;
+          infected[0] = [].concat(newlyInfected);
 
           // TODO: redraw the renderers
           sceneLayer.renderer = getUniqueValueRenderer();
