@@ -200,7 +200,7 @@
             res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[r], "[" + tColor+ ", 0, 0]"));
           }
           if (deceased.length > 0){
-            res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "black"));
+            res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "[0,0,0]"));
           }
           //console.log("in getUniqueValueRenderer: \r\n" + res.uniqueValueInfos);
         }
@@ -451,6 +451,8 @@
 
             for (item in result.features){
               let t = result.features[item].attributes.OBJECTID;
+              // get around the wierd bug
+              if (t == 1){ continue;} else {console.log("Hit OBJECTID=1 bug");}
               // check to see if the feature was already infected
               let wasInfected = false;
               for (age in infected){
@@ -606,7 +608,7 @@
         </tr>
         <tr>
           <td align="center">
-            Show all<br/>infection<br/>zone:<br/><input type="checkbox"
+            Show<br/>infection<br/>age:<br/><input type="checkbox"
                 id="showInfectionZoneChb" checked></td>
         </tr>
       </table>
