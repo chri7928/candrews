@@ -43,6 +43,7 @@
     // TODO: Show infection %, mortality %
     // TODO: Help dialog
     // TODO: Intro dialog/title dialog
+    // TODO: Add restore to life? (Time limit on death)
     // DONE: Add ability to step forward one day >|
 
     // Credits
@@ -119,7 +120,7 @@
         container: "viewDiv",
         map: map,
         camera: {
-          position: [(-122.47876 + ((Math.random()-0.5)/1000)), (48.75368 + ((Math.random()-0.5)/1000)), 1000],
+          position: [(-122.47876 + ((Math.random()-0.5)/100)), (48.75368 + ((Math.random()-0.5)/100)), 1000],
           tilt: 20,
           heading: 50
         },
@@ -378,7 +379,7 @@
             for (iid in infected[age]){
               let oid = infected[age][iid];
 
-              if (infectedGeometry[oid] == null){
+              if (infectedGeometry[oid] == null){ // Geometry is not already saved
                 query = sceneLayer.createQuery();
                 //query = new Query(); // tried to convert to a SLV but I don't think you can retrieve the geometry
                 query.objectIds = [oid];
@@ -389,19 +390,22 @@
                 //let myquery = sceneLayerView.queryFeatures(query);
                 let myquery = sceneLayer.queryFeatures(query);
                 let result = await myquery;
-                infectedGeometry[oid] = result.features[0].geometry;
+                //infectedGeometry[oid] = result.features[0].geometry;
+                infectedGeometry[oid] =
+                  geometryEngine.geodesicBuffer(result.features[0].geometry,
+                  infectionDistance/1000, "kilometers"); // store the buffer not the geometry
               }
 
               if (infectedGeometry[oid] != null){
                 // Create the buffer based on the graphic and infectionDistance
-                tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
-                  infectionDistance/1000, "kilometers");
+                //tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
+                //  infectionDistance/1000, "kilometers");
 
                 // Union the buffer to the combined buffer geometry
                 if (bigBuffer == null){
-                  bigBuffer = tempBuffer;
+                  bigBuffer = infectedGeometry[oid];
                 } else {
-                  bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
+                  bigBuffer = geometryEngine.union([infectedGeometry[oid], bigBuffer]);
                 }
               } else { //TODO: get rid of this if/then if it's unnecessary
                 console.log("Geometry null for " + oid);
