@@ -119,7 +119,7 @@
         container: "viewDiv",
         map: map,
         camera: {
-          position: [-122.47876, 48.75368, 1000],
+          position: [(-122.47876 + ((Math.random()-0.5)/1000), 48.75368 + ((Math.random()-0.5)/1000), 1000],
           tilt: 20,
           heading: 50
         },
@@ -457,7 +457,7 @@
 
               // TODO: Remove from infectedGeometry
             } else {
-              console.log("didn't die: " + t);
+              console.log("didn't die: " + t + " <? " + mortalityRate);
             }
           }
           deceased.sort();
