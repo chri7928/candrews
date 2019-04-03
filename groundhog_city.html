@@ -194,7 +194,7 @@
           legendOptions: { title: "Infected" }
         };
         res.uniqueValueInfos = createInfectedRenderers(infected[0], "red");
-        if ((infected[1] != null) && (infected[1].length > 0){
+        if ((infected[1] != null) && (infected[1].length > 0)){
           res.uniqueValueInfos.concat(createInfectedRenderers(infected[1], "brown"));
         }
         if (deceased.length > 0){
