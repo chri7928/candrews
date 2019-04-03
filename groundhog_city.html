@@ -66,8 +66,8 @@
     	var res = [];
       for (item in iList){
       	res[res.length] = JSON.parse('{"value": "' + iList[item] +
-        '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": "' +
-        iColor + '","colorMixMode": "replace"}}]}}');
+        '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": ' +
+        iColor + ',"colorMixMode": "replace"}}]}}');
       }
       return res;
     }
