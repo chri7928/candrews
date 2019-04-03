@@ -563,23 +563,27 @@
   <div id="scoreDiv">
       <table class="scoreTable">
         <tr>
-          <td colspan=2 align="center">
-            <div id="completeInfectionDiv">
+          <td align="center">
+            <div id="completeInfectionDiv"></div>
             <div id="currentInfectionDiv"></div>
           </td>
         </tr>
         <tr>
-            <td colspan=2>
+            <td align="center">
                 <span id="currentInfectedVal"></span>
             </td>
         </tr>
         <tr>
-            <td colspan=2>
+            <td align="center">
                 Day <span id="currentDayVal"></span>
             </td>
         </tr>
+        <tr>
+          <td align="center">
+            Reset buffers:<br/><input type="checkbox"
+                id="resetBuffersChb" checked></td>
+        </tr>
       </table>
-    </div>
   </div>
 
   <script src="scripts/groundhog-main.js"></script>
