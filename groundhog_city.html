@@ -222,7 +222,7 @@
         var query = sceneLayer.createQuery();
         query.where = "OBJECTID = " + oid;
         query.returnGeometry = true;
-        query.outFields = ['YEAR', 'TYPE'];
+        query.outFields = ['OBJECTID'];
         var resultGeom = null;
         sceneLayer.queryFeatures(query)
           .then(function(result){
@@ -238,7 +238,7 @@
               symbol: polySym
             }));
             query2.spatialRelationship = "intersects";
-            query2.outFields = ['OBJECTID', 'YEAR', 'TYPE'];
+            query2.outFields = ['OBJECTID'];
             sceneLayer.queryFeatures(query2)
               .then(function(result2){
                 for (item in result2.features){
@@ -417,14 +417,22 @@
 
           //console.log("About to find buildings within buffer");
           if (bigBuffer != null){
+            infectionBufferByDay.push(bigBuffer);
             // Draw the unioned buffer
+            bufferLayer.removeAll();
             if (!document.getElementById("showInfectionZoneChb").checked){
-              bufferLayer.removeAll();
+              for (b in infectionBufferByDay){
+                bufferLayer.add(new Graphic({
+                  geometry: infectionBufferByDay[b],
+                  symbol: polySym
+                }));
+              }
+            } else {
+              bufferLayer.add(new Graphic({
+                geometry: bigBuffer,
+                symbol: polySym
+              }));
             }
-            bufferLayer.add(new Graphic({
-              geometry: bigBuffer,
-              symbol: polySym
-            }));
             tempBuffer = geometryEngine.geodesicBuffer(bigBuffer.extent,
               0.250, "kilometers");
             view.goTo(tempBuffer.extent);
