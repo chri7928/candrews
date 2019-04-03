@@ -407,9 +407,9 @@
                 let myquery = sceneLayer.queryFeatures(query);
                 let result = await myquery;
                 infectedGeometry[oid] = result.features[0].geometry;
-              } else {
-                console.log('skipped query');
-              }
+              } //else {
+                //console.log('skipped query');
+              //}
 
               // Create the buffer based on the graphic and infectionDistance
               tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
@@ -431,7 +431,9 @@
               geometry: bigBuffer,
               symbol: polySym
             }));
-            view.goTo(bigBuffer.extent);
+            tempBuffer = geometryEngine.geodesicBuffer(bigBuffer.extent,
+              0.250, "kilometers");
+            view.goTo(tempBuffer.extent);
 
             // Intersect the unioned geometry with the layer to get the feature set
             var query2 = sceneLayer.createQuery();
