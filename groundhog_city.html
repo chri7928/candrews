@@ -452,7 +452,7 @@
             for (item in result.features){
               let t = result.features[item].attributes.OBJECTID;
               // get around the wierd bug
-              if (t == 1){ continue;} else {console.log("Hit OBJECTID=1 bug");}
+              if (t == 1){console.log("Hit OBJECTID==1 bug"); continue;}
               // check to see if the feature was already infected
               let wasInfected = false;
               for (age in infected){
@@ -473,6 +473,7 @@
               newlyInfected.sort(function(a, b){return a-b}); // assuming IDs are numbers
 
               // Deduplicate newlyInfected
+              // TODO: May not be necessary becuase I'm now using a single buffer query
               var tt = 1;
               while (tt < newlyInfected.length){
                 if(newlyInfected[tt] == newlyInfected[tt-1]){
@@ -519,6 +520,9 @@
           //console.log(deceased);
           console.log("Day: " + infectionDay + " Infected: " + count + " Deceased: " + deceased.length);
           console.log("Infected geometry count: " + infectedGeometry.length);
+          for (ig in infectedGeometry){
+            console.log(ig + ":" + infectedGeometry[ig]);
+          }
           count += deceased.length;
           var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
