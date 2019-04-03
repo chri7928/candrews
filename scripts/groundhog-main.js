@@ -4,13 +4,13 @@ function main(){
     infectionDuration = document.getElementById("infectionDuration").value;
     resetInfected();
   });
-  setSlider("deathRate","deathRateVal", 0, 100, 50, function(){
+  setSlider("deathRate","deathRateVal", 0, 100, (mortalityRate * 100), function(){
     mortalityRate = document.getElementById("deathRate").value/100;
   });
-  setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, 100, function(){
+  setSlider("infectionDistance","infectionDistanceVal", 10, maxInfectionDistance, infectionDistance, function(){
     infectionDistance = document.getElementById("infectionDistance").value;
   });
-  setSlider("infectionRate","infectionRateVal", 0, 100, 100, function(){
+  setSlider("infectionRate","infectionRateVal", 0, 100, (infectionRate * 100), function(){
     infectionRate = document.getElementById("infectionRate").value/100;
   });
 
