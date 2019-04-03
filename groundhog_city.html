@@ -375,14 +375,19 @@
               simParams += "   ID: " + infected[0][ii] + "\r\n";
             }
             console.log(simParams);
+
+            // TODO: Zoom to the extent of the infected seeds on Day 0
           }
 
-          // TODO: Create simulation logic
-
+          // DONE: Create simulation logic
           var query = null;
           var bigBuffer = null; // Geometry to use to union the buffers
           var tempBuffer = null;
           var newlyInfected = [];
+
+          // get the current SceneLayerView to try to speed things up
+          let wlv = view.whenLayerView(sceneLayer);
+          let sceneLayerView = await wlv;
 
           // Loop through the current infected list
           // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
@@ -392,7 +397,7 @@
               let oid = infected[age][iid];
 
               if (infectedGeometry[oid] == null){
-                query = sceneLayer.createQuery();
+                query = sceneLayerView.createQuery();
                 query.where = "OBJECTID = " + oid;
                 //console.log(query.where);
                 query.returnGeometry = true;
