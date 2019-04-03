@@ -197,7 +197,7 @@
         if (infected.length > 0){
           for (r in infected){
             let tColor = Math.round(255 - (255/infected.length*r));
-            res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[r], [tColor, 0, 0]));
+            res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[r], "[" + tColor+ ", 0, 0]"));
           }
           if (deceased.length > 0){
             res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "black"));
@@ -214,7 +214,7 @@
         type: "simple-fill", // autocasts as new SimpleFillSymbol()
         color: [255, 213, 0, 0.2],
         outline: {
-          color: [255, 213, 0, 0.5],
+          color: [230, 213, 0, 0.5],
           width: 1
         }
       };
