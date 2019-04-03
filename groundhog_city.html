@@ -66,7 +66,8 @@
     	var res = [];
       for (item in iList){
       	res[res.length] = JSON.parse('{"value": "' + iList[item] +
-        '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": "' + iColor + '","colorMixMode": "replace"}}]}}');
+        '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": "' +
+        iColor + '","colorMixMode": "replace"}}]}}');
       }
       return res;
     }
@@ -122,7 +123,7 @@
         map: map,
         camera: {
           position: [(-122.47876 + ((Math.random()-0.5)/100)), (48.75368 + ((Math.random()-0.5)/100)), 1000],
-          tilt: 20,
+          tilt: 35,
           heading: 50
         },
         environment: {
@@ -195,12 +196,12 @@
         };
         res.uniqueValueInfos = createInfectedRenderers(infected[0], "red");
         if ((infected.length > 0) && (infected[1].length > 0)){
-          res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[1], "brown"));
+//          res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[1], "brown"));
         }
         if (deceased.length > 0){
           res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "black"));
         }
-        console.log(res.uniqueValueInfos);
+        //console.log("in getUniqueValueRenderer: \r\n" + res.uniqueValueInfos);
         return res;
       }
 
@@ -500,11 +501,13 @@
           var count = 0;
           for (age in infected){
             count += infected[age].length;
+            //console.log("Age " + age + ": " + infected[age].length);
           }
+          //console.log("Dead: " + deceased.lenth);
+          console.log("Day: " + infectionDay + " Infected: " + count + " Deceased: " + deceased.length);
           count += deceased.length;
           var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
-          console.log("Day: " + infectionDay + " Infected: " + count + " Deceased: " + deceased.length);
 
           infectionDay++;
           document.getElementById("currentDayVal").innerHTML = infectionDay;
