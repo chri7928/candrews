@@ -18,14 +18,14 @@
     var isRunningOneStep = false;
 
     const maxInfectionDuration = 6;
-    const maxInfectionDistance = 300; // (m)
+    const maxInfectionDistance = 200; // (m)
 
     //Globals
     var numSeeds = 0;
     var totalBuildings = -1;
     var infectionDay = 0;
     var svDefaultColor = [0,0,255,1];
-    var infectionDistance = 100;
+    var infectionDistance = 25;
     var mortalityRate = 0; // 0..1
     var infectionDuration = 3;
     var infectionRate = 1; // 0..1
@@ -152,15 +152,9 @@
         var query = sceneLayer.createQuery();
         query.where = "YEAR = 2008";
         query.returnGeometry = true;
-        //query.geometry = sceneLayer.fullExtent;
-        //query.spatialRelationship = "contains";
-
         query.outFields = ['YEAR', 'TYPE'];
         sceneLayer.queryFeatures(query)
           .then(function(result){
-            //console.log(result.features); // print the features to the console
-            //console.log("Count " + result.features.length);
-            //console.log("Geom " + result.features[0].length);
             var t = null;
             var tt = '';
             for (item in result.features){
@@ -170,7 +164,6 @@
               }
               tt += '\r\n';
             }
-            //console.log(tt);
             tt = '';
             var g = null;
             for (item in result.features){
@@ -329,24 +322,25 @@
       window.resetInfected = resetInfected;
 
       function initializeSim(infectionDuration){
-       //tODO: Clear any graphics layers
 
-      //init infected array
-      resetInfected();
+        //init infected array
+        resetInfected();
+        sceneLayer.renderer = getUniqueValueRenderer();
 
-       //Clear numSeeds
-       numSeeds = 0;
-       //Clear infection day
-       infectionDay = 0;
+        //Clear numSeeds
+        numSeeds = 0;
+        //Clear infection day
+        infectionDay = 0;
 
-       isStopped = true;
-       isReset = true;
-       isPaused = false;
-       isRunning = false;
+        isStopped = true;
+        isReset = true;
+        isPaused = false;
+        isRunning = false;
 
-       bufferLayer.removeAll();
-       setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
-       document.getElementById("currentDayVal").innerHTML = "0";
+        // Clear any graphics layers
+        bufferLayer.removeAll();
+        setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
+        document.getElementById("currentDayVal").innerHTML = "0";
       }
       window.initializeSim = initializeSim;
 
@@ -408,10 +402,10 @@
                 query = new Query();
                 query.where = "OBJECTID = " + oid;
                 query.returnGeometry = true;
-                query.outFields = ['YEAR', 'TYPE'];
+                query.outFields = ['TYPE'];
                 // Query the feature to get the grapic
                 // Note converted from .then to async/await becuase of the better flow control
-                let myquery = sceneLayer.queryFeatures(query);
+                let myquery = SceneLayerView.queryFeatures(query);
                 let result = await myquery;
                 infectedGeometry[oid] = result.features[0].geometry;
               } //else {
@@ -443,11 +437,12 @@
             view.goTo(tempBuffer.extent);
 
             // Intersect the unioned geometry with the layer to get the feature set
-            var query2 = sceneLayer.createQuery();
+            //var query2 = sceneLayer.createQuery();
+            var query2 = new Query();
             query2.geometry = bigBuffer;
             query2.spatialRelationship = "intersects";
-            query2.outFields = ['OBJECTID', 'YEAR', 'TYPE'];
-            let myquery = sceneLayer.queryFeatures(query2);
+            query2.outFields = ['OBJECTID', 'TYPE'];
+            let myquery = sceneLayerView.queryFeatures(query2);
             let result = await myquery;
 
             for (item in result.features){
