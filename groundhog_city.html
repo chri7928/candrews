@@ -149,7 +149,7 @@
       sceneLayer.when(function(){
         view.goTo(sceneLayer.fullExtent);
         let cam = view.camera.clone();
-        cam.position.z = 1000;
+        cam.position.z = 300;
         view.camera = cam;
 
         /*var query = sceneLayer.createQuery();
@@ -401,7 +401,7 @@
               let oid = infected[age][iid];
 
               if (infectedGeometry[oid] == null){
-                query = sceneView.createQuery();
+                query = sceneLayer.createQuery();
                 //query = new Query(); // tried to convert to a SLV but I don't think you can retrieve the geometry
                 query.objectIds = [oid];
                 query.returnGeometry = true;
@@ -425,7 +425,7 @@
                 } else {
                   bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
                 }
-              } else {
+              } else { //TODO: get rid of this if/then if it's unnecessary
                 console.log("Geometry null for " + oid);
               }
             }
