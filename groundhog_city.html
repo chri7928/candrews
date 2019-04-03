@@ -478,7 +478,7 @@
           }
 
           // Add the new items from the temp array to the 0 position of infected list
-          infected[0] = [].concat(newlyInfected);
+          infected[0] = newlyInfected;
 
           // TODO: redraw the renderers
           sceneLayer.renderer = getUniqueValueRenderer();
