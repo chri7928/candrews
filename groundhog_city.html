@@ -387,11 +387,12 @@
           var newlyInfected = [];
 
           // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
+          console.log("About to query buffer geometries");
           for (age in infected){
             for (iid in infected[age]){
               query = sceneLayer.createQuery();
               query.where = "OBJECTID = " + infected[age][iid];
-              console.log(query.where);
+              //console.log(query.where);
               query.returnGeometry = true;
               query.outFields = ['YEAR', 'TYPE'];
               // Query the feature to get the grapic
@@ -400,7 +401,7 @@
 
 //                .then(function(result){
                   resultGeom = result.features[0].geometry;
-                  console.log("resultGeom = " + resultGeom.type);
+                  //console.log("resultGeom = " + resultGeom.type);
 
                   // Create the buffer based on the graphic and infectionDistance
                   tempBuffer = geometryEngine.geodesicBuffer(resultGeom, infectionDistance/1000, "kilometers");
@@ -427,15 +428,15 @@
             query2.geometry = bigBuffer;
             query2.spatialRelationship = "intersects";
             query2.outFields = ['OBJECTID', 'YEAR', 'TYPE'];
-            sceneLayer.queryFeatures(query2)
-              .then(function(result2){
-                for (item in result2.features){
-                  t = result2.features[item].attributes.OBJECTID;
-                  // Add results to the newly infected list
-                  // TODO: change this to factor in infectionRate
-                  newlyInfected.push(t); // do I need to parseInt here?
-                }
-              });
+            let myquery = sceneLayer.queryFeatures(query2);
+            let result = await myquery;
+
+            for (item in result.features){
+              t = result.features[item].attributes.OBJECTID;
+              // Add results to the newly infected list
+              // TODO: change this to factor in infectionRate
+              newlyInfected.push(t); // do I need to parseInt here?
+            }
 
             if (newlyInfected.length > 1){
               // Sort newlyInfected
