@@ -463,9 +463,8 @@
           //console.log("Deceased count: " + deceased.length);
 
           // Age the arrays of the infected list
-          //for (ai = 0; ai < infected.length - 1; ai++){
-          for (ai < infected.length - 1; ai = 0; ai--){
-            infected[ai + 1] = [].concat(infected[ai]);
+          for (ai = infected.length - 1; ai > 0; ai--){
+            infected[ai] = [].concat(infected[ai - 1]);
           }
 
           // Add the new items from the temp array to the 0 position of infected list
