@@ -387,11 +387,15 @@
 
           // get the current SceneLayerView to try to speed things up
           let wlv = view.whenLayerView(sceneLayer);
-          let sceneLayerView = await wlv;
+          try{
+            let sceneLayerView = await wlv;
+          } catch (err) {
+            console.log("Error getting sceneLayerView: " + err);
+          }
 
           // Loop through the current infected list
           // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
-          console.log("About to query buffer geometries");
+          // console.log("About to query buffer geometries");
           for (age in infected){
             for (iid in infected[age]){
               let oid = infected[age][iid];
@@ -424,7 +428,7 @@
             }
           }
 
-          console.log("About to find buildings within buffer");
+          //console.log("About to find buildings within buffer");
           if (bigBuffer != null){
             // Draw the unioned buffer
             bufferLayer.add(new Graphic({
@@ -465,7 +469,7 @@
               }
             }
           } // end if bigBuffer != null
-          console.log("bigBuffer is null: " + (bigBuffer == null));
+          //console.log("bigBuffer is null: " + (bigBuffer == null));
 
           // Calculate if the current oldest infected should be cleared or killed; if killed, add them to the deceased list
           for (old in infected[infected.length-1]){
@@ -474,7 +478,7 @@
             }
           }
           deceased.sort();
-          console.log("Deceased count: " + deceased.length);
+          //console.log("Deceased count: " + deceased.length);
 
           // Age the arrays of the infected list
           for (ai = 0; ai < infected.length - 1; ai++){
