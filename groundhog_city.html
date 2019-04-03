@@ -193,6 +193,8 @@
           legendOptions: { title: "Infected" }
         };
         res.uniqueValueInfos = createInfectedRenderers(infected[0], "red");
+        res.uniqueValueInfos = createInfectedRenderers(infected[1], "brown");
+        res.uniqueValueInfos.push(createInfectedRenderers(deceased, "black"));
         return res;
       }
 
@@ -225,7 +227,6 @@
             var query2 = sceneLayer.createQuery();
             query2.geometry = geometryEngine.geodesicBuffer(resultGeom,
               parseInt(infectionDistance)/1000, "kilometers");
-            console.log("Using infectionDistance variable");
             bufferLayer.add(new Graphic({
               geometry: query2.geometry,
               symbol: polySym
@@ -236,7 +237,6 @@
               .then(function(result2){
                 for (item in result2.features){
                   t = result2.features[item].attributes.OBJECTID;
-                  //console.log(t);
 
                   //TODO: Add results to the newly infected list
 
@@ -292,7 +292,7 @@
         for (iD = 0; iD < infectionDuration; iD++){
          infected.push([]);
         }
-        console.log('Initialized infected[]: ' + infected);
+        console.log('Initialized infected[]');
       }
       window.resetInfected = resetInfected;
 
@@ -369,7 +369,7 @@
           // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
           // console.log("About to query buffer geometries");
           for (age in infected){
-            console.log(infected[age]);
+            //console.log(infected[age]);
             for (iid in infected[age]){
               let oid = infected[age][iid];
 
