@@ -149,37 +149,9 @@
       sceneLayer.when(function(){
         view.goTo(sceneLayer.fullExtent);
         let cam = view.camera.clone();
-        cam.position.z = 300;
+        cam.position.z = 200;
         view.camera = cam;
 
-        /*var query = sceneLayer.createQuery();
-        query.where = "YEAR = 2008";
-        query.returnGeometry = true;
-        query.outFields = ['YEAR', 'TYPE'];
-        sceneLayer.queryFeatures(query)
-          .then(function(result){
-            var t = null;
-            var tt = '';
-            for (item in result.features){
-              t = result.features[item].attributes;
-              for (item2 in t){
-                tt += item2 + " " + t[item2] + ",";
-              }
-              tt += '\r\n';
-            }
-            tt = '';
-            var g = null;
-            for (item in result.features){
-              g = result.features[item].geometry;
-              //g.symbol.color = [0, 0, 255, 0.3];
-              //console.log("Symbol: " + objToString(g.symbol));
-              t = g.extent;
-              tt += g.type + '\r\n';
-            }
-            view.goTo(t);
-            //console.log(tt);
-          });*/
-        //console.log('3');
         summaryStatistics({
           layer: sceneLayer,
           field: "YEAR"
@@ -397,6 +369,7 @@
           // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
           // console.log("About to query buffer geometries");
           for (age in infected){
+            cosole.log(infected[age]);
             for (iid in infected[age]){
               let oid = infected[age][iid];
 
