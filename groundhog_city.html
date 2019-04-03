@@ -400,7 +400,7 @@
               if (infectedGeometry[oid] == null){
                 //query = sceneView.createQuery();
                 query = new Query();
-                query.where = "OBJECTID = " + oid;
+                query.objectIds = [oid];
                 query.returnGeometry = true;
                 query.outFields = ['TYPE'];
                 // Query the feature to get the grapic
@@ -437,12 +437,12 @@
             view.goTo(tempBuffer.extent);
 
             // Intersect the unioned geometry with the layer to get the feature set
-            //var query2 = sceneLayer.createQuery();
-            var query2 = new Query();
+            var query2 = sceneLayer.createQuery();
+            //var query2 = new Query();
             query2.geometry = bigBuffer;
             query2.spatialRelationship = "intersects";
-            query2.outFields = ['OBJECTID', 'TYPE'];
-            let myquery = sceneLayerView.queryFeatures(query2);
+            query2.outFields = ['OBJECTID'];
+            let myquery = sceneLayer.queryFeatures(query2);
             let result = await myquery;
 
             for (item in result.features){
@@ -473,6 +473,8 @@
           for (old in infected[infected.length-1]){
             if (Math.random() < mortalityRate){
               deceased.push(infected[infected.length-1][old]);
+
+              // TODO: Remove from infectedGeometry
             }
           }
           deceased.sort();
