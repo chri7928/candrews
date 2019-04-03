@@ -30,7 +30,6 @@
     var infectionDuration = 3;
     var infectionRate = 1; // 0..1
 
-
     // select infected houses
     // set ageing duration
     // set % terminal or reinfectable
@@ -426,10 +425,14 @@
             let result = await myquery;
 
             for (item in result.features){
-              t = result.features[item].attributes.OBJECTID;
-              // Add results to the newly infected list
-              // TODO: change this to factor in infectionRate
-              newlyInfected.push(t); // do I need to parseInt here?
+              let t = result.features[item].attributes.OBJECTID;
+              if (deceased.indexOf(t) == -1){
+                // Add results to the newly infected list
+                // TODO: change this to factor in infectionRate
+                if (Math.random() < infectionRate){
+                  newlyInfected.push(t);
+                }
+              } // else can't reinfect
             }
 
             if (newlyInfected.length > 1){
@@ -451,13 +454,10 @@
 
           // Calculate if the current oldest infected should be cleared or killed; if killed, add them to the deceased list
           for (old in infected[infected.length-1]){
-            let t = Math.random();
-            if (t < mortalityRate){
+            if (Math.random() < mortalityRate){
               deceased.push(infected[infected.length-1][old]);
 
               // TODO: Remove from infectedGeometry
-            } else {
-              console.log("didn't die: " + t + " <? " + mortalityRate);
             }
           }
           deceased.sort();
