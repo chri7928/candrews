@@ -147,9 +147,12 @@
       map.add(sceneLayer);
 
       sceneLayer.when(function(){
-        //view.goTo(sceneLayer.fullExtent);
+        view.goTo(sceneLayer.fullExtent);
+        let cam = view.camera.clone();
+        cam.position.z = 1000;
+        view.camera = cam;
 
-        var query = sceneLayer.createQuery();
+        /*var query = sceneLayer.createQuery();
         query.where = "YEAR = 2008";
         query.returnGeometry = true;
         query.outFields = ['YEAR', 'TYPE'];
@@ -175,7 +178,7 @@
             }
             view.goTo(t);
             //console.log(tt);
-          });
+          });*/
         //console.log('3');
         summaryStatistics({
           layer: sceneLayer,
