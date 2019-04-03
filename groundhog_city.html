@@ -454,7 +454,7 @@
               // check to see if the feature was already infected
               let wasInfected = false;
               for (age in infected){
-                wasInfected == (wasInfected || (infected[age].indexOf(t) > -1));
+                wasInfected = (wasInfected || (infected[age].indexOf(t) > -1));
               }
               wasInfected = (wasInfected || (deceased.indexOf(t) > -1));
               if (!wasInfected){
