@@ -451,7 +451,13 @@
 
             for (item in result.features){
               let t = result.features[item].attributes.OBJECTID;
-              if (deceased.indexOf(t) == -1){
+              // check to see if the feature was already infected
+              let wasInfected = false;
+              for (age in infected){
+                wasInfected == (wasInfected || (infected[age].indexOf(t) > -1));
+              }
+              wasInfected = (wasInfected || (deceased.indexOf(t) > -1));
+              if (!wasInfected){
                 // Add results to the newly infected list
                 // DONE: change this to factor in infectionRate
                 if (Math.random() < infectionRate){
