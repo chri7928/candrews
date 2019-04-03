@@ -405,7 +405,7 @@
                 query.outFields = ['TYPE'];
                 // Query the feature to get the grapic
                 // Note converted from .then to async/await becuase of the better flow control
-                let myquery = SceneLayerView.queryFeatures(query);
+                let myquery = sceneLayerView.queryFeatures(query);
                 let result = await myquery;
                 infectedGeometry[oid] = result.features[0].geometry;
               } //else {
