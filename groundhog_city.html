@@ -193,10 +193,10 @@
         };
         res.uniqueValueInfos = createInfectedRenderers(infected[0], "red");
         if ((infected.length > 0) && (infected[1].length > 0)){
-          res.uniqueValueInfos.concat(createInfectedRenderers(infected[1], "brown"));
+          res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[1], "brown"));
         }
         if (deceased.length > 0){
-          res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "black"));
+          res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "black"));
         }
         console.log(res.uniqueValueInfos);
         return res;
