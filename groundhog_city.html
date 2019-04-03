@@ -491,7 +491,7 @@
               deceased.push(infected[infected.length-1][old]);
 
               // TODO: Remove from infectedGeometry
-              infectedGeometry.delete(infected[infected.length-1][old]);
+              delete infectedGeometry[infected[infected.length-1][old]];
             }
           }
           deceased.sort();
