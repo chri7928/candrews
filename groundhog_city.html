@@ -361,7 +361,7 @@
       window.setProgress = setProgress;
 
       //Run the Simulation
-      function runSim(){
+      async function runSim(){
         if (isRunning || isRunningOneStep){
           if (infectionDay == 0){
             var simParams = "\r\nSim Params\r\n";
@@ -395,8 +395,10 @@
               query.returnGeometry = true;
               query.outFields = ['YEAR', 'TYPE'];
               // Query the feature to get the grapic
-              sceneLayer.queryFeatures(query)
-                .then(function(result){
+              let myquery = sceneLayer.queryFeatures(query);
+              let result = await myquery;
+
+//                .then(function(result){
                   resultGeom = result.features[0].geometry;
                   console.log("resultGeom = " + resultGeom.type);
 
@@ -409,7 +411,7 @@
                   } else {
                     bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
                   }
-                });
+  //              });
             }
           }
 
