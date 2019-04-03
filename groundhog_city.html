@@ -93,14 +93,16 @@
       "esri/layers/GraphicsLayer",
       "esri/Graphic",
       "esri/geometry/geometryEngine",
-      "esri/renderers/smartMapping/statistics/summaryStatistics"
+      "esri/renderers/smartMapping/statistics/summaryStatistics",
+      "esri/tasks/support/Query"
     ], function(Map,
       SceneView,
       SceneLayer,
       GraphicsLayer,
       Graphic,
       geometryEngine,
-      summaryStatistics) {
+      summaryStatistics,
+      Query) {
 
       var infected = []; //will be an array of arrays
       var infectedGeometry = {}; //going to try saving geometry to not query too much
@@ -402,7 +404,8 @@
               let oid = infected[age][iid];
 
               if (infectedGeometry[oid] == null){
-                query = sceneLayerView.createQuery();
+                //query = sceneView.createQuery();
+                query = new Query();
                 query.where = "OBJECTID = " + oid;
                 query.returnGeometry = true;
                 query.outFields = ['YEAR', 'TYPE'];
