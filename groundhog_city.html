@@ -451,12 +451,13 @@
 
           // Calculate if the current oldest infected should be cleared or killed; if killed, add them to the deceased list
           for (old in infected[infected.length-1]){
-            if (Math.random() < mortalityRate){
+            let t = Math.random();
+            if (t < mortalityRate){
               deceased.push(infected[infected.length-1][old]);
 
               // TODO: Remove from infectedGeometry
             } else {
-              console.log("didn't die");
+              console.log("didn't die: " + t);
             }
           }
           deceased.sort();
