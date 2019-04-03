@@ -119,7 +119,7 @@
         container: "viewDiv",
         map: map,
         camera: {
-          position: [-122.47876, 48.75368, 5000],
+          position: [-122.47876, 48.75368, 1000],
           tilt: 20,
           heading: 50
         },
@@ -147,11 +147,11 @@
       map.add(sceneLayer);
 
       sceneLayer.when(function(){
-        view.goTo(sceneLayer.fullExtent);
+        //view.goTo(sceneLayer.fullExtent);
         //let cam = view.camera.clone();
         //cam.position.z = 150;
         //view.camera = cam;
-        view.camera.position.z = 250;
+        //view.camera.position.z = 250;
 
         summaryStatistics({
           layer: sceneLayer,
@@ -455,13 +455,16 @@
               deceased.push(infected[infected.length-1][old]);
 
               // TODO: Remove from infectedGeometry
+            } else {
+              console.log("didn't die");
             }
           }
           deceased.sort();
           //console.log("Deceased count: " + deceased.length);
 
           // Age the arrays of the infected list
-          for (ai = 0; ai < infected.length - 1; ai++){
+          //for (ai = 0; ai < infected.length - 1; ai++){
+          for (ai < infected.length - 1; ai = 0; ai--){
             infected[ai + 1] = [].concat(infected[ai]);
           }
 
