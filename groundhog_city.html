@@ -103,6 +103,7 @@
       summaryStatistics) {
 
       var infected = []; //will be an array of arrays
+      var infectedGeometry = {}; //going to try saving geometry to not query too much
       var deceased = [];// will be an array of ids
 
       // Create Map
@@ -377,45 +378,47 @@
           }
 
           // TODO: Create simulation logic
-          // Loop through the current infected list
 
-          // Create a geometry to use to union the buffers
           var query = null;
-          var resultGeom = null;
-          var bigBuffer = null;
+          var bigBuffer = null; // Geometry to use to union the buffers
           var tempBuffer = null;
           var newlyInfected = [];
 
+          // Loop through the current infected list
           // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
           console.log("About to query buffer geometries");
           for (age in infected){
             for (iid in infected[age]){
-              query = sceneLayer.createQuery();
-              query.where = "OBJECTID = " + infected[age][iid];
-              //console.log(query.where);
-              query.returnGeometry = true;
-              query.outFields = ['YEAR', 'TYPE'];
-              // Query the feature to get the grapic
-              let myquery = sceneLayer.queryFeatures(query);
-              let result = await myquery;
+              let oid = infected[age][iid];
 
-//                .then(function(result){
-                  resultGeom = result.features[0].geometry;
-                  //console.log("resultGeom = " + resultGeom.type);
+              if (infectedGeometry[oid] == null){
+                query = sceneLayer.createQuery();
+                query.where = "OBJECTID = " + oid;
+                //console.log(query.where);
+                query.returnGeometry = true;
+                query.outFields = ['YEAR', 'TYPE'];
+                // Query the feature to get the grapic
+                // Note converted from .then to async/await becuase of the better flow control
+                let myquery = sceneLayer.queryFeatures(query);
+                let result = await myquery;
+                infectedGeometry[oid] = result.features[0].geometry;
+              } else {
+                console.log('skipped query');
+              }
 
-                  // Create the buffer based on the graphic and infectionDistance
-                  tempBuffer = geometryEngine.geodesicBuffer(resultGeom, infectionDistance/1000, "kilometers");
+              // Create the buffer based on the graphic and infectionDistance
+              tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
+                infectionDistance/1000, "kilometers");
 
-                  // Union the buffer to the combined buffer geometry
-                  if (bigBuffer == null){
-                    bigBuffer = tempBuffer;
-                  } else {
-                    bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
-                  }
-  //              });
+              // Union the buffer to the combined buffer geometry
+              if (bigBuffer == null){
+                bigBuffer = tempBuffer;
+              } else {
+                bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
+              }
             }
           }
-          
+
           console.log("About to find buildings within buffer");
           if (bigBuffer != null){
             // Draw the unioned buffer
@@ -423,6 +426,7 @@
               geometry: bigBuffer,
               symbol: polySym
             }));
+            view.goTo(bigBuffer.extent);
 
             // Intersect the unioned geometry with the layer to get the feature set
             var query2 = sceneLayer.createQuery();
