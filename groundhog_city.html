@@ -423,7 +423,7 @@
             infectionBufferByDay.push(bigBuffer);
             // Draw the unioned buffer
             bufferLayer.removeAll();
-            if (!document.getElementById("showInfectionZoneChb").checked){
+            if (document.getElementById("showInfectionZoneChb").checked){
               for (b in infectionBufferByDay){
                 bufferLayer.add(new Graphic({
                   geometry: infectionBufferByDay[b],
