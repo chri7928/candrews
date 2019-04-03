@@ -108,6 +108,7 @@
       var infected = []; //will be an array of arrays
       var infectedGeometry = {}; //going to try saving geometry to not query too much
       var deceased = [];// will be an array of ids
+      var infectionBufferByDay = [];
 
       // Create Map
       var map = new Map({
@@ -141,7 +142,7 @@
       // Create SceneLayer and add to the map
       var sceneLayer = new SceneLayer({
         portalItem: {
-          id: "fa0e0058ff394dd7a9902ede1d04721b"
+          id: "dc2aaa6ba42f48d280398f69419a221b"//"fa0e0058ff394dd7a9902ede1d04721b"
         },
         popupEnabled: false
       });
@@ -156,10 +157,10 @@
 
         summaryStatistics({
           layer: sceneLayer,
-          field: "YEAR"
+          field: "NUMFIELD"
         }).then(function(stats){
-          console.log('Total buildings = ' + stats.count);
           totalBuildings = stats.count;
+          console.log('Total buildings = ' + totalBuildings);
         });
       });
 
@@ -320,6 +321,7 @@
 
         // Clear any graphics layers
         bufferLayer.removeAll();
+        infectionBufferByDay = [];
         setProgress("currentInfectionDiv", 0, false, "currentInfectedVal", (0 + "%"));
         document.getElementById("currentDayVal").innerHTML = "0";
       }
@@ -416,6 +418,9 @@
           //console.log("About to find buildings within buffer");
           if (bigBuffer != null){
             // Draw the unioned buffer
+            if (!document.getElementById("showInfectionZoneChb").checked){
+              bufferLayer.removeAll();
+            }
             bufferLayer.add(new Graphic({
               geometry: bigBuffer,
               symbol: polySym
@@ -437,7 +442,7 @@
               let t = result.features[item].attributes.OBJECTID;
               if (deceased.indexOf(t) == -1){
                 // Add results to the newly infected list
-                // TODO: change this to factor in infectionRate
+                // DONE: change this to factor in infectionRate
                 if (Math.random() < infectionRate){
                   newlyInfected.push(t);
                 }
@@ -580,8 +585,8 @@
         </tr>
         <tr>
           <td align="center">
-            Total infection zone:<br/><input type="checkbox"
-                id="resetBuffersChb" checked="false"></td>
+            Show all<br/>infection zone:<br/><input type="checkbox"
+                id="showInfectionZoneChb" checked></td>
         </tr>
       </table>
   </div>
