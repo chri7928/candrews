@@ -503,9 +503,11 @@
           var count = 0;
           for (age in infected){
             count += infected[age].length;
-            //console.log("Age " + age + ": " + infected[age].length);
+            console.log("Age " + age + ": " + infected[age].length);
+            console.log(infected[age]);
           }
-          //console.log("Dead: " + deceased.lenth);
+          console.log("Dead: " + deceased.lenth);
+          console.log(deceased);
           console.log("Day: " + infectionDay + " Infected: " + count + " Deceased: " + deceased.length);
           count += deceased.length;
           var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
