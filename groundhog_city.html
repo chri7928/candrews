@@ -412,15 +412,19 @@
                 //console.log('skipped query');
               //}
 
-              // Create the buffer based on the graphic and infectionDistance
-              tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
-                infectionDistance/1000, "kilometers");
+              if (infectedGeometry[oid] != null){
+                // Create the buffer based on the graphic and infectionDistance
+                tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
+                  infectionDistance/1000, "kilometers");
 
-              // Union the buffer to the combined buffer geometry
-              if (bigBuffer == null){
-                bigBuffer = tempBuffer;
+                // Union the buffer to the combined buffer geometry
+                if (bigBuffer == null){
+                  bigBuffer = tempBuffer;
+                } else {
+                  bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
+                }
               } else {
-                bigBuffer = geometryEngine.union([tempBuffer, bigBuffer]);
+                console.log("Geometry null for " + oid);
               }
             }
           }
