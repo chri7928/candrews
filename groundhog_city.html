@@ -174,8 +174,6 @@
         }]
       };
 
-      var infectedList = [1808,1752,1712];
-
       function getUniqueValueRenderer() {
         var res = {
           type: "unique-value",
@@ -194,7 +192,7 @@
           legendOptions: { title: "Infected" }
         };
         res.uniqueValueInfos = createInfectedRenderers(infected[0], "red");
-        if ((infected[1] != null) && (infected[1].length > 0)){
+        if ((infected.length > 0) && (infected[1].length > 0)){
           res.uniqueValueInfos.concat(createInfectedRenderers(infected[1], "brown"));
         }
         if (deceased.length > 0){
@@ -275,7 +273,6 @@
                 infected[0][infected[0].length] = tid;
               }
               //console.log(JSON.stringify(graphic));
-              //console.log(infectedList);
               sceneLayer.renderer = getUniqueValueRenderer();
               //getNeighbors(tid); This was a test method.  Don't need to do this any longer.
             }
