@@ -32,8 +32,13 @@
       background-color: #000;
     }
 
+    #statusDiv {
+      margin-left: 100px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
     #paneDiv {
-      padding: 0px;
+      padding: 0px 0px 5px 0px;
       background-color: rgba(0, 0, 0, 0.1);
     }
 

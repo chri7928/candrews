@@ -293,7 +293,7 @@
       view.ui.add("paneDiv", "bottom-left");
       view.ui.add("runDiv", "bottom-right");
       view.ui.add("scoreDiv", "top-right");
-      view.ui.add("statusDiv", "top-leading");
+      view.ui.add("statusDiv", "top-left");
 
       function resetInfected(){
         //Set up the infected array
@@ -569,8 +569,8 @@
 
 <body onload="main();">
   <div id="viewDiv">
-    <div id="statusDiv">HELLO THERE</div>
   </div>
+  <div id="statusDiv">HELLO THERE</div>
   <div id="paneDiv">
     <div id="restoreDiv"><button id="restoreButton" class="runButton"><img id="restoreImg" src="images/restore-red.png"></button></div>
     <div id="paramsDiv" class="slidecontainer">
