@@ -518,11 +518,8 @@
           }
           //console.log("Dead: " + deceased.length);
           //console.log(deceased);
-          console.log("Day: " + infectionDay + " Infected: " + count + " Deceased: " + deceased.length);
-          console.log("Infected geometry count: " + infectedGeometry.length);
-          for (ig in infectedGeometry){
-            console.log(ig + ":" + infectedGeometry[ig]);
-          }
+          console.log("Day: " + infectionDay + " Inf: " + count +
+            " Dec: " + deceased.length + " InfGeom: " + infectedGeometry.keys.length);
           count += deceased.length;
           var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
