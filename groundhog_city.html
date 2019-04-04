@@ -527,7 +527,7 @@
 
           infectionDay++;
           document.getElementById("currentDayVal").innerHTML = infectionDay;
-          console.log("Time elapsed: " + Math.round(getElapsedTime()/60000, 2) + " min");
+          console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
         } else if (isPaused) {
         }
         if (!isRunningOneStep){
