@@ -394,7 +394,7 @@
                 let oid = infected[age][iid];
                 if (infectedGeometry[oid] == null){ // Geometry is not already saved
                   oids.push(oid);
-                  if ((oids.length == 50) || (iid == infected[age].length)){
+                  if ((oids.length == 50) || (iid == (infected[age].length-1))){
                     query = sceneLayer.createQuery();
                     query.objectIds = oids;
                     query.returnGeometry = true;
