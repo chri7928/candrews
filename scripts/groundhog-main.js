@@ -1,4 +1,6 @@
 function main(){
+  setStatus("Loading simulation...");
+
   // Set the slider values and oninput events
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, infectionDuration, function(){
     infectionDuration = document.getElementById("infectionDuration").value;
@@ -159,6 +161,8 @@ function main(){
   }
 
   initializeSim(parseInt(document.getElementById("infectionDuration").value));
-  //TODO: make sure the infections array is updated to reflect the correct number of days when the slider is changed
-  //TODO: Disable the sliders when the simulation is running
+  // DONE: make sure the infections array is updated to reflect the correct number of days when the slider is changed
+  // TODO: Disable the sliders when the simulation is running
+
+  setStatus("Simulation loaded.")
 }

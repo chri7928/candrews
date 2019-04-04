@@ -88,6 +88,17 @@
       }
     }
 
+    function setStatus(msg, img){
+      var val = "";
+      if (msg){
+        val += msg;
+      }
+      if (img){
+        val += "<img class='statusImg' src='" + img + "'/>";
+      }
+      this.document.getElementById("statusDiv").innerHTML = val;
+    }
+
     require([
       "esri/Map",
       "esri/views/SceneView",
@@ -347,6 +358,7 @@
       async function runSim(){
         if (isRunning || isRunningOneStep){
           setTimer();
+          setStatus("Simulating day " + infectionDay);
           if (infectionDay == 0){
             var simParams = "\r\nSim Params\r\n";
             simParams += "mortalityRate: " + mortalityRate + "\r\n";
@@ -531,6 +543,7 @@
           infectionDay++;
           document.getElementById("currentDayVal").innerHTML = infectionDay;
           console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
+          setStatus("");
         } else if (isPaused) {
         }
         if (!isRunningOneStep){
