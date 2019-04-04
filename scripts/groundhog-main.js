@@ -163,6 +163,4 @@ function main(){
   initializeSim(parseInt(document.getElementById("infectionDuration").value));
   // DONE: make sure the infections array is updated to reflect the correct number of days when the slider is changed
   // TODO: Disable the sliders when the simulation is running
-
-  setStatus("Simulation loaded.")
 }

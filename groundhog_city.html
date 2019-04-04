@@ -88,7 +88,7 @@
       }
     }
 
-    function setStatus(msg, img){
+    function setStatus(msg, img, clearTimer){
       var val = "";
       if (msg){
         val += msg;
@@ -97,6 +97,10 @@
         val += "<img class='statusImg' src='" + img + "'/>";
       }
       this.document.getElementById("statusDiv").innerHTML = val;
+
+      if (clearTimer){
+        setTimeout("setStatus();", clearTimer * 1000);
+      }
     }
 
     require([
@@ -174,6 +178,7 @@
           totalBuildings = stats.count;
           console.log('Total buildings = ' + totalBuildings);
         });
+        setStatus("Simulation loaded.", null, 2);
       });
 
       // Create MeshSymbol3D for symbolizing SceneLayer
@@ -379,46 +384,30 @@
           var bigBuffer = null; // Geometry to use to union the buffers
           var tempBuffer = null;
           var newlyInfected = [];
-          //var sceneLayerView = null;
-
-          // get the current SceneLayerView to try to speed things up
-          //let wlv = view.whenLayerView(sceneLayer);
-          //try{
-          //  sceneLayerView = await wlv;
-          //} catch (err) {
-          //  console.log("Error getting sceneLayerView: " + err);
-          //}
 
           // Loop through the current infected list
-          // TODO: Convert this to an IN where clause and only do the buffer operation after the query has returned
           // console.log("About to query buffer geometries");
           for (age in infected){
-            //console.log(infected[age]);
             for (iid in infected[age]){
               let oid = infected[age][iid];
 
               if (infectedGeometry[oid] == null){ // Geometry is not already saved
                 query = sceneLayer.createQuery();
-                //query = new Query(); // tried to convert to a SLV but I don't think you can retrieve the geometry
                 query.objectIds = [oid];
                 query.returnGeometry = true;
                 query.outFields = ['*'];
                 // Query the feature to get the grapic
                 // Note converted from .then to async/await becuase of the better flow control
-                //let myquery = sceneLayerView.queryFeatures(query);
                 let myquery = sceneLayer.queryFeatures(query);
                 let result = await myquery;
-                //infectedGeometry[oid] = result.features[0].geometry;
+                // Create the buffer based on the graphic and infectionDistance
+                // TODO: Convert this to a set of n geometries returned to reduce queries
                 infectedGeometry[oid] =
                   geometryEngine.geodesicBuffer(result.features[0].geometry,
                   infectionDistance/1000, "kilometers"); // store the buffer not the geometry
               }
 
               if (infectedGeometry[oid] != null){
-                // Create the buffer based on the graphic and infectionDistance
-                //tempBuffer = geometryEngine.geodesicBuffer(infectedGeometry[oid],
-                //  infectionDistance/1000, "kilometers");
-
                 // Union the buffer to the combined buffer geometry
                 if (bigBuffer == null){
                   bigBuffer = infectedGeometry[oid];
@@ -455,7 +444,6 @@
 
             // Intersect the unioned geometry with the layer to get the feature set
             var query2 = sceneLayer.createQuery();
-            //var query2 = new Query();
             query2.geometry = bigBuffer;
             query2.spatialRelationship = "intersects";
             query2.outFields = ['OBJECTID'];
