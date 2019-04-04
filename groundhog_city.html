@@ -453,20 +453,23 @@
             for (item in result.features){
               let t = result.features[item].attributes.OBJECTID;
               // get around the wierd bug
-              if (t == 1){console.log("Hit OBJECTID==1 bug"); continue;}
-              // check to see if the feature was already infected
-              let wasInfected = false;
-              for (age in infected){
-                wasInfected = (wasInfected || (infected[age].indexOf(t) > -1));
-              }
-              wasInfected = (wasInfected || (deceased.indexOf(t) > -1));
-              if (!wasInfected){
-                // Add results to the newly infected list
-                // DONE: change this to factor in infectionRate
-                if (Math.random() < infectionRate){
-                  newlyInfected.push(t);
+              if (t == 1){
+                console.log("Hit OBJECTID==1 bug"); continue;
+              } else {
+                // check to see if the feature was already infected
+                let wasInfected = false;
+                for (age in infected){
+                  wasInfected = (wasInfected || (infected[age].indexOf(t) > -1));
                 }
-              } // else can't reinfect
+                wasInfected = (wasInfected || (deceased.indexOf(t) > -1));
+                if (!wasInfected){
+                  // Add results to the newly infected list
+                  // DONE: change this to factor in infectionRate
+                  if (Math.random() < infectionRate){
+                    newlyInfected.push(t);
+                  }
+                } // else can't reinfect
+              }
             }
 
             if (newlyInfected.length > 1){
