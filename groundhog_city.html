@@ -90,6 +90,7 @@
 
     function setStatus(msg, img, clearTimer){
       var val = "";
+      var sd = document.getElementById("statusDiv");
       if (msg){
         val += msg;
       }
@@ -97,11 +98,11 @@
         val += "<img class='statusImg' src='" + img + "'/>";
       }
       if (val == ""){
-        document.getElementById("statusDiv").style.display = "none";
+        sd.style.display = "none";
       } else {
-        document.getElementById("statusDiv").style.display = "block";
+        sd.style.display = "block";
       }
-      document.getElementById("statusDiv").innerHTML = val;
+      sd.innerHTML = val;
 
       if (clearTimer){
         setTimeout("setStatus();", clearTimer * 1000);
@@ -240,43 +241,6 @@
         }
       };
 
-      function getNeighbors(oid){
-        //Query the scene layer by id to get the graphic
-
-        var query = sceneLayer.createQuery();
-        query.where = "OBJECTID = " + oid;
-        query.returnGeometry = true;
-        query.outFields = ['OBJECTID'];
-        var resultGeom = null;
-        sceneLayer.queryFeatures(query)
-          .then(function(result){
-            resultGeom = result.features[0].geometry;
-            //console.log("resultGeom = " + resultGeom.type);
-
-            //Query the scene layer by a distance from the graphic geometry
-            var query2 = sceneLayer.createQuery();
-            query2.geometry = geometryEngine.geodesicBuffer(resultGeom,
-              parseInt(infectionDistance)/1000, "kilometers");
-            bufferLayer.add(new Graphic({
-              geometry: query2.geometry,
-              symbol: polySym
-            }));
-            query2.spatialRelationship = "intersects";
-            query2.outFields = ['OBJECTID'];
-            sceneLayer.queryFeatures(query2)
-              .then(function(result2){
-                for (item in result2.features){
-                  t = result2.features[item].attributes.OBJECTID;
-
-                  //TODO: Add results to the newly infected list
-
-                }
-              });
-          });
-
-        //return an array of the neighbor OBJECTIDs minus the id of the input graphic
-      }
-
       // capture click events on the view
       view.on("click", function(event) {
         // get the returned screen x, y coordinates and use it
@@ -393,10 +357,11 @@
           // Loop through the current infected list
           // console.log("About to query buffer geometries");
           for (age in infected){
+            /*
             for (iid in infected[age]){
               let oid = infected[age][iid];
 
-              if (infectedGeometry[oid] == null){ // Geometry is not already saved
+                if (infectedGeometry[oid] == null){ // Geometry is not already saved
                 query = sceneLayer.createQuery();
                 query.objectIds = [oid];
                 query.returnGeometry = true;
@@ -422,40 +387,41 @@
               } else { //TODO: get rid of this if/then if it's unnecessary
                 console.log("Geometry null for " + oid);
               }
-            }
-            /*
-
+            }*/
+            /**/
+              var oids = [];
               for (iid in infected[age]){
                 let oid = infected[age][iid];
-
                 if (infectedGeometry[oid] == null){ // Geometry is not already saved
-                  query = sceneLayer.createQuery();
-                  query.objectIds = [oid];
-                  query.returnGeometry = true;
-                  query.outFields = ['*'];
-                  // Query the feature to get the grapic
-                  // Note converted from .then to async/await becuase of the better flow control
-                  let myquery = sceneLayer.queryFeatures(query);
-                  let result = await myquery;
-                  // Create the buffer based on the graphic and infectionDistance
-                  // TODO: Convert this to a set of n geometries returned to reduce queries
-                  infectedGeometry[oid] =
-                    geometryEngine.geodesicBuffer(result.features[0].geometry,
-                    infectionDistance/1000, "kilometers"); // store the buffer not the geometry
-                }
+                  oids.push(oid);
+                  if ((oids.length == 50) || (iid == infected[age].length){
+                    query = sceneLayer.createQuery();
+                    query.objectIds = oids;
+                    query.returnGeometry = true;
+                    query.outFields = ['*'];
+                    // Query the feature to get the feature graphics
+                    // Note converted from .then to async/await becuase of the better flow control
+                    let myquery = sceneLayer.queryFeatures(query);
+                    let result = await myquery;
+                    // Create the buffer based on the graphic and infectionDistance
+                    // DONE: Convert this to a set of n geometries returned to reduce queries
+                    for (res in result.features){
+                      infectedGeometry[oid] =
+                        geometryEngine.geodesicBuffer(result.features[res].geometry,
+                        infectionDistance/1000, "kilometers"); // store the buffer not the geometry
 
-                if (infectedGeometry[oid] != null){
-                  // Union the buffer to the combined buffer geometry
-                  if (bigBuffer == null){
-                    bigBuffer = infectedGeometry[oid];
-                  } else {
-                    bigBuffer = geometryEngine.union([infectedGeometry[oid], bigBuffer]);
-                  }
-                } else { //TODO: get rid of this if/then if it's unnecessary
-                  console.log("Geometry null for " + oid);
+                      // Union the buffer to the combined buffer geometry
+                      if (bigBuffer == null){
+                        bigBuffer = infectedGeometry[oid];
+                      } else {
+                        bigBuffer = geometryEngine.union([infectedGeometry[oid], bigBuffer]);
+                      }
+                    }
+                    oids = [];
+                  } // else skip till I have enough to query
                 }
               }
-            */
+            /**/
 
           }
 
