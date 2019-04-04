@@ -293,6 +293,7 @@
       view.ui.add("paneDiv", "bottom-left");
       view.ui.add("runDiv", "bottom-right");
       view.ui.add("scoreDiv", "top-right");
+      view.ui.add("statusDiv", "top-leading");
 
       function resetInfected(){
         //Set up the infected array
@@ -523,7 +524,7 @@
           //console.log("Dead: " + deceased.length);
           //console.log(deceased);
           console.log("Day: " + infectionDay + " Inf: " + count +
-            " Dec: " + deceased.length + " InfGeom: " + infectedGeometry.keys.length);
+            " Dec: " + deceased.length);// + " InfGeom: " + infectedGeometry.keys.length);
           count += deceased.length;
           var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
@@ -567,6 +568,7 @@
 </head>
 
 <body onload="main();">
+  <div id="statusDiv">HELLO THERE</div>
   <div id="viewDiv">
   </div>
   <div id="paneDiv">
@@ -575,7 +577,9 @@
       <table class="inputTable">
         <tr>
           <td colspan=2>PARASOL Corp Simulation Settings
-            <div id="minParamsDiv"><button id="minParamsButton" class="runButton"><img id="minParamsImg" src="images/minimize-red.png"></button>
+            <div id="minParamsDiv"><button id="infoButton" class="runButton"><img
+              src="images/info-red.png" alt="Info"></button><button id="minParamsButton"
+              class="runButton"><img id="minParamsImg" src="images/minimize-red.png"></button>
             </div>
           </td>
         </tr>
@@ -595,12 +599,12 @@
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionRate"></td>
           <td class="sliderVal">Infection rate: <span id="infectionRateVal"></span>%</td>
         </tr>
-        <tr>
+        <!--<tr>
           <td class="sliderVal">
             <label>Total score at 100 days:</label></td>
           <td class="sliderVal"><input type="checkbox"
                 name="modulation" id="modulation" checked></td>
-        </tr>
+        </tr>-->
         </table>
     </div>
   </div>
@@ -611,7 +615,6 @@
       <button id="playButton" class="runButton"><img src="images/play-red.png" alt="Play"></button>
       <button id="playStepButton" class="runButton"><img src="images/play-step-red.png" alt="Play One Step"></button>
       <button id="pauseButton" class="runButton"><img src="images/pause-red.png" alt="Pause"></button>
-      <button id="infoButton" class="runButton"><img src="images/info-red.png" alt="Info"></button>
   </div>
   <div id="scoreDiv">
       <table class="scoreTable">
