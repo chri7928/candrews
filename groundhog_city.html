@@ -96,7 +96,12 @@
       if (img){
         val += "<img class='statusImg' src='" + img + "'/>";
       }
-      this.document.getElementById("statusDiv").innerHTML = val;
+      if (val == ""){
+        document.getElementById("paramsDiv").style.display = "none";
+      } else {
+        document.getElementById("paramsDiv").style.display = "block";
+      }
+      document.getElementById("statusDiv").innerHTML = val;
 
       if (clearTimer){
         setTimeout("setStatus();", clearTimer * 1000);
@@ -418,6 +423,40 @@
                 console.log("Geometry null for " + oid);
               }
             }
+            /*
+
+              for (iid in infected[age]){
+                let oid = infected[age][iid];
+
+                if (infectedGeometry[oid] == null){ // Geometry is not already saved
+                  query = sceneLayer.createQuery();
+                  query.objectIds = [oid];
+                  query.returnGeometry = true;
+                  query.outFields = ['*'];
+                  // Query the feature to get the grapic
+                  // Note converted from .then to async/await becuase of the better flow control
+                  let myquery = sceneLayer.queryFeatures(query);
+                  let result = await myquery;
+                  // Create the buffer based on the graphic and infectionDistance
+                  // TODO: Convert this to a set of n geometries returned to reduce queries
+                  infectedGeometry[oid] =
+                    geometryEngine.geodesicBuffer(result.features[0].geometry,
+                    infectionDistance/1000, "kilometers"); // store the buffer not the geometry
+                }
+
+                if (infectedGeometry[oid] != null){
+                  // Union the buffer to the combined buffer geometry
+                  if (bigBuffer == null){
+                    bigBuffer = infectedGeometry[oid];
+                  } else {
+                    bigBuffer = geometryEngine.union([infectedGeometry[oid], bigBuffer]);
+                  }
+                } else { //TODO: get rid of this if/then if it's unnecessary
+                  console.log("Geometry null for " + oid);
+                }
+              }
+            */
+
           }
 
           //console.log("About to find buildings within buffer");
