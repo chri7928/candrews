@@ -346,6 +346,7 @@
       //Run the Simulation
       async function runSim(){
         if (isRunning || isRunningOneStep){
+          setTimer();
           if (infectionDay == 0){
             var simParams = "\r\nSim Params\r\n";
             simParams += "mortalityRate: " + mortalityRate + "\r\n";
@@ -526,20 +527,38 @@
 
           infectionDay++;
           document.getElementById("currentDayVal").innerHTML = infectionDay;
+          console.log("Time elapsed: " + getElapsedTime());
         } else if (isPaused) {
         }
         if (!isRunningOneStep){
-          setTimeout("runSim();", 500);
+          setTimeout("runSim();", 100);
         }
       } // end runSim
       window.runSim = runSim;
 
-      //reset the map extent to a helpful extent
+      // reset the map extent to a helpful extent
       function resetMap(){
         //TODO: Goto extent of infected buildings
         view.goTo(sceneLayer.fullExtent);
       }
       window.resetMap = resetMap;
+
+      // set timer
+      var timer = 0;
+      function setTimer(){
+        var d = new Date();
+        timer = d.getTime();
+      }
+
+      // get elapsed time
+      function getElapsedTime(resetTimer){
+        var d = new Date();
+        var val = d.getTime() - timer;
+        if (resetTimer){
+          timer = d.getTime();
+        }
+        return val;
+      }
     });
   </script>
 </head>
