@@ -270,6 +270,7 @@
       view.ui.add("paneDiv", "bottom-left");
       view.ui.add("runDiv", "bottom-right");
       view.ui.add("scoreDiv", "top-right");
+      view.ui.add("infoDiv", "top-left");
 
       function resetInfected(){
         //Set up the infected array
@@ -345,7 +346,6 @@
           var newlyInfected = [];
 
           // Loop through the current infected list
-          // console.log("About to query buffer geometries");
           for (age in infected){
               var oids = [];
               for (iid in infected[age]){
@@ -383,7 +383,7 @@
             /**/
           }
 
-          //console.log("About to find buildings within buffer");
+          // find buildings within buffer
           if (bigBuffer != null){
             infectionBufferByDay.push(bigBuffer);
             // Draw the unioned buffer
@@ -539,11 +539,10 @@
 <body onload="main();">
   <div id="viewDiv">
   </div>
-<!--
   <div id="infoDiv">
     Hello
   </div>
--->
+
   <div id="paneDiv">
     <div id="restoreDiv"><button id="restoreButton" class="runButton"><img id="restoreImg" src="images/restore-red.png"></button></div>
     <div id="paramsDiv" class="slidecontainer">
