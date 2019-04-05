@@ -544,6 +544,7 @@
           isPaused = false;
           isRunning = false;
           isRunningOneStep = false;
+          setStatus("Simulation complete at day " + infectionDay);
         }
         if (!isRunningOneStep && !isStopped){
           setTimeout("runSim();", 100);
