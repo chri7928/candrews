@@ -17,11 +17,10 @@
     var isRunning = false;
     var isRunningOneStep = false;
 
-    const maxInfectionDuration = 6;
-    const maxInfectionDistance = 100; // (m)
+    const maxInfectionDuration = 5;
+    const maxInfectionDistance = 75; // (m)
 
     //Globals
-    var numSeeds = 0;
     var totalBuildings = -1;
     var infectionDay = 0;
     var svDefaultColor = [0,0,255,1];
@@ -161,12 +160,6 @@
       map.add(sceneLayer);
 
       sceneLayer.when(function(){
-        //view.goTo(sceneLayer.fullExtent);
-        //let cam = view.camera.clone();
-        //cam.position.z = 150;
-        //view.camera = cam;
-        //view.camera.position.z = 250;
-
         summaryStatistics({
           layer: sceneLayer,
           field: "NUMFIELD"
@@ -291,13 +284,10 @@
       window.resetInfected = resetInfected;
 
       function initializeSim(){
-
-        //init infected array
+        //init infected arrays
         resetInfected();
         sceneLayer.renderer = getUniqueValueRenderer();
 
-        //Clear numSeeds
-        numSeeds = 0;
         //Clear infection day
         infectionDay = 0;
 
@@ -504,13 +494,14 @@
           console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
           setStatus("");
         }
-        if (totalInfected == 0){
+        var checkEndAt20 = (document.getElementById("stopAt20Chb").checked && (infectionDay == 20));
+        if ((totalInfected == 0) || checkEndAt20){
           isStopped = true;
           isReset = false;
           isPaused = false;
           isRunning = false;
           isRunningOneStep = false;
-          setStatus("Simulation complete at day " + infectionDay);
+          setStatus("Simulation complete at day " + (infectionDay - 1));
         }
         if (isRunning && (!isRunningOneStep)){
           setTimeout("runSim();", 100);
@@ -548,20 +539,19 @@
 <body onload="main();">
   <div id="viewDiv">
   </div>
+<!--
   <div id="infoDiv">
     Hello
   </div>
+-->
   <div id="paneDiv">
     <div id="restoreDiv"><button id="restoreButton" class="runButton"><img id="restoreImg" src="images/restore-red.png"></button></div>
     <div id="paramsDiv" class="slidecontainer">
       <table class="inputTable">
         <tr>
-          <td colspan=2>
-            <div id="infoBtnDiv"><button id="infoButton" class="runButton"><img
-            src="images/info-red.png" alt="Info"></button>
-            </div>
-            PARASOL Corp Simulation Settings
-            <div id="minParamsDiv"><button id="minParamsButton"
+          <td colspan=2>PARASOL Corp Simulation Settings
+            <div id="minParamsDiv"><button id="infoButton" class="runButton"><img
+            src="images/info-red.png" alt="Info"></button><button id="minParamsButton"
               class="runButton"><img id="minParamsImg" src="images/minimize-red.png"></button>
             </div>
           </td>
