@@ -124,6 +124,18 @@
       font-size: calc(0.3em + 50%);
     }
 
+    .introButton {
+      background-color: #990000;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-decoration: none;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+
+
     #minParamsDiv {
       padding: 0px;
       margin: 0px;
