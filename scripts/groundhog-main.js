@@ -46,10 +46,11 @@ function main(){
       isPaused = false;
       isReset = false;
     }
-    this.innerHTML = '<img src="images/play-gray.png" alt="Pause">';
+      console.log(isStopped + " " + isReset + " " + isPaused + " " + isRunning);
+    this.innerHTML = '<img src="images/play-gray.png" alt="Play">';
     setTimeout(function(){
          var tbtn = document.getElementById("playButton");
-         tbtn.innerHTML = '<img src="images/play-red.png" alt="play">';
+         tbtn.innerHTML = '<img src="images/play-red.png" alt="Play">';
          tbtn.blur();
     }, 200);
   };
