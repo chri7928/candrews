@@ -36,7 +36,6 @@ function main(){
   };
   btn = document.getElementById("playButton");
   btn.onclick = function(){
-    console.log(isStopped + " " + isReset + " " + isPaused + " " + isRunning);
     if ((isStopped && isReset) || isPaused){
       if(!isPaused){
         runSim();
@@ -46,7 +45,6 @@ function main(){
       isPaused = false;
       isReset = false;
     }
-      console.log(isStopped + " " + isReset + " " + isPaused + " " + isRunning);
     this.innerHTML = '<img src="images/play-gray.png" alt="Play">';
     setTimeout(function(){
          var tbtn = document.getElementById("playButton");
