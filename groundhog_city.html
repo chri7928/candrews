@@ -330,6 +330,7 @@
 
       //Run the Simulation
       async function runSim(){
+        var totalInfected = 0;
         if (isRunning || isRunningOneStep){
           setTimer();
           setStatus("Simulating day " + infectionDay);
@@ -362,6 +363,7 @@
                 let oid = infected[age][iid];
                 if (infectedGeometry[oid] == null){ // Geometry is not already saved
                   oids.push(oid);
+                  // Note: grouping OIDs 100 at a time becuase I'm unsure of REST GET URL limits
                   if ((oids.length == 100) || (iid == (infected[age].length-1))){
                     query = sceneLayer.createQuery();
                     query.objectIds = oids;
@@ -486,18 +488,16 @@
           sceneLayer.renderer = getUniqueValueRenderer();
 
           //update the progress indicator
-          var count = 0;
           for (age in infected){
-            count += infected[age].length;
+            totalInfected += infected[age].length;
             //console.log("Age " + age + ": " + infected[age].length);
             //console.log(infected[age]);
           }
           //console.log("Dead: " + deceased.length);
           //console.log(deceased);
-          console.log("Day: " + infectionDay + " Inf: " + count +
-            " Dec: " + deceased.length);// + " InfGeom: " + infectedGeometry.keys.length);
-          count += deceased.length;
-          var pctCount = Math.round((count + deceased.length)/totalBuildings*100, 2);
+          console.log("Day: " + infectionDay + " I: " + totalInfected +
+            " D: " + deceased.length);// + " InfGeom: " + infectedGeometry.keys.length);
+          var pctCount = Math.round((totalInfected + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
 
           infectionDay++;
@@ -505,7 +505,7 @@
           console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
           setStatus("");
         }
-        if (infected[0].length == 0){
+        if (totalInfected == 0){
           isStopped = true;
           isReset = false;
           isPaused = false;
@@ -513,11 +513,6 @@
           isRunningOneStep = false;
           setStatus("Simulation complete at day " + infectionDay);
         }
-        /*
-        if (!isRunningOneStep && !isStopped){
-          setTimeout("runSim();", 100);
-        }
-        */
         if (isRunning && (!isRunningOneStep)){
           setTimeout("runSim();", 100);
         }
@@ -572,24 +567,18 @@
           <td class="sliderVal">Infection Duration: <span id="infectionDurationVal"></span> days</td>
         </tr>
         <tr>
-          <td><input type="range" min="1" max="100" value="50" class="slider" id="deathRate"></td>
-          <td class="sliderVal">Death rate: <span id="deathRateVal"></span>%</td>
-        </tr>
-        <tr>
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionDistance"></td>
           <td class="sliderVal">Infection distance: <span id="infectionDistanceVal"></span> m</td>
+        </tr>
+        <tr>
+          <td><input type="range" min="1" max="100" value="50" class="slider" id="deathRate"></td>
+          <td class="sliderVal">Mortality rate: <span id="deathRateVal"></span>%</td>
         </tr>
         <tr>
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionRate"></td>
           <td class="sliderVal">Infection rate: <span id="infectionRateVal"></span>%</td>
         </tr>
-        <!--<tr>
-          <td class="sliderVal">
-            <label>Total score at 100 days:</label></td>
-          <td class="sliderVal"><input type="checkbox"
-                name="modulation" id="modulation" checked></td>
-        </tr>-->
-        </table>
+      </table>
     </div>
   </div>
   <div id="runDiv">
