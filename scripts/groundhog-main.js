@@ -36,6 +36,7 @@ function main(){
   };
   btn = document.getElementById("playButton");
   btn.onclick = function(){
+    console.log(isStopped + " " + isReset + " " + isPaused + " " + isRunning);
     if ((isStopped && isReset) || isPaused){
       if(!isPaused){
         runSim();
