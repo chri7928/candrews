@@ -85,7 +85,7 @@ function main(){
   btn = document.getElementById("resetButton");
   btn.onclick = function(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
-      initializeSim(parseInt(document.getElementById("infectionDuration").value));
+      initializeSim();
     }
     this.innerHTML = '<img src="images/full-rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){

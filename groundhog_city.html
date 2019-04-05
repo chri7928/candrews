@@ -18,7 +18,7 @@
     var isRunningOneStep = false;
 
     const maxInfectionDuration = 6;
-    const maxInfectionDistance = 60; // (m)
+    const maxInfectionDistance = 100; // (m)
 
     //Globals
     var numSeeds = 0;
@@ -58,16 +58,6 @@
         for (objItem in obj){
           res += objItem + ' ' + obj[objItem] + ' ' + typeof(objItem) + '\r\n';
         }
-      }
-      return res;
-    }
-
-    function createInfectedRenderers(iList, iColor){
-    	var res = [];
-      for (item in iList){
-      	res[res.length] = JSON.parse('{"value": "' + iList[item] +
-        '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": ' +
-        iColor + ',"colorMixMode": "replace"}}]}}');
       }
       return res;
     }
@@ -199,6 +189,16 @@
         }]
       };
 
+      function createInfectedRenderers(iList, iColor){
+        var res = [];
+        for (item in iList){
+          res[res.length] = JSON.parse('{"value": "' + iList[item] +
+          '","label": "test","symbol": {"type": "mesh-3d","symbolLayers": [{"type": "fill","material": {"color": ' +
+          iColor + ',"colorMixMode": "replace"}}]}}');
+        }
+        return res;
+      }
+
       function getUniqueValueRenderer() {
         var res = {
           type: "unique-value",
@@ -291,7 +291,7 @@
       }
       window.resetInfected = resetInfected;
 
-      function initializeSim(infectionDuration){
+      function initializeSim(){
 
         //init infected array
         resetInfected();
