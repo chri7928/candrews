@@ -536,9 +536,8 @@
           document.getElementById("currentDayVal").innerHTML = infectionDay;
           console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
           setStatus("");
-        } else if (isPaused) {
         }
-        if (infected[0].length == 0){
+        /*if (infected[0].length == 0){
           isStopped = true;
           isReset = false;
           isPaused = false;
@@ -547,6 +546,10 @@
           setStatus("Simulation complete at day " + infectionDay);
         }
         if (!isRunningOneStep && !isStopped){
+          setTimeout("runSim();", 100);
+        }
+        */
+        if (!isRunningOneStep){
           setTimeout("runSim();", 100);
         }
       } // end runSim
