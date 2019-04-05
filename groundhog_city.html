@@ -219,7 +219,8 @@
         if (infected.length > 0){
           for (r in infected){
             let tColor = Math.round(255 - (255/infected.length*r));
-            res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[r], "[" + tColor+ ", 0, 0]"));
+            res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(infected[r],
+              "[" + tColor + ", 0, 0]"));
           }
           if (deceased.length > 0){
             res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "[0,0,0]"));
@@ -257,15 +258,13 @@
             if (isStopped && isReset){
               var tid = graphic.attributes.OBJECTID;
               var tind = infected[0].findIndex(function(tval){return (tval == tid);});
-              //console.log("tid=" + tid + "  tind=" + tind);
               if (tind > -1){
-                infected[0].splice(tind, 1);
+                infected[0].splice(tind, 1);//remove the clicked feature
               } else {
-                infected[0][infected[0].length] = tid;
+                infected[0].push(tid);//add the clicked feature
               }
               //console.log(JSON.stringify(graphic));
               sceneLayer.renderer = getUniqueValueRenderer();
-              //getNeighbors(tid); This was a test method.  Don't need to do this any longer.
             }
           } else {
             console.log("got undefined graphic");
@@ -549,15 +548,19 @@
 <body onload="main();">
   <div id="viewDiv">
   </div>
-
+  <div id="infoDiv">
+  </div>
   <div id="paneDiv">
     <div id="restoreDiv"><button id="restoreButton" class="runButton"><img id="restoreImg" src="images/restore-red.png"></button></div>
     <div id="paramsDiv" class="slidecontainer">
       <table class="inputTable">
         <tr>
-          <td colspan=2>PARASOL Corp Simulation Settings
-            <div id="minParamsDiv"><button id="infoButton" class="runButton"><img
-              src="images/info-red.png" alt="Info"></button><button id="minParamsButton"
+          <td colspan=2>
+            <div id="infoBtnDiv"><button id="infoButton" class="runButton"><img
+            src="images/info-red.png" alt="Info"></button>
+            </div>
+            PARASOL Corp Simulation Settings
+            <div id="minParamsDiv"><button id="minParamsButton"
               class="runButton"><img id="minParamsImg" src="images/minimize-red.png"></button>
             </div>
           </td>
@@ -578,6 +581,11 @@
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionRate"></td>
           <td class="sliderVal">Infection rate: <span id="infectionRateVal"></span>%</td>
         </tr>
+        <tr>
+          <td class="alignRight">Stop at Day 20:</td>
+          <td class="sliderVal"><input type="checkbox" id="stopAt20Chb" checked></td>
+        </tr>
+
       </table>
     </div>
   </div>
@@ -610,7 +618,7 @@
         </tr>
         <tr>
           <td align="center">
-            Show<br/>infection<br/>age:<br/><input type="checkbox"
+            Show<br/>infection<br/>area:<br/><input type="checkbox"
                 id="showInfectionZoneChb" checked></td>
         </tr>
       </table>

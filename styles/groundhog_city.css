@@ -47,6 +47,15 @@
       background-color: rgba(0, 0, 0, 0.6);
     }
 
+    #infoDiv{
+      z-index: 99;
+      margin: auto;
+      width: 50%;
+      display:block;
+      padding: 5px;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
     #scoreDiv {
       padding: 5px 5px 5px 5px;
       background-color: rgba(0, 0, 0, 0.1);
@@ -59,6 +68,10 @@
     #runDiv {
       background-color: rgba(0, 0, 0, 0.0);
       box-shadow: none;
+    }
+
+    .alignRight{
+      text-align: right;
     }
 
     .chkLabel {
