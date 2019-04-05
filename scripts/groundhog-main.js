@@ -37,13 +37,13 @@ function main(){
   btn = document.getElementById("playButton");
   btn.onclick = function(){
     if ((isStopped && isReset) || isPaused){
+      isRunning = true;
+      isStopped = false;
+      isReset = false;
+      isPaused = false;
       if(!isPaused){
         runSim();
       }
-      isRunning = true;
-      isStopped = false;
-      isPaused = false;
-      isReset = false;
     }
     this.innerHTML = '<img src="images/play-gray.png" alt="Play">';
     setTimeout(function(){
@@ -56,10 +56,10 @@ function main(){
   btn.onclick = function(){
     if (isPaused){
       isRunningOneStep = true;
-      runSim();
       isRunning = false;
       isStopped = false;
       isReset = false;
+      runSim();
       isRunningOneStep = false;
     }
     this.innerHTML = '<img src="images/play-step-gray.png" alt="Play one step">';
