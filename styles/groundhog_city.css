@@ -51,7 +51,8 @@
       z-index: 99;
       margin: auto;
       width: 50%;
-      display:block;
+      height: 50%;
+      position: relative;
       padding: 5px;
       background-color: rgba(0, 0, 0, 0.6);
     }
