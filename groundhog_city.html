@@ -394,7 +394,7 @@
                 let oid = infected[age][iid];
                 if (infectedGeometry[oid] == null){ // Geometry is not already saved
                   oids.push(oid);
-                  if ((oids.length == 50) || (iid == (infected[age].length-1))){
+                  if ((oids.length == 100) || (iid == (infected[age].length-1))){
                     query = sceneLayer.createQuery();
                     query.objectIds = oids;
                     query.returnGeometry = true;
@@ -538,7 +538,14 @@
           setStatus("");
         } else if (isPaused) {
         }
-        if (!isRunningOneStep){
+        if (infected[0].length == 0){
+          isStopped = true;
+          isReset = false;
+          isPaused = false;
+          isRunning = false;
+          isRunningOneStep = false;
+        }
+        if (!isRunningOneStep && !isStopped){
           setTimeout("runSim();", 100);
         }
       } // end runSim
