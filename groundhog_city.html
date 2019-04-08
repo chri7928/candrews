@@ -30,6 +30,14 @@
     var infectionDuration = 3;
     var infectionRate = 1; // 0..1
 
+    var simulationInitState = {
+      seeds: {}, // A dict of OID:centroid
+      infectionDistance,
+      mortalityRate,
+      infectionDuration,
+      infectionRate,
+    };
+
     // select infected houses
     // set ageing duration
     // set % terminal or reinfectable
@@ -243,8 +251,11 @@
               var tind = infected[0].findIndex(function(tval){return (tval == tid);});
               if (tind > -1){
                 infected[0].splice(tind, 1);//remove the clicked feature
+                delete simulationInitState.seeds[tid];
               } else {
                 infected[0].push(tid);//add the clicked feature
+                simulationInitState.seeds[tid] = graphic.geometry.extent.center;
+                console.log(simulationInitState.seeds[tid]);
               }
               //console.log(JSON.stringify(graphic));
               sceneLayer.renderer = getUniqueValueRenderer();
