@@ -108,23 +108,23 @@ function main(){
   };
   btn = document.getElementById("minParamsButton");
   btn.onclick = function(){
-    document.getElementById("paramsDiv").style.display = "none";
-    document.getElementById("restoreDiv").style.display = "block";
     this.innerHTML = '<img src="images/minimize-gray.png" alt="Minimize">';
     setTimeout(function(){
          var tbtn = document.getElementById("minParamsButton");
          tbtn.innerHTML = '<img src="images/minimize-red.png" alt="Minimize">';
+         document.getElementById("paramsDiv").style.display = "none";
+         document.getElementById("restoreDiv").style.display = "block";
          tbtn.blur();
     }, 200);
   };
   btn = document.getElementById("restoreButton");
   btn.onclick = function(){
-    document.getElementById("paramsDiv").style.display = "block";
-    document.getElementById("restoreDiv").style.display = "none";
     this.innerHTML = '<img src="images/restore-gray.png" alt="Restore">';
     setTimeout(function(){
          var tbtn = document.getElementById("restoreButton");
          tbtn.innerHTML = '<img src="images/restore-red.png" alt="Restore">';
+         document.getElementById("paramsDiv").style.display = "block";
+         document.getElementById("restoreDiv").style.display = "none";
          tbtn.blur();
     }, 200);
   };
@@ -146,7 +146,7 @@ function main(){
   btn.onclick = function(){
     this.innerHTML = '<img src="images/close-gray.png" alt="Info">';
     setTimeout(function(){
-         var tbtn = document.getElementById("infoButton");
+         var tbtn = document.getElementById("closeInfoButton");
          tbtn.innerHTML = '<img src="images/close-red.png" alt="Info">';
          document.getElementById("infoDiv").style.display = "none";
          tbtn.blur();
