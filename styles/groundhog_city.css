@@ -20,6 +20,10 @@
       color: orange;
     }
 
+    li {
+      padding-top: 2px;
+    }
+
     #viewDiv {
       color: #FFFFFF;
       font-family: "Lucida Console", Times, serif;
