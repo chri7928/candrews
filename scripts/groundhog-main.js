@@ -153,6 +153,22 @@ function main(){
          tbtn.blur();
     }, 200);
   };
+  btn = document.getElementById("infoTitleButton");
+  btn.onclick = function(){
+    this.innerHTML = groundhogTitle;
+  };
+  btn = document.getElementById("infoAboutButton");
+  btn.onclick = function(){
+    this.innerHTML = groundhogAbout;
+  };
+  btn = document.getElementById("infoScenariosButton");
+  btn.onclick = function(){
+    this.innerHTML = groundhogScenarios;
+  };
+  btn = document.getElementById("infoInstructionsButton");
+  btn.onclick = function(){
+    this.innerHTML = groundhogInstructions;
+  };
 
   //preload the mouseover images for the play buttons
   var images = [
