@@ -1,7 +1,7 @@
 var groundhogTitle = `
 <table>
   <tr>
-    <td colspan="2"><p><span style="text-align: center; font-size: calc(1em + 70%);">PARASOL Corporation</span></p></td>
+    <td colspan="2"><p><span style="text-align: center; font-size: calc(1em + 70%); width: 100%;">PARASOL Corporation</span></p></td>
   </tr>
   <tr>
     <td style="text-align:left;"><img style="display:block;" src="images/parasol-logo.png" alt="PARASOL Corp Logo"/></td>
