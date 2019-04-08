@@ -78,6 +78,10 @@
       text-align: right;
     }
 
+    .alignCenter{
+      text-align: center;
+    }
+
     .chkLabel {
       font-size: 12px;
     }
