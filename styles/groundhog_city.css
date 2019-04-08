@@ -12,6 +12,14 @@
       display: block;
     }
 
+    a {
+      color: yellow;
+    }
+
+    a:hover {
+      color: orange;
+    }
+
     #viewDiv {
       color: #FFFFFF;
       font-family: "Lucida Console", Times, serif;
