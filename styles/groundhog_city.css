@@ -32,6 +32,10 @@
       background-color: #000;
     }
 
+    #infoTitleImg {
+      text-align: center;
+    }
+
     #statusDiv {
       padding: 2px;
       text-align:right;
