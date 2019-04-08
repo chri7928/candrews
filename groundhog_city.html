@@ -353,6 +353,7 @@
                 if (infectedGeometry[oid] == null){ // Geometry is not already saved
                   oids.push(oid);
                   // Note: grouping OIDs 100 at a time becuase I'm unsure of REST GET URL limits
+                  // TODO: Consider converting this back to Promises with Promises.all and an array of the query promises
                   if ((oids.length == 100) || (iid == (infected[age].length-1))){
                     query = sceneLayer.createQuery();
                     query.objectIds = oids;

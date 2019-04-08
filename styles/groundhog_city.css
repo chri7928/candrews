@@ -48,7 +48,7 @@
     }
 
     #infoDiv{
-      display: none;
+      /*display: none;*/
 
       color: #FFFFFF;
       margin-left: 200px;
@@ -135,8 +135,6 @@
       margin: 4px 2px;
       cursor: pointer;
     }
-
-
 
     #minParamsDiv {
       padding: 0px;
