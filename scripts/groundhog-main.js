@@ -162,7 +162,9 @@ function main(){
     "full-rewind-gray.png",
     "play-step-gray.png",
     "home-gray.png",
-    "minimize-gray.png"
+    "minimize-gray.png",
+    "close-gray.png",
+    "rewind-gray.png",
   ];
 
   var imageArr = [images.length];
