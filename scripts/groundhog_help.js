@@ -1,5 +1,0 @@
-var groundhogInstructions = `
-`;
-
-var groundhogAbout = `
-`;

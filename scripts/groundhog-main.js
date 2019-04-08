@@ -1,5 +1,6 @@
 function main(){
   setStatus("Loading simulation...");
+  document.getElementById("infoInsertDiv").innerHTML = groundhogTitle;
 
   // Set the slider values and oninput events
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, infectionDuration, function(){
