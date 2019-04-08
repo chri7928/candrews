@@ -25,15 +25,15 @@ possible behavioral variation of the infection.</p>
   <li>Set the outbreak parameters using the sliders in the Simulation Settings panel</li>
   <li>Click on individual buildings to indicate where infections should start (building will turn red)</li>
   <li>Click again on a building to clear the initial infection (bulding will turn blue)</li>
-  <li>Push the play button <img style="display:inline;" src="images/play-red.png"/> when all start positions are selected</li>
+  <li>Push the play button <img style="display:inline;height:15px;width:15px;" src="images/play-red.png"/> when all start positions are selected</li>
 </ol>
 <p>Optional controls:</p>
 <ul>
   <li>Use the mouse to pan and zoom around the scene</li>
-  <li>Use stop <img style="display:inline;" src="images/stop-red.png"/> to end the simulation</li>
-  <li>Use pause <img style="display:inline;" src="images/pause-red.png"/> and step-once <img style="display:inline;" src="images/play-step-red.png"/> to control the simulation</li>
-  <li>Use stop <img style="display:inline;" src="images/stop-red.png"/> to end the simulation</li>
-  <li>Use rewind all <img style="display:inline;" src="images/full-rewind-red.png"/> to reset the simulation and clear the seeds. Required step to run another simulation.</li>
+  <li>Use stop <img style="display:inline;height:15px;width:15px;" src="images/stop-red.png"/> to end the simulation</li>
+  <li>Use pause <img style="display:inline;height:15px;width:15px;" src="images/pause-red.png"/> and step-once <img style="display:inline;height:15px;width:15px;" src="images/play-step-red.png"/> to control the simulation</li>
+  <li>Use stop <img style="display:inline;height:15px;width:15px;" src="images/stop-red.png"/> to end the simulation</li>
+  <li>Use rewind all <img style="display:inline;height:15px;width:15px;" src="images/full-rewind-red.png"/> to reset the simulation and clear the seeds. Required step to run another simulation.</li>
 </ul>
 `;
 
