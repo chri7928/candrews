@@ -155,19 +155,19 @@ function main(){
   };
   btn = document.getElementById("infoTitleButton");
   btn.onclick = function(){
-    this.innerHTML = groundhogTitle;
+    document.getElementById("infoInsertDiv").innerHTML = groundhogTitle;
   };
   btn = document.getElementById("infoAboutButton");
   btn.onclick = function(){
-    this.innerHTML = groundhogAbout;
+    document.getElementById("infoInsertDiv").innerHTML = groundhogAbout;
   };
   btn = document.getElementById("infoScenariosButton");
   btn.onclick = function(){
-    this.innerHTML = groundhogScenarios;
+    document.getElementById("infoInsertDiv").innerHTML = groundhogScenarios;
   };
   btn = document.getElementById("infoInstructionsButton");
   btn.onclick = function(){
-    this.innerHTML = groundhogInstructions;
+    document.getElementById("infoInsertDiv").innerHTML = groundhogInstructions;
   };
 
   //preload the mouseover images for the play buttons
