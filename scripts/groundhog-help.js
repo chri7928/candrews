@@ -52,7 +52,7 @@ context and problem set.</p>
 </ul>
 <p>Developer notes:</p>
 <ul>
-  <li>Asynch/Await are currently currently used to synchronize simulation logic for the purposes of developing it.
+  <li>Asynch/Await are currently currently used to synchronize simulation logic for the purposes of simplified development.
   This reduces interactivity and may be converted back to a promise.then and promise.all architecture to increase
   interactivity while the simulation is running.</li>
   <li></li>
