@@ -41,13 +41,13 @@ var groundhogAbout = `
 <p>This demonstration app was created to explore querying scene layers, performing
 client-side geometry calculations, and creating a complex app workflow with the
 ArcGIS API for JavaScript.</p>
-<p>The essential concept for the demo was adapting <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" alt="The Game of Life on wikipedia">Conway's The Game of Life</a> to a geospatial
+<p>The essential concept for the demo was adapting <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" window="_new" alt="The Game of Life on wikipedia">Conway's The Game of Life</a> to a geospatial
 context and problem set.</p>
 <p>Acknowledgements:</p>
 <ul>
-  <li>Building data modified from <a href="https://www.cob.org/services/maps" alt="City of Bellingham WA GIS">City
+  <li>Building data modified from <a href="https://www.cob.org/services/maps" alt="City of Bellingham WA GIS" window="_new">City
    of Bellingham GIS open data</a>. Used without permission and no endorsement of this application by COB should be or is implied.</li>
-  <li>Skull icon from <a href="https://www.freeiconspng.com">https://www.freeiconspng.com</a></li>
+  <li>Skull icon from <a href="https://www.freeiconspng.com" window="_new">https://www.freeiconspng.com</a></li>
   <li>Parody of Capcom's Resident Evil for fun.  Resident Evil is &copy;CAPCOM CO., LTD. 2017 ALL RIGHTS RESERVED.</li>
 </ul>
 <p>Developer notes:</p>
