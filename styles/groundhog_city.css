@@ -35,6 +35,7 @@
 
     #info {
       font-family: "Lucida Console", Times, serif;
+      z-index: 99;
       padding: 5px;
       margin: 5px;
       width: 120px;

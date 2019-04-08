@@ -126,5 +126,17 @@ module.exports = {
 			}
 		}
 		return result;
+	},
+
+	objToString:L function (obj){
+		var res = '';
+		if (obj == null){
+			res = 'null';
+		} else {
+			for (objItem in obj){
+				res += objItem + ' ' + obj[objItem] + ' ' + typeof(objItem) + '\r\n';
+			}
+		}
+		return res;
 	}
 }

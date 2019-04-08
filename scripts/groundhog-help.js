@@ -1,3 +1,5 @@
+// TODO: Convert to a module
+
 var groundhogTitle = `
 <table>
   <tr>

@@ -38,29 +38,17 @@
     //  Infect adjacent houses
     //  Age infection at each infected house
     //  Update renderer
-    // TODO: Show score (Number of houses infected?)
+    // TODO?: Show score (Number of houses infected?)
     // DONE: Create on screen controls - reset, duration, terminal, distance
-    // TODO: Show infection %, mortality %
-    // TODO: Help dialog
-    // TODO: Intro dialog/title dialog
-    // TODO: Add restore to life? (Time limit on death)
+    // TODO?: Show infection %, mortality %
+    // DONE: Help dialog
+    // DONE: Intro dialog/title dialog
+    // TODO?: Add restore to life? (Time limit on death)
     // DONE: Add ability to step forward one day >|
-
-    // Credits
-    // https://www.freeiconspng.com (skull icon)
-
-    function objToString(obj){
-      //console.log("in objToString()");
-      var res = '';
-      if (obj == null){
-        res = 'null';
-      } else {
-        for (objItem in obj){
-          res += objItem + ' ' + obj[objItem] + ' ' + typeof(objItem) + '\r\n';
-        }
-      }
-      return res;
-    }
+    // TODO: Capture initial simulation state (params + seeds)
+    // TODO: Fix user setup logic so that they can set seeds then change parameters
+    // TODO: Add rewind to start of scenario to replay existing scenario
+    // TODO: Add leaderlines to initial seeds
 
     function setSlider(sName, vName, min, max, current, execCode){
       var slider = document.getElementById(sName);
@@ -514,7 +502,7 @@
 
       // reset the map extent to a helpful extent
       function resetMap(){
-        //TODO: Goto extent of infected buildings
+        //TODO: Goto extent of infected buildings, if any
         view.goTo(sceneLayer.fullExtent);
       }
       window.resetMap = resetMap;
