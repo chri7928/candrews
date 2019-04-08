@@ -497,7 +497,7 @@
           console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
           setStatus("");
         }
-        var checkEndAt20 = (document.getElementById("stopAt20Chb").checked && (infectionDay == 20));
+        var checkEndAt20 = (document.getElementById("stopAt20Chb").checked && (infectionDay == 21));
         if ((totalInfected == 0) || checkEndAt20){
           isStopped = true;
           isReset = false;
@@ -576,7 +576,7 @@
           </tr>
         <tr>
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionDuration"></td>
-          <td class="sliderVal">Infection Duration: <span id="infectionDurationVal"></span> days</td>
+          <td class="sliderVal">Infection duration: <span id="infectionDurationVal"></span> days</td>
         </tr>
         <tr>
           <td><input type="range" min="1" max="100" value="50" class="slider" id="infectionDistance"></td>
