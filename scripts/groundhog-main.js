@@ -108,8 +108,10 @@ function main(){
   };
   btn = document.getElementById("infoButton");
   btn.onclick = function(){
-    if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
-      //TODO
+    if (document.getElementById("infoDiv").style.display == "none") {
+      document.getElementById("infoDiv").style.display = "block";
+    } else {
+      document.getElementById("infoDiv").style.display = "none";
     }
     this.innerHTML = '<img src="images/info-gray.png" alt="Info">';
     setTimeout(function(){
