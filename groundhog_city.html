@@ -325,7 +325,7 @@
         var totalInfected = 0;
         if (isRunning || isRunningOneStep){
           setTimer();
-          setStatus("Simulating day " + infectionDay + "<img src='images/animated-elipsis.gif'/>");
+          setStatus("Simulating day " + infectionDay + "<img src='images/animated-elipsis.gif' style'display:inline;/>");
           if (infectionDay == 0){
             var simParams = "\r\nSim Params\r\n";
             simParams += "mortalityRate: " + mortalityRate + "\r\n";
