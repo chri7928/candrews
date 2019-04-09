@@ -114,7 +114,7 @@
       Graphic,
       geometryEngine,
       summaryStatistics,
-      FullScreen,
+      Fullscreen,
       Query) {
 
       var infected = []; //will be an array of arrays
@@ -429,7 +429,9 @@
             }
             tempBuffer = geometryEngine.geodesicBuffer(bigBuffer.extent,
               0.250, "kilometers");
-            view.goTo(tempBuffer.extent);
+            if (document.getKeyByIndex("autozoomChb").checked){
+              view.goTo(tempBuffer.extent);
+            }
 
             // Intersect the unioned geometry with the layer to get the feature set
             var query2 = sceneLayer.createQuery();
@@ -655,6 +657,11 @@
           <td align="center">
             Cumulative<br/>infection<br/>zone:<br/><input type="checkbox"
                 id="showInfectionZoneChb" checked></td>
+        </tr>
+        <tr>
+          <td align="center">
+            Autozoom:<br/><input type="checkbox"
+                id="autozoomChb" checked></td>
         </tr>
       </table>
   </div>
