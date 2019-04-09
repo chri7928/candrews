@@ -428,7 +428,7 @@
             }
             tempBuffer = geometryEngine.geodesicBuffer(bigBuffer.extent,
               0.250, "kilometers");
-            if (document.getKeyByIndex("autozoomChb").checked){
+            if (document.getElementById("autozoomChb").checked){
               view.goTo(tempBuffer.extent);
             }
 
