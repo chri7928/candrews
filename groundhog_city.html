@@ -49,18 +49,18 @@
       finalPctInfected: 0,
       history: "",
       toString: function(){
-        let val = "Simulation run report:\r\n";
+        let val = "Simulation run report:<br/>\r\n";
         for (item in Object.keys(this)){
         	var aType = (typeof this[Object.keys(this)[item]]);
           if ((aType != "function") && (aType != "object") && (Object.keys(this)[item] != "history")){
-          	val += "   " + Object.keys(this)[item] + ": " + Object.values(this)[item] + "\r\n";
+          	val += "   " + Object.keys(this)[item] + ": " + Object.values(this)[item] + "<br/>\r\n";
           }
         }
-        val += "Seed building IDs:\r\n";
+        val += "Seed building IDs:<br/>\r\n";
         for (item in this.seeds){
-          val += "   " + this.seeds[item] + "\r\n";
+          val += "   " + this.seeds[item] + "<br/>\r\n";
         }
-        val += "Run daily history:\r\n" + this.history + "\r\n";
+        val += "Run daily history:<br/>\r\n" + this.history + "<br/>\r\n";
         return val;
       },
       init: function(){
@@ -78,8 +78,6 @@
         this.finalPctInfected = 0;
       }
     };
-
-    var report = "";
 
     // select infected houses
     // set ageing duration
