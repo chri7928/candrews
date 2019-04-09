@@ -128,7 +128,7 @@ module.exports = {
 		return result;
 	},
 
-	objToString:L function (obj){
+	objToString: function (obj){
 		var res = '';
 		if (obj == null){
 			res = 'null';

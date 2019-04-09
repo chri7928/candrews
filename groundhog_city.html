@@ -10,6 +10,8 @@
   <script src="scripts/groundhog-help.js"></script>
 
   <script>
+    //Aparrently from Facebook Slingshot
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     //State variables
     var isStopped = true;
@@ -677,6 +679,7 @@
         <button id="pauseButton" class="runButton"><img src="images/pause-red.png" alt="Pause"></button>
       </div>
   </div>
+
   <div id="scoreDiv">
       <table class="scoreTable">
         <tr>
