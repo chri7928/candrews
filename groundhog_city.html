@@ -31,7 +31,8 @@
     var infectionRate = 1; // 0..1
 
     var simulationInitState = {
-      seeds: {}, // A dict of OID:centroid
+      seeds: [],
+      centroids: {},
       infectionDistance,
       mortalityRate,
       infectionDuration,
@@ -251,8 +252,10 @@
               var tind = infected[0].findIndex(function(tval){return (tval == tid);});
               if (tind > -1){
                 infected[0].splice(tind, 1);//remove the clicked feature
+                simulationInitState.seeds.splice(tind, 1);
               } else {
                 infected[0].push(tid);//add the clicked feature
+                simulationInitState.seeds.push(tid);
               }
               //console.log(JSON.stringify(graphic));
               sceneLayer.renderer = getUniqueValueRenderer();
@@ -278,9 +281,13 @@
          infected.push([]);
         }
         if (keepSeeds){
-          for (item in Object.keys(simulationInitState.seeds)){
-            infected[0].push(Object.keys(simulationInitState)[item]);
+          for (item in simulationInitState.seeds){
+            infected[0].push(simulationInitState.seeds[item]);
+            console.log('in keep seeds ' + simulationInitState.seeds[item]);
           }
+        } else {
+          simulationInitState.seeds = [];
+          simulationInitState.centroids = {};
         }
         deceased = [];
         infectedGeometry = [];
@@ -372,7 +379,7 @@
                     for (res in result.features){
                       toid = result.features[res].attributes["OBJECTID"];
                       if (infectionDay == 0){
-                        simulationInitState.seeds[toid] = result.features[res].geometry.extent.center;
+                        simulationInitState.centroids[toid] = result.features[res].geometry.extent.center;
                       }
 
                       infectedGeometry[toid] =
