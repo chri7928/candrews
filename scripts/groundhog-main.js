@@ -25,7 +25,7 @@ function main(){
 
   var btn = document.getElementById("stopButton");
   btn.onclick = function(){
-    if (isRunning){
+    if (isRunning || isPaused){
       isStopped = true;
       isPaused = false;
       isRunning = false;
