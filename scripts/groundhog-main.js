@@ -38,7 +38,7 @@ function main(){
   btn = document.getElementById("playButton");
   btn.onclick = function(){
     if (infected[0].length == 0){
-      setStatus("Click on buidlings to set the initial infection sites", null, 3);
+      setStatus("Click on buidlings to set<br/>the initial infection sites", null, 5);
     } else {
       if ((isStopped && isReset) || isPaused){
         isRunning = true;
