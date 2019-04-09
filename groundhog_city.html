@@ -59,9 +59,9 @@
     // DONE: Intro dialog/title dialog
     // TODO?: Add restore to life? (Time limit on death)
     // DONE: Add ability to step forward one day >|
-    // TODO: Capture initial simulation state (params + seeds)
-    // TODO: Fix user setup logic so that they can set seeds then change parameters
-    // TODO: Add rewind to start of scenario to replay existing scenario
+    // DONE: Capture initial simulation state (params + seeds)
+    // DONE: Fix user setup logic so that they can set seeds then change parameters
+    // DONE: Add rewind to start of scenario to replay existing scenario
     // TODO: Add leaderlines to initial seeds
     // TODO: Add mobile UX logic
 
@@ -485,7 +485,7 @@
             if (Math.random() < mortalityRate){
               deceased.push(infected[infected.length-1][old]);
 
-              // TODO: Remove from infectedGeometry
+              // DONE: Remove from infectedGeometry
               delete infectedGeometry[infected[infected.length-1][old]];
             }
           }
