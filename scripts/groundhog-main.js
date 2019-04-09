@@ -241,6 +241,10 @@ function main(){
     imageArr[img].src = "images/" + images[img];
   }
 
+  if (isMobile){
+    document.getElementById("hideMobile1").style.display = none;
+    document.getElementById("hideMobile2").style.display = none;
+  }
   initializeSim(parseInt(document.getElementById("infectionDuration").value));
   // DONE: make sure the infections array is updated to reflect the correct number of days when the slider is changed
   // TODO: Disable the sliders when the simulation is running
