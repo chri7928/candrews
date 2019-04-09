@@ -101,7 +101,8 @@ function main(){
   };
   btn = document.getElementById("resetButton");
   btn.onclick = function(){
-    if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
+    if (isStopped || (isRunning && confirm("End the simulation and reset?"))
+        || (isPaused && confirm("End the simulation and reset?"))){
       initializeSim();
       document.getElementById("deathRate").disabled = false;
       document.getElementById("infectionRate").disabled = false;
@@ -117,7 +118,8 @@ function main(){
   };
   btn = document.getElementById("rewindButton");
   btn.onclick = function(){
-    if (isStopped || (isRunning && confirm("Return to simulation start state?"))){
+    if (isStopped || (isRunning && confirm("Return to simulation start state?"))
+        || (isPaused && confirm("Return to simulation start state?"))){
       initializeSim(true);
       document.getElementById("deathRate").disabled = false;
       document.getElementById("infectionRate").disabled = false;
