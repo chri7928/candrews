@@ -105,6 +105,7 @@
       "esri/Graphic",
       "esri/geometry/geometryEngine",
       "esri/renderers/smartMapping/statistics/summaryStatistics",
+      "esri/widgets/Fullscreen",
       "esri/tasks/support/Query"
     ], function(Map,
       SceneView,
@@ -273,6 +274,13 @@
       view.ui.add("scoreDiv", "top-right");
       view.ui.empty("top-left");
       view.ui.add("infoDiv", "top-left");
+      view.ui.add(
+        new Fullscreen({
+          view: view,
+          element: applicationDiv
+        }),
+        "top-trailing"
+      );
 
       function resetInfected(keepSeeds=false){
         //Set up the infected array
@@ -291,13 +299,13 @@
         }
         deceased = [];
         infectedGeometry = [];
-        console.log('Initialized infected[]');
+        console.log('Initialized infected');
       }
       window.resetInfected = resetInfected;
 
-      function initializeSim(){
+      function initializeSim(keepSeeds=false){
         //init infected arrays
-        resetInfected();
+        resetInfected(keepSeeds);
         sceneLayer.renderer = getUniqueValueRenderer();
 
         //Clear infection day

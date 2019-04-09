@@ -98,7 +98,7 @@ function main(){
   btn = document.getElementById("rewindButton");
   btn.onclick = function(){
     if (isStopped || (isRunning && confirm("Return to simulation start state?"))){
-      resetInfected(true);
+      initializeSim(true);
     }
     this.innerHTML = '<img src="images/rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
