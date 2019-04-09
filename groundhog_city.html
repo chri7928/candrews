@@ -543,7 +543,7 @@
           var telapsed = (Math.round(getElapsedTime()/600)/100);
           simulationState.history += "Day: " + infectionDay + " I: " + totalInfected +
             " D: " + deceased.length + "Time elapsed: " +
-            telapsed + " min" + "\r\n";
+            telapsed + " min" + "<br/>\r\n";
           var pctCount = Math.round((totalInfected + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
           simulationState.totalDays = infectionDay;
