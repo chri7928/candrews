@@ -10,11 +10,9 @@ var groundhogTitle = `
     <td style="width:220px"><p>Welcome to the Groundhog City infection simulation application.</p>
       <p style="color:red;">Restricted access.</p>
       <p>PARASOL Corp staff only.</p>
+      <p>Close window to begin simulation<img src='images/animated-elipsis.gif'/></p>
     </td>
   </tr>
-    <tr>
-      <td colspan="2"><p>Close window to begin simulation.</p></td>
-    </tr>
 </table>
 `;
 
