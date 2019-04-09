@@ -2,6 +2,8 @@ function main(){
   setStatus("Loading simulation...");
   document.getElementById("infoInsertDiv").innerHTML = groundhogTitle;
 
+
+  // TODO: Implement logic so that the sliders can't be changed when the app is running
   // Set the slider values and oninput events
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, infectionDuration, function(){
     infectionDuration = document.getElementById("infectionDuration").value;
@@ -45,6 +47,10 @@ function main(){
         simulationInitState.infectionDuration = infectionDuration;
         simulationInitState.infectionDistance = infectionDistance;
         simulationInitState.mortalityRate = mortalityRate;
+        document.getElementById("deathRate").disabled = true;
+        document.getElementById("infectionRate").disabled = true;
+        document.getElementById("infectionDistance").disabled = true;
+        document.getElementById("infectionDuration").disabled = true;
       }
       if ((isStopped && isReset) || isPaused){
         isRunning = true;
@@ -97,6 +103,10 @@ function main(){
   btn.onclick = function(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
       initializeSim();
+      document.getElementById("deathRate").disabled = false;
+      document.getElementById("infectionRate").disabled = false;
+      document.getElementById("infectionDistance").disabled = false;
+      document.getElementById("infectionDuration").disabled = false;
     }
     this.innerHTML = '<img src="images/full-rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
@@ -109,6 +119,10 @@ function main(){
   btn.onclick = function(){
     if (isStopped || (isRunning && confirm("Return to simulation start state?"))){
       initializeSim(true);
+      document.getElementById("deathRate").disabled = false;
+      document.getElementById("infectionRate").disabled = false;
+      document.getElementById("infectionDistance").disabled = false;
+      document.getElementById("infectionDuration").disabled = false;
     }
     this.innerHTML = '<img src="images/rewind-gray.png" alt="Reset simulation">';
     setTimeout(function(){
