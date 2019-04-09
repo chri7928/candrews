@@ -432,6 +432,13 @@
                     }
                     oids = [];
                   } // else skip till I have enough to query
+                } else { // add the geometry to the big buffer
+                  // Union the buffer to the combined buffer geometry
+                  if (bigBuffer == null){
+                    bigBuffer = infectedGeometry[oid];
+                  } else {
+                    bigBuffer = geometryEngine.union([infectedGeometry[oid], bigBuffer]);
+                  }
                 }
               }
             /**/
