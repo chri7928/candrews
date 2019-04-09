@@ -58,6 +58,7 @@
     #paneDiv {
       padding: 0px 0px 5px 0px;
       background-color: rgba(0, 0, 0, 0.1);
+      display: none;
     }
 
     #paneDiv:hover {
@@ -80,6 +81,7 @@
     #scoreDiv {
       padding: 5px 5px 5px 5px;
       background-color: rgba(0, 0, 0, 0.1);
+      display: none;
     }
 
     #scoreDiv:hover {

@@ -95,6 +95,18 @@ function main(){
          tbtn.blur();
     }, 200);
   };
+  btn = document.getElementById("rewindButton");
+  btn.onclick = function(){
+    if (isStopped || (isRunning && confirm("Return to simulation start state?"))){
+      resetInfected(true);
+    }
+    this.innerHTML = '<img src="images/rewind-gray.png" alt="Reset simulation">';
+    setTimeout(function(){
+         var tbtn = document.getElementById("rewindButton");
+         tbtn.innerHTML = '<img src="images/rewind-red.png" alt="Rewind simulation">';
+         tbtn.blur();
+    }, 200);
+  };
   btn = document.getElementById("homeButton");
   btn.onclick = function(){
     if (isStopped || (isRunning && confirm("End the simulation and reset?"))){
@@ -150,6 +162,8 @@ function main(){
          var tbtn = document.getElementById("closeInfoButton");
          tbtn.innerHTML = '<img src="images/close-red.png" alt="Info">';
          document.getElementById("infoDiv").style.display = "none";
+         document.getElementById("scoreDiv").style.display = "block";
+         document.getElementById("paneDiv").style.display = "block";
          tbtn.blur();
     }, 200);
   };

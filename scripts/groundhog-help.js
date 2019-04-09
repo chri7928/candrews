@@ -12,6 +12,9 @@ var groundhogTitle = `
       <p>PARASOL Corp staff only.</p>
     </td>
   </tr>
+    <tr>
+      <td colspan="2"><p>Close window to begin simulation.</p></td>
+    </tr>
 </table>
 `;
 
