@@ -44,7 +44,7 @@ function main(){
         simulationInitState.infectionRate = infectionRate;
         simulationInitState.infectionDuration = infectionDuration;
         simulationInitState.infectionDistance = infectionDistance;
-        simualtionInitState.mortalityRate = mortalityRate;
+        simulationInitState.mortalityRate = mortalityRate;
       }
       if ((isStopped && isReset) || isPaused){
         isRunning = true;
