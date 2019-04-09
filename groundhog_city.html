@@ -58,7 +58,7 @@
         }
         val += "Seed building IDs:<br/>\r\n";
         for (item in this.seeds){
-          val += "   " + this.seeds[item] + "<br/>\r\n";
+          val += "&nbsp;&nbsp;&nbsp;" + this.seeds[item] + "<br/>\r\n";
         }
         val += "Run daily history:<br/>\r\n" + this.history + "<br/>\r\n";
         return val;
@@ -541,8 +541,8 @@
           //console.log("Dead: " + deceased.length);
           //console.log(deceased);
           var telapsed = (Math.round(getElapsedTime()/600)/100);
-          simulationState.history += "Day: " + infectionDay + " I: " + totalInfected +
-            " D: " + deceased.length + "Time elapsed: " +
+          simulationState.history += "Day: " + infectionDay + " Infected: " + totalInfected +
+            " Deceased: " + deceased.length + " Time elapsed: " +
             telapsed + " min" + "<br/>\r\n";
           var pctCount = Math.round((totalInfected + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
