@@ -53,7 +53,7 @@
         for (item in Object.keys(this)){
         	var aType = (typeof this[Object.keys(this)[item]]);
           if ((aType != "function") && (aType != "object") && (Object.keys(this)[item] != "history")){
-          	val += "   " + Object.keys(this)[item] + ": " + Object.values(this)[item] + "<br/>\r\n";
+          	val += "&nbsp;&nbsp;&nbsp;" + Object.keys(this)[item] + ": " + Object.values(this)[item] + "<br/>\r\n";
           }
         }
         val += "Seed building IDs:<br/>\r\n";
