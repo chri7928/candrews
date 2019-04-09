@@ -365,10 +365,10 @@
                     // Create the buffer based on the graphic and infectionDistance
                     // DONE: Convert this to a set of n geometries returned to reduce queries
                     for (res in result.features){
-                      toid = result.features[res].graphic.attributes["OBJECTID"];
+                      toid = result.features[res].attributes["OBJECTID"];
                       console.log(toid);
                       if (infectionDay == 0){
-                        simulationInitState.seeds[toid] = result.features[res].graphic.geometry.extent.center;
+                        simulationInitState.seeds[toid] = result.features[res].geometry.extent.center;
                         console.log(simulationInitState.seeds[toid]);
                       }
 
