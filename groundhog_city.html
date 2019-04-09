@@ -63,9 +63,11 @@
         val += "Run daily history:<br/>\r\n" + this.history + "<br/>\r\n";
         return val;
       },
-      init: function(){
-        this.seeds = [];
-        this.centroids = {};
+      init: function(keepSeeds=false){
+        if (!keepSeeds){
+          this.seeds = [];
+          this.centroids = {};
+        }
         this.infectionDistance = 0;
         this.infectionRate = 0;
         this.infectionDuration = 0;
@@ -324,12 +326,11 @@
         for (iD = 0; iD < infectionDuration; iD++){
          infected.push([]);
         }
+        simulationState.init(keepSeeds);
         if (keepSeeds){
           for (item in simulationState.seeds){
             infected[0].push(simulationState.seeds[item]);
           }
-        } else {
-          simulationState.init();
         }
         deceased = [];
         infectedGeometry = [];
