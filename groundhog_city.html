@@ -251,11 +251,8 @@
               var tind = infected[0].findIndex(function(tval){return (tval == tid);});
               if (tind > -1){
                 infected[0].splice(tind, 1);//remove the clicked feature
-                //delete simulationInitState.seeds[tid];
               } else {
                 infected[0].push(tid);//add the clicked feature
-                //simulationInitState.seeds[tid] = graphic.geometry.extent.center;
-                //console.log(simulationInitState.seeds[tid]);
               }
               //console.log(JSON.stringify(graphic));
               sceneLayer.renderer = getUniqueValueRenderer();
@@ -368,15 +365,22 @@
                     // Create the buffer based on the graphic and infectionDistance
                     // DONE: Convert this to a set of n geometries returned to reduce queries
                     for (res in result.features){
-                      infectedGeometry[oid] =
+                      toid = result.features[res].graphic.attributes["OBJECTID"];
+                      console.log(toid);
+                      if (infectionDay == 0){
+                        simulationInitState.seeds[toid] = result.features[res].graphic.geometry.extent.center;
+                        console.log(simulationInitState.seeds[toid]);
+                      }
+
+                      infectedGeometry[toid] =
                         geometryEngine.geodesicBuffer(result.features[res].geometry,
                         infectionDistance/1000, "kilometers"); // store the buffer not the geometry
 
                       // Union the buffer to the combined buffer geometry
                       if (bigBuffer == null){
-                        bigBuffer = infectedGeometry[oid];
+                        bigBuffer = infectedGeometry[toid];
                       } else {
-                        bigBuffer = geometryEngine.union([infectedGeometry[oid], bigBuffer]);
+                        bigBuffer = geometryEngine.union([infectedGeometry[toid], bigBuffer]);
                       }
                     }
                     oids = [];
