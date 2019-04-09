@@ -93,6 +93,10 @@
       box-shadow: none;
     }
 
+    #runButtonsDiv {
+      display: none;
+    }
+
     .alignRight{
       text-align: right;
     }

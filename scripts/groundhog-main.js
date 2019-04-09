@@ -38,8 +38,14 @@ function main(){
   btn = document.getElementById("playButton");
   btn.onclick = function(){
     if (infected[0].length == 0){
-      setStatus("Click on buidlings to set<br/>the initial infection sites", null, 5);
+      setStatus("Click on one or more buidlings to<br/>set the initial infection sites", null, 5);
     } else {
+      if (infectionDay == 0){
+        simulationInitState.infectionRate = infectionRate;
+        simulationInitState.infectionDuration = infectionDuration;
+        simulationInitState.infectionDistance = infectionDistance;
+        simualtionInitState.mortalityRate = mortalityRate;
+      }
       if ((isStopped && isReset) || isPaused){
         isRunning = true;
         isStopped = false;
@@ -168,6 +174,7 @@ function main(){
          document.getElementById("infoDiv").style.display = "none";
          document.getElementById("scoreDiv").style.display = "block";
          document.getElementById("paneDiv").style.display = "block";
+         document.getElementById("runButtonsDiv").style.display = "block";
          tbtn.blur();
     }, 200);
   };
