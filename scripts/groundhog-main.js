@@ -39,15 +39,15 @@ function main(){
   btn.onclick = function(){
     if (infected[0].length == 0){
       setStatus("Click on buidlings to set the initial infection sites", null, 3);
-      return;
-    }
-    if ((isStopped && isReset) || isPaused){
-      isRunning = true;
-      isStopped = false;
-      isReset = false;
-      isPaused = false;
-      if(!isPaused){
-        runSim();
+    } else {
+      if ((isStopped && isReset) || isPaused){
+        isRunning = true;
+        isStopped = false;
+        isReset = false;
+        isPaused = false;
+        if(!isPaused){
+          runSim();
+        }
       }
     }
     this.innerHTML = '<img src="images/play-gray.png" alt="Play">';

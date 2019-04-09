@@ -30,6 +30,11 @@
     var infectionDuration = 3;
     var infectionRate = 1; // 0..1
 
+    var infected = []; //will be an array of arrays
+    var infectedGeometry = {}; //going to try saving geometry to not query too much
+    var deceased = [];// will be an array of ids
+    var infectionBufferByDay = [];
+
     var simulationInitState = {
       seeds: [],
       centroids: {},
@@ -116,11 +121,6 @@
       summaryStatistics,
       Fullscreen,
       Query) {
-
-      var infected = []; //will be an array of arrays
-      var infectedGeometry = {}; //going to try saving geometry to not query too much
-      var deceased = [];// will be an array of ids
-      var infectionBufferByDay = [];
 
       // Create Map
       var map = new Map({
