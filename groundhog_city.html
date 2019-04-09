@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>Groundhog City Simulation</title>
-  <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/dark-red/main.css"/>
   <link rel="stylesheet" href="styles/groundhog_city.css">
-  <script src="https://js.arcgis.com/4.10/"></script>
+  <script src="https://js.arcgis.com/4.11/"></script>
   <script src="scripts/groundhog-help.js"></script>
 
   <script>
@@ -272,9 +272,6 @@
 
       view.ui.add("paneDiv", "bottom-left");
       view.ui.add("runDiv", "bottom-right");
-      view.ui.add("scoreDiv", "top-right");
-      view.ui.empty("top-left");
-      view.ui.add("infoDiv", "top-left");
       view.ui.add(
         new Fullscreen({
           view: view,
@@ -282,6 +279,9 @@
         }),
         "top-right"
       );
+      view.ui.add("scoreDiv", "top-right");
+      view.ui.empty("top-left");
+      view.ui.add("infoDiv", "top-left");
 
       function resetInfected(keepSeeds=false){
         //Set up the infected array
