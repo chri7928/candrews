@@ -65,3 +65,7 @@ context and problem set.</p>
 var groundhogScenarios = `
 TBD...
 `;
+
+var groundhogReport = `
+Run a simulation to generate a report.
+`;

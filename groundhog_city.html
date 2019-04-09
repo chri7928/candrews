@@ -35,14 +35,51 @@
     var deceased = [];// will be an array of ids
     var infectionBufferByDay = [];
 
-    var simulationInitState = {
+    var simulationState = {
       seeds: [],
       centroids: {},
       infectionDistance,
       mortalityRate,
       infectionDuration,
       infectionRate,
+      finalInfected: 0,
+      totalDeceased: 0,
+      totalDays: 0,
+      totalElapsedTime: 0,
+      finalPctInfected: 0,
+      history: "",
+      toString: function(){
+        let val = "Simulation run report:\r\n";
+        for (item in Object.keys(this)){
+        	var aType = (typeof this[Object.keys(this)[item]]);
+          if ((aType != "function") && (aType != "object") && (Object.keys(this)[item] != "history")){
+          	val += "   " + Object.keys(this)[item] + ": " + Object.values(this)[item] + "\r\n";
+          }
+        }
+        val += "Seed building IDs:\r\n";
+        for (item in this.seeds){
+          val += "   " + this.seeds[item] + "\r\n";
+        }
+        val += "Run daily history:\r\n" + this.history + "\r\n";
+        return val;
+      },
+      init: function(){
+        this.seeds = [];
+        this.centroids = {};
+        this.infectionDistance = 0;
+        this.infectionRate = 0;
+        this.infectionDuration = 0;
+        this.mortalityRate = 0;
+        this.finalInfected = 0;
+        this.totalDeceased = 0;
+        this.totalDays = 0;
+        this.totalElapsedTime = 0;
+        this.history = "";
+        this.finalPctInfected = 0;
+      }
     };
+
+    var report = "";
 
     // select infected houses
     // set ageing duration
@@ -254,10 +291,10 @@
               var tind = infected[0].findIndex(function(tval){return (tval == tid);});
               if (tind > -1){
                 infected[0].splice(tind, 1);//remove the clicked feature
-                simulationInitState.seeds.splice(tind, 1);
+                simulationState.seeds.splice(tind, 1);
               } else {
                 infected[0].push(tid);//add the clicked feature
-                simulationInitState.seeds.push(tid);
+                simulationState.seeds.push(tid);
               }
               //console.log(JSON.stringify(graphic));
               sceneLayer.renderer = getUniqueValueRenderer();
@@ -290,12 +327,11 @@
          infected.push([]);
         }
         if (keepSeeds){
-          for (item in simulationInitState.seeds){
-            infected[0].push(simulationInitState.seeds[item]);
+          for (item in simulationState.seeds){
+            infected[0].push(simulationState.seeds[item]);
           }
         } else {
-          simulationInitState.seeds = [];
-          simulationInitState.centroids = {};
+          simulationState.init();
         }
         deceased = [];
         infectedGeometry = [];
@@ -315,6 +351,7 @@
         isReset = true;
         isPaused = false;
         isRunning = false;
+        report = "";
 
         // Clear any graphics layers
         bufferLayer.removeAll();
@@ -344,18 +381,11 @@
           setTimer();
           setStatus("Simulating day " + infectionDay + "<img src='images/animated-elipsis.gif' style='display:inline;'/>");
           if (infectionDay == 0){
-            var simParams = "\r\nSim Params\r\n";
-            simParams += "mortalityRate: " + mortalityRate + "\r\n";
-            simParams += "infectionDistance: " + infectionDistance + "\r\n";
-            simParams += "infectionDuration: " + infectionDuration + "\r\n";
-            simParams += "infectionRate: " + infectionRate + "\r\n";
-            simParams += "initial infection count: " + infected[0].length + "\r\n";
-            for (ii in infected[0]){
-              simParams += "   ID: " + infected[0][ii] + "\r\n";
-            }
-            console.log(simParams);
-
-            // TODO: Zoom to the extent of the infected seeds on Day 0
+            simulationState.mortalityRate = mortalityRate;
+            simulationState.infectionDistance = infectionDistance;
+            simulationState.infectionDuration = infectionDuration;
+            simulationState.infectionRate = infectionRate;
+            console.log(simulationState.toSring());
           }
 
           // DONE: Create simulation logic
@@ -387,7 +417,7 @@
                     for (res in result.features){
                       toid = result.features[res].attributes["OBJECTID"];
                       if (infectionDay == 0){
-                        simulationInitState.centroids[toid] = result.features[res].geometry.extent.center;
+                        simulationState.centroids[toid] = result.features[res].geometry.extent.center;
                       }
 
                       infectedGeometry[toid] =
@@ -511,14 +541,20 @@
           }
           //console.log("Dead: " + deceased.length);
           //console.log(deceased);
-          console.log("Day: " + infectionDay + " I: " + totalInfected +
-            " D: " + deceased.length);// + " InfGeom: " + infectedGeometry.keys.length);
+          var telapsed = (Math.round(getElapsedTime()/600)/100);
+          simulationState.history += "Day: " + infectionDay + " I: " + totalInfected +
+            " D: " + deceased.length + "Time elapsed: " +
+            telapsed + " min" + "\r\n";
           var pctCount = Math.round((totalInfected + deceased.length)/totalBuildings*100, 2);
           setProgress("currentInfectionDiv", pctCount, false, "currentInfectedVal", (pctCount + "%"));
+          simulationState.totalDays = infectionDay;
+          simulationState.finalInfected = totalInfected;
+          simulationState.totalDeceased = deceased.length;
+          simulationState.totalElapsedTime += telapsed;
+          simulationState.finalPctInfected = pctCount;
 
           infectionDay++;
           document.getElementById("currentDayVal").innerHTML = infectionDay;
-          console.log("Time elapsed: " + (Math.round(getElapsedTime()/600)/100) + " min");
           setStatus("");
         }
         var checkEndAt20 = (document.getElementById("stopAt20Chb").checked && (infectionDay == 21));
@@ -572,6 +608,7 @@
         <td><button id="infoTitleButton" type="input" class="introButton" value="Title">Title</button>
           <button id="infoInstructionsButton" type="input" class="introButton" value="Instructions">Instructions</button>
           <button id="infoScenariosButton" type="input" class="introButton" value="Scenarios">Scenarios</button>
+          <button id="infoReportButton" type="input" class="introButton" value="Scenarios">Report</button>
           <button id="infoAboutButton" type="input" class="introButton" value="About">About</button></td>
         <td class="alignRight"><button id="closeInfoButton" class="runButton"><img
         src="images/close-red.png" alt="Close Info Panel"></button></td>

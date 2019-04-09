@@ -43,10 +43,10 @@ function main(){
       setStatus("Click on one or more buidlings to<br/>set the initial infection sites", null, 5);
     } else {
       if (infectionDay == 0){
-        simulationInitState.infectionRate = infectionRate;
-        simulationInitState.infectionDuration = infectionDuration;
-        simulationInitState.infectionDistance = infectionDistance;
-        simulationInitState.mortalityRate = mortalityRate;
+        simulationState.infectionRate = infectionRate;
+        simulationState.infectionDuration = infectionDuration;
+        simulationState.infectionDistance = infectionDistance;
+        simulationState.mortalityRate = mortalityRate;
         document.getElementById("deathRate").disabled = true;
         document.getElementById("infectionRate").disabled = true;
         document.getElementById("infectionDistance").disabled = true;
@@ -209,6 +209,14 @@ function main(){
   btn = document.getElementById("infoInstructionsButton");
   btn.onclick = function(){
     document.getElementById("infoInsertDiv").innerHTML = groundhogInstructions;
+  };
+  btn = document.getElementById("infoReportButton");
+  btn.onclick = function(){
+    if (report == ""){
+      document.getElementById("infoInsertDiv").innerHTML = groundhogReport;
+    } else {
+      document.getElementById("infoInsertDiv").innerHTML = simulationState.toString();
+    }
   };
 
   //preload the mouseover images for the play buttons
