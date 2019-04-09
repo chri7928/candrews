@@ -212,7 +212,7 @@ function main(){
   };
   btn = document.getElementById("infoReportButton");
   btn.onclick = function(){
-    if (report == ""){
+    if (simulationState.totalInfected == 0){
       document.getElementById("infoInsertDiv").innerHTML = groundhogReport;
     } else {
       document.getElementById("infoInsertDiv").innerHTML = simulationState.toString();
