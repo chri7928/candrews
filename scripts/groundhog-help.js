@@ -58,6 +58,8 @@ context and problem set.</p>
   <li>Asynch/Await are currently currently used to synchronize simulation logic for the purposes of simplified development.
   This reduces interactivity and may be converted back to a promise.then and promise.all architecture to increase
   interactivity while the simulation is running.</li>
+  <li>Initial seed placement can dramatically impact query times.  A few seeds placed close together may generate 20 iterations in
+  5 minutes, but the same number of seeds spread across the city may end up with 5 minute-per iteration times.
   <li>For questions, contact candrews (at) esri (dot) com or &commat;_ChrisJAndrews</li>
 </ul>
 `;
