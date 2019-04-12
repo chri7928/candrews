@@ -217,16 +217,16 @@
       });
 
       // Create MeshSymbol3D for symbolizing SceneLayer
-      var symbol = {
-        type: "mesh-3d", // autocasts as new MeshSymbol3D()
-        symbolLayers: [{
-          type: "fill", // autocasts as new FillSymbol3DLayer()
-          // If the value of material is not assigned, the default color will be red
-          material: {
-            color: [255, 0, 0]
-          }
-        }]
-      };
+//      var symbol = {
+//        type: "mesh-3d", // autocasts as new MeshSymbol3D()
+//        symbolLayers: [{
+//          type: "fill", // autocasts as new FillSymbol3DLayer()
+//          // If the value of material is not assigned, the default color will be red
+//          material: {
+//            color: [255, 0, 0]
+//          }
+//        }]
+//      };
 
       function createInfectedRenderers(iList, iColor){
         var res = [];
@@ -270,7 +270,7 @@
 
       sceneLayer.renderer = getUniqueValueRenderer();
 
-      //for testing
+      //Used for the buffer symbol
       var polySym = {
         type: "simple-fill", // autocasts as new SimpleFillSymbol()
         color: [255, 213, 0, 0.2],
