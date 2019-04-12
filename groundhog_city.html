@@ -49,6 +49,7 @@
       totalDays: 0,
       totalElapsedTime: 0,
       finalPctInfected: 0,
+      cumulativeInfections: 0;
       history: "",
 //      getScore(){
 //        var score = this.infectionRate * this.infectionDuration * this.
@@ -84,6 +85,7 @@
         this.totalElapsedTime = 0;
         this.history = "";
         this.finalPctInfected = 0;
+        this.cumulativeInfections = 0;
       }
     };
 
@@ -391,6 +393,7 @@
             simulationState.infectionDuration = infectionDuration;
             simulationState.infectionRate = infectionRate;
             console.log(simulationState.toString());
+            simulationState.cumulativeInfections += infected[0].length;
           }
 
           // DONE: Create simulation logic
