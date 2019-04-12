@@ -511,7 +511,6 @@
             if (newlyInfected.length > 1){
               // Sort newlyInfected
               newlyInfected.sort(function(a, b){return a-b}); // assuming IDs are numbers
-              simulationState.cumulativeInfections += newlyInfected.length;
 
               // Deduplicate newlyInfected
               // TODO: May not be necessary becuase I'm now using a single buffer query
