@@ -216,18 +216,6 @@
         setStatus("Simulation loaded.", null, 2);
       });
 
-      // Create MeshSymbol3D for symbolizing SceneLayer
-//      var symbol = {
-//        type: "mesh-3d", // autocasts as new MeshSymbol3D()
-//        symbolLayers: [{
-//          type: "fill", // autocasts as new FillSymbol3DLayer()
-//          // If the value of material is not assigned, the default color will be red
-//          material: {
-//            color: [255, 0, 0]
-//          }
-//        }]
-//      };
-
       function createInfectedRenderers(iList, iColor){
         var res = [];
         for (item in iList){
@@ -600,7 +588,7 @@
   <div id="infoDiv">
     <table class="">
       <tr>
-        <td><button id="infoTitleButton" type="input" class="introButton" value="Title">Title</button>
+        <td><button id="infoTitleButton" type="input" class="introButton" value="Title">Main</button>
           <button id="infoInstructionsButton" type="input" class="introButton" value="Instructions">Instructions</button>
           <button id="infoScenariosButton" type="input" class="introButton" value="Scenarios">Scenarios</button>
           <button id="infoReportButton" type="input" class="introButton" value="Scenarios">Report</button>
