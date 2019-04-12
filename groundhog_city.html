@@ -507,9 +507,11 @@
               }
             }
 
+            simulationState.cumulativeInfections += newlyInfected.length;
             if (newlyInfected.length > 1){
               // Sort newlyInfected
               newlyInfected.sort(function(a, b){return a-b}); // assuming IDs are numbers
+              simulationState.cumulativeInfections += newlyInfected.length;
 
               // Deduplicate newlyInfected
               // TODO: May not be necessary becuase I'm now using a single buffer query
@@ -517,6 +519,7 @@
               while (tt < newlyInfected.length){
                 if(newlyInfected[tt] == newlyInfected[tt-1]){
                   newlyInfected.splice(tt, 1);
+console.log("Found duplicate");
                 } else {
                   tt++;
                 }
