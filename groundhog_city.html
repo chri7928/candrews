@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Code provided for demonstration purposes.  No warranty or guarantee is implied. -->
   <meta charset="utf-8">
+  <meta name="description" content="A simulation game demonstrating the ArcGIS API for JavaScript. Demonstration use only.">
+  <meta name="keywords" content="JavaScript,Esri,ArcGIS">
+  <meta name="author" content="Chris Andrews">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Groundhog City Simulation</title>
+  <title>Groundhog City Simulation - Demonstration Use Only</title>
   <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/dark-red/main.css"/>
   <link rel="stylesheet" href="styles/groundhog_city.css">
   <script src="https://js.arcgis.com/4.11/"></script>
   <script src="scripts/groundhog-help.js"></script>
 
   <script>
-    //Aparrently from Facebook Slingshot
+    //Apparently from Facebook Slingshot
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     //State variables
@@ -20,7 +24,7 @@
     var isRunning = false;
     var isRunningOneStep = false;
 
-    const maxInfectionDuration = 5;
+    const maxInfectionDuration = 7;
     const maxInfectionDistance = 100; // (m)
 
     //Globals
@@ -51,12 +55,21 @@
       finalPctInfected: 0,
       cumulativeInfections: 0,
       history: "",
-//      getScore(){
-//        var score = this.infectionRate * this.infectionDuration * this.
-//        return score;
-//      },
+      getScore(){
+        var score = Math.round(10000 -
+          Math.sqrt(
+            (5000*(100 - this.finalPctInfected*100)^2) +
+            (20*(10 - this.infectionRate*100)^2) +
+            (10*(5 - this.mortalityRate*100)^2) +
+            (4*(35 - this.infectionDistance)^2) +
+            (25*(3 - this.infectionDuration)^2) +
+            (10*(1 - this.seeds.length)^2)
+          ));
+        return score;
+      },
       toString: function(){
         let val = "Simulation run report:<br/>\r\n";
+        val += "Score: " + this.getScore() + "<br/>\r\n"
         for (item in Object.keys(this)){
         	var aType = (typeof this[Object.keys(this)[item]]);
           if ((aType != "function") && (aType != "object") && (Object.keys(this)[item] != "history")){

@@ -3,7 +3,7 @@ function main(){
   document.getElementById("infoInsertDiv").innerHTML = groundhogTitle;
 
 
-  // TODO: Implement logic so that the sliders can't be changed when the app is running
+  // DONE: Implement logic so that the sliders can't be changed when the app is running
   // Set the slider values and oninput events
   setSlider("infectionDuration","infectionDurationVal", 1, maxInfectionDuration, infectionDuration, function(){
     infectionDuration = document.getElementById("infectionDuration").value;
