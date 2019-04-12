@@ -264,7 +264,6 @@
           if (deceased.length > 0){
             res.uniqueValueInfos = res.uniqueValueInfos.concat(createInfectedRenderers(deceased, "[0,0,0]"));
           }
-          //console.log("in getUniqueValueRenderer: \r\n" + res.uniqueValueInfos);
         }
         return res;
       }
@@ -304,11 +303,10 @@
                 infected[0].push(tid);//add the clicked feature
                 simulationState.seeds.push(tid);
               }
-              //console.log(JSON.stringify(graphic));
               sceneLayer.renderer = getUniqueValueRenderer();
             }
           } else {
-            console.log("got undefined graphic");
+            console.warn("Got unexpected undefined graphic");
           }
         }).catch(function(error) {
           console.error(error);
@@ -392,7 +390,7 @@
             simulationState.infectionDistance = infectionDistance;
             simulationState.infectionDuration = infectionDuration;
             simulationState.infectionRate = infectionRate;
-            console.log(simulationState.toString());
+            console.log(simulationState.toString().replace("<br/>","\r\n").replace("&nbsp;"," "));
             simulationState.cumulativeInfections += infected[0].length;
           }
 
@@ -450,7 +448,6 @@
                   }
                 }
               }
-            /**/
           }
 
           // find buildings within buffer
@@ -489,7 +486,8 @@
               let t = result.features[item].attributes.OBJECTID;
               // get around the wierd bug
               if (t == 1){
-                console.log("Hit OBJECTID==1 bug"); continue;
+                console.warn("Hit OBJECTID==1 bug");
+                continue;
               } else {
                 // check to see if the feature was already infected
                 let wasInfected = false;
@@ -508,24 +506,9 @@
             }
 
             simulationState.cumulativeInfections += newlyInfected.length;
-//            if (newlyInfected.length > 1){
             // Sort newlyInfected
             newlyInfected.sort(function(a, b){return a-b}); // assuming IDs are numbers
-
-              // Deduplicate newlyInfected
-//              // TODO: May not be necessary becuase I'm now using a single buffer query
-//              var tt = 1;
-//              while (tt < newlyInfected.length){
-//                if(newlyInfected[tt] == newlyInfected[tt-1]){
-//                  newlyInfected.splice(tt, 1);
-//console.log("Found duplicate");
-//                } else {
-//                  tt++;
-//                }
-//              }
-//            }
           } // end if bigBuffer != null
-          //console.log("bigBuffer is null: " + (bigBuffer == null));
 
           // Calculate if the current oldest infected should be cleared or killed; if killed, add them to the deceased list
           for (old in infected[infected.length-1]){
@@ -537,7 +520,6 @@
             }
           }
           deceased.sort();
-          //console.log("Deceased count: " + deceased.length);
 
           // Age the arrays of the infected list
           for (ai = infected.length - 1; ai > 0; ai--){
@@ -553,11 +535,7 @@
           //update the progress indicator
           for (age in infected){
             totalInfected += infected[age].length;
-            //console.log("Age " + age + ": " + infected[age].length);
-            //console.log(infected[age]);
           }
-          //console.log("Dead: " + deceased.length);
-          //console.log(deceased);
           var telapsed = (Math.round(getElapsedTime()/600)/100);
           simulationState.history += "Day: " + infectionDay + " Infected: " + totalInfected +
             " Deceased: " + deceased.length + " Time elapsed: " +
