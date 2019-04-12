@@ -43,7 +43,7 @@ possible behavioral variation of the infection.</p>
 var groundhogAbout = `
 <p>This demonstration app was created to explore querying scene layers, performing
 client-side geometry calculations, and creating a complex app workflow with the
-ArcGIS API for JavaScript.</p>
+<a href="https://developers.arcgis.com/javascript/" target="_blank" alt="ArcGIS API for JavaScript">ArcGIS API for JavaScript</a>.</p>
 <p>The original concept for the demo was adapting <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank" alt="The Game of Life on wikipedia">Conway's The Game of Life</a> to a geospatial
 context and problem set.</p>
 <p>Acknowledgements:</p>
