@@ -171,7 +171,7 @@ function main(){
   btn.onclick = function(){
     if (document.getElementById("infoDiv").style.display == "none") {
       document.getElementById("infoDiv").style.display = "block";
-      document.getElementById("infoAboutButton").onclick();
+      document.getElementById("infoReportButton").onclick();
     } else {
       document.getElementById("infoDiv").style.display = "none";
     }
