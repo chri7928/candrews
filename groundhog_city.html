@@ -58,7 +58,7 @@
       getScore(){
         var score = Math.round(10000 -
           Math.sqrt(
-            (5000*(100 - this.finalPctInfected*100)^2) +
+            (5000*((100 - this.finalPctInfected*100)^2)) +
             (20*(10 - this.infectionRate*100)^2) +
             (10*(5 - this.mortalityRate*100)^2) +
             (4*(35 - this.infectionDistance)^2) +
