@@ -58,12 +58,12 @@
       getScore(){
         var score = Math.round(10000 -
           Math.sqrt(
-            (5000*((100 - this.finalPctInfected*100)^2)) +
-            (20*(10 - this.infectionRate*100)^2) +
-            (10*(5 - this.mortalityRate*100)^2) +
-            (4*(35 - this.infectionDistance)^2) +
-            (25*(3 - this.infectionDuration)^2) +
-            (10*(1 - this.seeds.length)^2)
+            (5000*((100 - (this.finalPctInfected*100))^2)) +
+            (20*((10 - (this.infectionRate*100))^2)) +
+            (10*((5 - (this.mortalityRate*100))^2)) +
+            (4*((35 - this.infectionDistance)^2)) +
+            (25*((3 - this.infectionDuration)^2)) +
+            (10*((1 - this.seeds.length)^2))
           ));
         return score;
       },
