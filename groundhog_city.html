@@ -56,21 +56,14 @@
       cumulativeInfections: 0,
       history: "",
       getScore(){
-        console.log(((100 - (this.finalPctInfected*100))^2));
-        console.log((10 - (this.infectionRate*100))^2);
-        console.log((5 - (this.mortalityRate*100))^2);
-        console.log((35 - this.infectionDistance)^2);
-        console.log((3 - this.infectionDuration)^2);
-        console.log((1 - this.seeds.length)^2);
-
         var score = Math.round(10000 -
           Math.sqrt(
-            (5000*((100 - (this.finalPctInfected*100))^2)) +
-            (20*((10 - (this.infectionRate*100))^2)) +
-            (10*((5 - (this.mortalityRate*100))^2)) +
-            (4*((35 - this.infectionDistance)^2)) +
-            (25*((3 - this.infectionDuration)^2)) +
-            (10*((1 - this.seeds.length)^2))
+            (5000*Math.pow((100 - (this.finalPctInfected*100)),2)) +
+            (20*Math.pow((10 - (this.infectionRate*100)),2)) +
+            (10*Math.pow((5 - (this.mortalityRate*100)),2)) +
+            (4*Math.pow((35 - this.infectionDistance),2)) +
+            (25*Math.pow((3 - this.infectionDuration),2)) +
+            (10*Math.pow((1 - this.seeds.length),2))
           ));
         return score;
       },
