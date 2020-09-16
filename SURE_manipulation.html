@@ -33,7 +33,7 @@
       }
 
       #apply {
-        display: none;
+        display: block;
         margin-top: 10px;
       }
 
@@ -182,10 +182,10 @@
             document.getElementById(
               "modification-" + event.graphics[0].attributes.modificationtype
             ).checked = true;
-            document.getElementById("apply").style.display = "block";
+            document.getElementById("apply").disabled = false;
           }
           if (event.state === "complete") {
-            document.getElementById("apply").style.display = "none";
+            document.getElementById("apply").disabled = true;
             updateIntegratedMesh();
           }
         });
@@ -295,45 +295,48 @@
     <div id="viewDiv"></div>
     <div id="tools" class="esri-widget">
       <h3>Mesh Modification Sample App</h3>
-      <p>Select modification type:</p>
-      <div class="option">
-        <input
-          type="radio"
-          name="modificationtype"
-          id="modification-clip"
-          value="clip"
-          checked
-        />
-        <label class="clip" for="modification-clip"><b>&nbsp;Clip </b></label> -
-        removes selected area
+      <div class="w3-container">
+        <p>Select modification type:</p>
+        <div class="option">
+          <input
+            type="radio"
+            name="modificationtype"
+            id="modification-clip"
+            value="clip"
+            checked
+          />
+          <label class="clip" for="modification-clip"><b>&nbsp;Clip </b></label> -
+          removes selected area
+        </div>
+        <div class="option">
+          <input
+            type="radio"
+            name="modificationtype"
+            id="modification-mask"
+            value="mask"
+          />
+          <label class="mask" for="modification-mask"><b>&nbsp;Mask </b></label> -
+          displays only selected area
+        </div>
+        <div class="option">
+          <input
+            type="radio"
+            name="modificationtype"
+            id="modification-replace"
+            value="replace"
+          />
+          <label class="replace" for="modification-replace"
+            ><b>&nbsp;Replace </b></label
+          >
+          - flattens selected area
+        </div>
       </div>
-      <div class="option">
-        <input
-          type="radio"
-          name="modificationtype"
-          id="modification-mask"
-          value="mask"
-        />
-        <label class="mask" for="modification-mask"><b>&nbsp;Mask </b></label> -
-        displays only selected area
-      </div>
-      <div class="option">
-        <input
-          type="radio"
-          name="modificationtype"
-          id="modification-replace"
-          value="replace"
-        />
-        <label class="replace" for="modification-replace"
-          ><b>&nbsp;Replace </b></label
-        >
-        - flattens selected area
-      </div>
-      <button id="createModification" class="esri-button">
+      <button id="createModification" class="w3-button w3-blue">
         Create a modification
       </button>
+      <p>&nbsp;<p>
       <div id="apply">
-        <button id="applyModification" class="esri-button">Apply</button>
+        <button id="applyModification" class="w3-button w3-blue">Apply</button>
       </div>
     </div>
     
