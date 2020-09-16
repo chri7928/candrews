@@ -165,7 +165,7 @@
          */
         sketchViewModel.on("create", function (event) {
           if (event.state === "complete") {
-            view.goTo(event.graphic.geometry.extent);
+            //view.goTo(event.graphic.geometry.extent);
             createModificationButton.classList.remove("esri-button--secondary");
             updateModificationType(
               event.graphic,
