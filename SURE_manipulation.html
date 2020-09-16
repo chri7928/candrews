@@ -33,7 +33,7 @@
       }
 
       #apply {
-        display: block;
+        display: none;
         margin-top: 10px;
       }
 
@@ -182,10 +182,10 @@
             document.getElementById(
               "modification-" + event.graphics[0].attributes.modificationtype
             ).checked = true;
-            document.getElementById("apply").disabled = false;
+            document.getElementById("apply").style.display = "block";
           }
           if (event.state === "complete") {
-            document.getElementById("apply").disabled = true;
+            document.getElementById("apply").style.display = "none";
             updateIntegratedMesh();
           }
         });
@@ -295,7 +295,7 @@
     <div id="viewDiv"></div>
     <div id="tools" class="esri-widget">
       <h3>Mesh Modification Sample App</h3>
-      <div class="w3-container">
+      <div class="w3-container w3-margin">
         <p>Select modification type:</p>
         <div class="option">
           <input
@@ -334,7 +334,6 @@
       <button id="createModification" class="w3-button w3-blue">
         Create a modification
       </button>
-      <p>&nbsp;<p>
       <div id="apply">
         <button id="applyModification" class="w3-button w3-blue">Apply</button>
       </div>
