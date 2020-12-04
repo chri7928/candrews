@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!--
+  ArcGIS API for JavaScript, https://js.arcgis.com
+  For more information about the intro-sceneview sample, read the original sample description at developers.arcgis.com.
+  https://developers.arcgis.com/javascript/latest/sample-code/intro-sceneview/index.html
+  -->
+<title>
+      Intro to SceneView - Create a 3D map | Sample | ArcGIS API for JavaScript
+      4.17
+    </title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.17/"></script>
+
+    <script>
+      require(["esri/Map", "esri/views/SceneView"], function (Map, SceneView) {
+        var map = new Map({
+          basemap: "topo-vector",
+          ground: "world-elevation"
+        });
+
+        var view = new SceneView({
+          container: "viewDiv",
+          map: map,
+          scale: 50000000,
+          center: [-80, 0]
+        });
+        
+        var mapX = -80;
+        var mapY = 0;
+
+        function spin(){
+          mapX -= 0.5;
+          var cam = view.camera.clone();
+          cam.position = {
+            latitude: mapY,
+            longitude: mapX,
+            z: 50000000  // altitude in meters
+          }
+          // go to the new camera
+          view.goTo(cam);
+          setTimeout(function(){ spin();},30);
+        }
+        window.spin = spin;
+      }); 
+    </script>
+  </head>
+
+  <body onload="spin();">
+    <div id="viewDiv"></div>
+    
+    <script>
+    </script>
+  </body>
+</html>
