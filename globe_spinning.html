@@ -52,12 +52,24 @@
         var mapX = -80;
         var mapY = 0;
         var counter = 0;
+        var increment = 1;
 
         function spin(){
-          counter += 1;
-          if (counter == 360){
+          counter += increment;
+          if (counter == 90){
             // change layers
-            alert(view.layerViews.length);
+            var toggled = false;
+            for (const l in view.layerViews){
+              if (l.visible){
+                l.visible = false;
+                break;
+              }
+            }
+            if (!toggled){
+              for (const l in view.layerViews){
+                l.visible = true;
+              }
+            }
             counter = 0;
           }
           mapX -= 1;
