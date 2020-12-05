@@ -51,9 +51,16 @@
         
         var mapX = -80;
         var mapY = 0;
+        var counter = 0;
 
         function spin(){
-          mapX -= 0.5;
+          counter += 1;
+          if (counter == 360){
+            // change layers
+            alert(view.layerViews.length);
+            counter = 0;
+          }
+          mapX -= 1;
           var cam = view.camera.clone();
           cam.position = {
             latitude: mapY,
