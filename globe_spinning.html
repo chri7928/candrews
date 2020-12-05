@@ -59,15 +59,19 @@
           if (counter == 90){
             // change layers
             var toggled = false;
-            for (var layer in view.layerViews){
-              if (layer.visible){
-                layer.visible = false;
+            for (var lv in view.layerViews){
+              if (!lv){ //layers are not yet loaded
+                toggled = true;
+                break;
+              }
+              if (lv.visible){
+                lv.visible = false;
                 break;
               }
             }
             if (!toggled){
-              for (var layer in view.layerViews){
-                layer.visible = true;
+              for (var lv in view.layerViews){
+                lv.visible = true;
               }
             }
             counter = 0;
