@@ -91,10 +91,8 @@
         window.spin = spin;
         
         function check(){
-          while (!view){
-            console.log('.');
-          }
           setTimeout(function(){ spin();},100);
+          view.environment.date = new Date('December 17, 1995 03:24:00');
         }
         window.check = check;
       }); 
