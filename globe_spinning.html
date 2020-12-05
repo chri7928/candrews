@@ -50,6 +50,7 @@
         var counter = 0;
         var increment = 1;
         var delay = 100;
+        var cam = null;
 
         function spin(){
           counter += increment;
@@ -76,7 +77,6 @@
             counter = 0;
           }
           mapX -= 1;
-          var cam = view.camera.clone();
           cam.position = {
             latitude: mapY,
             longitude: mapX,
@@ -91,6 +91,7 @@
         function check(){
           setTimeout(function(){ spin();},100);
           view.environment.date = new Date('December 17, 1995 03:24:00');
+          cam = view.camera.clone();
         }
         window.check = check;
       }); 
