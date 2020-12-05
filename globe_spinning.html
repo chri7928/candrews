@@ -32,12 +32,8 @@
     <script src="https://js.arcgis.com/4.17/"></script>
 
     <script>
-      require(["esri/Map", "esri/views/SceneView", "esri/WebScene"],  
-              function (Map, SceneView, WebScene) {
-        var map = new Map({
-          basemap: "topo-vector",
-          ground: "world-elevation"
-        });
+      require(["esri/views/SceneView", "esri/WebScene"],  
+              function (SceneView, WebScene) {
 
        var scene = new WebScene({
           portalItem: {
@@ -66,14 +62,20 @@
           }
           // go to the new camera
           view.goTo(cam);
-          setTimeout(function(){ spin();},300);
+          setTimeout(function(){ spin();},50);
         }
         window.spin = spin;
+        
+        function check(){
+          if (view){
+            spin();
+          }
+        }
       }); 
     </script>
   </head>
 
-  <body onload="setTimeout(function(){spin();},10);">
+  <body onload="setTimeout(function(){check();},100);">
     <div id="viewDiv"></div>
     
     <script>
