@@ -57,6 +57,7 @@
 
         function spin(){
           counter += increment;
+          view.environment.date = new Date('December 17, 1995 03:24:00');
           if (counter == 90){
             // change layers
             var toggled = false;
@@ -65,10 +66,10 @@
                 toggled = true;
                 break;
               }
-              if (lv.visible){
+              //if (lv.visible){
                 lv.visible = false;
                 break;
-              }
+              //}
             }
             if (!toggled){
               for (var lv in view.layerViews){
