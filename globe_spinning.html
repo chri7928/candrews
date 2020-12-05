@@ -10,10 +10,7 @@
   For more information about the intro-sceneview sample, read the original sample description at developers.arcgis.com.
   https://developers.arcgis.com/javascript/latest/sample-code/intro-sceneview/index.html
   -->
-<title>
-      Intro to SceneView - Create a 3D map | Sample | ArcGIS API for JavaScript
-      4.17
-    </title>
+<title>   </title>
     <style>
       html,
       body,
@@ -37,7 +34,6 @@
 
        var scene = new WebScene({
           portalItem: {
-            // autocasts as new PortalItem()
             id: "906dc270244e43b08d1f0dbabc4d3912"
           }
         });
@@ -62,6 +58,7 @@
             // change layers
             var toggled = false;
             for (var lv in view.layerViews){
+              console.log(',');
               if (!lv){ //layers are not yet loaded
                 toggled = true;
                 break;
