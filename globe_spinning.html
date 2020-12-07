@@ -81,6 +81,8 @@
           setTimeout(function(){ spin();},100);
           //view.environment.date = new Date("Sun Mar 15 2019 16:00:00 GMT-0800");
           cam = view.camera.clone();
+          view.environment.lighting.date = Date.now();
+          console.log(view.environment.lighting.date);
           view.environment.lighting.cameraTrackingEnabled = false;
         }
         window.check = check;
