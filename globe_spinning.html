@@ -1,15 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
-    <!--
-  ArcGIS API for JavaScript, https://js.arcgis.com
-  For more information about the intro-sceneview sample, read the original sample description at developers.arcgis.com.
-  https://developers.arcgis.com/javascript/latest/sample-code/intro-sceneview/index.html
-  -->
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>   </title>
     <style>
       html,
@@ -22,10 +14,7 @@
       }
     </style>
 
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
-    />
+    <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.17/"></script>
 
     <script>
@@ -92,6 +81,7 @@
           setTimeout(function(){ spin();},100);
           //view.environment.date = new Date("Sun Mar 15 2019 16:00:00 GMT-0800");
           cam = view.camera.clone();
+          view.environment.lighting.cameraTrackingEnabled = true;
         }
         window.check = check;
       }); 
