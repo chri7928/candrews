@@ -43,7 +43,6 @@
 
         function spin(){
           counter += increment;
-          //view.environment.date = new Date('July 20, 2020 12:24:00');
           if (counter == 90){
             // change layers
             var toggled = false;
@@ -79,11 +78,11 @@
         
         function check(){
           setTimeout(function(){ spin();},100);
-          cam = view.camera.clone();
           //view.environment.lighting.date = Date.now();
           //console.log(view.environment.lighting.date;
-          view.environment.date = new Date('Mon Dec 07 2020 12:00:00 GMT-0800 (Pacific Standard Time)');
+          view.environment.date = new Date('Sun Jul 05 2020 12:00:00 GMT-0800 (Pacific Standard Time)');
           view.environment.lighting.cameraTrackingEnabled = true;
+          cam = view.camera.clone();
         }
         window.check = check;
       }); 
