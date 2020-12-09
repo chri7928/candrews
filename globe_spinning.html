@@ -70,8 +70,9 @@
             longitude: mapX,
             z: 20000000  // altitude in meters
           }
-          // go to the new camera
+          // go to the updated camera
           view.goTo(cam);
+          // spin it again
           setTimeout(function(){ spin();},delay);
         }
         window.spin = spin;
