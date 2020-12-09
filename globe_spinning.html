@@ -52,10 +52,10 @@
                 toggled = true;
                 break;
               }
-              //if (lv.visible){
+              if (lv.visible){
                 lv.visible = false;
                 break;
-              //}
+              }
             }
             //if (!toggled){
             //  for (var lv in view.layerViews){
@@ -76,21 +76,16 @@
         }
         window.spin = spin;
         
-        function check(){
-          setTimeout(function(){ spin();},100);
-          //view.environment.lighting.date = Date.now();
-          //console.log(view.environment.lighting.date;
-          //view.environment.lighting.date = Date.now();
-          //view.environment.date = new Date('Sun Jul 05 2020 12:00:00 GMT-0800 (Pacific Standard Time)');
+        view.when(function(){
           view.environment.lighting.cameraTrackingEnabled = true;
           cam = view.camera.clone();
-        }
-        window.check = check;
+          spin();
+        });
       }); 
     </script>
   </head>
 
-  <body onload="setTimeout(function(){check();},10000);">
+  <body onload="">
     <div id="viewDiv"></div>
     
     <script>
