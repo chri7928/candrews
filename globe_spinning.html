@@ -43,20 +43,20 @@
 
         function spin(){
           counter += increment;
-          if (counter == 90){
+          if (counter == 180){
             // change layers
             var toggled = false;
-            for (var lv in view.layerViews){
-              console.log(',');
-              if (!lv){ //layers are not yet loaded
-                toggled = true;
-                break;
-              }
-              if (lv.visible){
-                lv.visible = false;
-                break;
-              }
-            }
+            //for (var lv in view.layerViews){
+            //  console.log(',');
+            //  if (!lv){ //layers are not yet loaded
+            //    toggled = true;
+            //    break;
+            //  }
+            //  if (lv.visible){
+            //    lv.visible = false;
+            //    break;
+            //  }
+            //}
             //if (!toggled){
             //  for (var lv in view.layerViews){
             //    lv.visible = true;
