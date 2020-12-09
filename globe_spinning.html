@@ -47,22 +47,22 @@
           if (counter == counterReset){
             // change layers
             var toggled = false;
-            //for (var lv in view.layerViews){
-            //  console.log(',');
-            //  if (!lv){ //layers are not yet loaded
-            //    toggled = true;
-            //    break;
-            //  }
-            //  if (lv.visible){
-            //    lv.visible = false;
-            //    break;
-            //  }
-            //}
-            //if (!toggled){
-            //  for (var lv in view.layerViews){
-            //    lv.visible = true;
-            //  }
-            //}
+            for (var lv in view.layerViews){
+              console.log('in for lv');
+              if (!lv){ //layers are not yet loaded
+                toggled = true;
+                break;
+              }
+              if (lv.visible){
+                lv.visible = false;
+                break;
+              }
+            }
+            if (!toggled){
+              for (var lv in view.layerViews){
+                lv.visible = true;
+              }
+            }
             counter = 0;
           }
           mapX -= 1;
