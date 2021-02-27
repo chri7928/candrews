@@ -122,14 +122,9 @@
         let imlayer;
         
         //Remember this... listen for the view to load
-        view.when(function() {
-          var layerList = new LayerList({
-            view: view
-          });
+//         view.when(function() {
 
-          // Add widget to the top right corner of the view
-          view.ui.add(layerList, "bottom-right");
-        });
+//         });
 
         // Create graphicslayer to store modifications and add to the map
         const graphicslayer = new GraphicsLayer();
@@ -262,6 +257,18 @@
           // add the ui
           view.ui.add("tools", "top-right");
           document.getElementById("tools").style.display = "block";
+          
+          // MEASUREMENT calls
+          // Call the loadView() function for the initial view
+          loadView();
+          
+          // LAYERLIST calls
+          var layerList = new LayerList({
+            view: view
+          });
+
+          // Add widget to the top right corner of the view
+          view.ui.add(layerList, "bottom-right");
         });
 
         /*
@@ -360,8 +367,6 @@
           clearMeasurements();
         });
 
-        // Call the loadView() function for the initial view
-        loadView();
 
         // The loadView() function to define the view for the widgets and div
         function loadView() {
