@@ -238,6 +238,8 @@
         // listen to sketch-delete and update the IntegratedMesh modifications
         sketchViewModel.on("delete", updateIntegratedMesh);
 
+        var layerList = null;
+        
         view.when(function () {
           // get the IntegratedMesh-Layer from the WebScene
           imlayer = webscene.layers.find(function (layer) {
@@ -261,9 +263,10 @@
           // MEASUREMENT calls
           // Call the loadView() function for the initial view
           loadView();
+          document.getElementById('toobarDiv').style.display = "block";
           
           // LAYERLIST calls
-          var layerList = new LayerList({
+          layerList = new LayerList({
             view: view
           });
 
@@ -367,7 +370,6 @@
           clearMeasurements();
         });
 
-
         // The loadView() function to define the view for the widgets and div
         function loadView() {
           view.set({
@@ -375,11 +377,8 @@
           });
           // Add the appropriate measurement UI to the bottom-right when activated
           view.ui.add(measurement, "bottom-right");
-          // Add the legend to the bottom left
-          view.ui.add(legend, "bottom-left");
           // Set the views for the widgets
           measurement.view = view;
-          legend.view = view;
         }
 
         // Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
@@ -410,7 +409,7 @@
   <body>
     <div id="viewDiv"></div>
     
-    <div id="toolbarDiv" class="esri-component esri-widget">
+    <div id="toolbarDiv" class="esri-component esri-widget" style="display:none">
       <button id="distance" class="esri-widget--button esri-interactive esri-icon-measure-line" title="Distance Measurement Tool">
       </button>
       <button id="area" class="esri-widget--button esri-interactive esri-icon-measure-area" title="Area Measurement Tool">
