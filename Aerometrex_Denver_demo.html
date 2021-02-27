@@ -7,7 +7,7 @@
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
     <title>
-      IntegratedMeshLayer modification | Demonstration | ArcGIS API for JavaScript 4.16
+      IntegratedMeshLayer modification | Demonstration | ArcGIS API for JavaScript 4.18
     </title>
 
     <link
@@ -15,7 +15,7 @@
       href="https://js.arcgis.com/4.16/esri/themes/light/main.css"
     />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="https://js.arcgis.com/4.16/"></script>
+    <script src="https://js.arcgis.com/4.18/"></script>
     <style>
       html,
       body,
@@ -338,6 +338,13 @@
           imlayer.modifications = modifications;
         }
 
+        //////////////////////////////////////////////
+        // MEASUREMENT WIDGET
+        //////////////////////////////////////////////
+
+        // Create new instance of the Measurement widget
+        const measurement = new Measurement();
+        
         // Set-up event handlers for buttons and click events
         const distanceButton = document.getElementById('distance');
         const areaButton = document.getElementById('area');
