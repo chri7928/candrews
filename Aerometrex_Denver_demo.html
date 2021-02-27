@@ -55,6 +55,28 @@
       }
       
       .cj-blue{ color: #0961aa; }
+               
+      #toolbarDiv {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: default;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+      }
+
+      .esri-widget--button.active,
+      .esri-widget--button.active:hover,
+      .esri-widget--button.active:focus {
+        cursor: default;
+        background-color: #999696;
+      }
+      .esri-widget--button.active path,
+      .esri-widget--button.active:hover path,
+      .esri-widget--button.active:focus path {
+        fill: #E4E4E4;
+      }
     </style>
 
     <script>
@@ -358,6 +380,16 @@
 
   <body>
     <div id="viewDiv"></div>
+    
+    <div id="toolbarDiv" class="esri-component esri-widget">
+      <button id="distance" class="esri-widget--button esri-interactive esri-icon-measure-line" title="Distance Measurement Tool">
+      </button>
+      <button id="area" class="esri-widget--button esri-interactive esri-icon-measure-area" title="Area Measurement Tool">
+      </button>
+      <button id="clear" class="esri-widget--button esri-interactive esri-icon-trash" title="Clear Measurements">
+      </button>
+    </div>
+    
     <div id="tools" class="esri-widget w3-display-container">
       <div class="w3-container w3-margin-bottom"> 
         <span onclick="document.getElementById('helpSplash').style.display='block'" 
