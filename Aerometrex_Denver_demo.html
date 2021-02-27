@@ -338,21 +338,21 @@
 
         // The loadView() function to define the view for the widgets and div
         function loadView() {
-          activeView.set({
+          view.set({
             container: "viewDiv"
           });
           // Add the appropriate measurement UI to the bottom-right when activated
-          activeView.ui.add(measurement, "bottom-right");
+          view.ui.add(measurement, "bottom-right");
           // Add the legend to the bottom left
-          activeView.ui.add(legend, "bottom-left");
+          view.ui.add(legend, "bottom-left");
           // Set the views for the widgets
-          measurement.view = activeView;
-          legend.view = activeView;
+          measurement.view = view;
+          legend.view = view;
         }
 
         // Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
         function distanceMeasurement() {
-          const type = activeView.type;
+          const type = view.type;
           measurement.activeTool = "direct-line";
           distanceButton.classList.add("active");
           areaButton.classList.remove("active");
@@ -386,6 +386,8 @@
       <button id="clear" class="esri-widget--button esri-interactive esri-icon-trash" title="Clear Measurements">
       </button>
     </div>
+        
+    <div id="viewDiv"></div>
     
     <div id="tools" class="esri-widget w3-display-container">
       <div class="w3-container w3-margin-bottom"> 
