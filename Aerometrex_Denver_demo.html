@@ -238,6 +238,10 @@
         // listen to sketch-delete and update the IntegratedMesh modifications
         sketchViewModel.on("delete", updateIntegratedMesh);
 
+        const daylight = new Daylight({
+          view: view
+        });
+        
         var layerList = null;
         
         view.when(function () {
@@ -272,6 +276,8 @@
 
           // Add widget to the top right corner of the view
           view.ui.add(layerList, "bottom-left");
+        
+          view.ui.add(daylight, "bottom-right");
         });
 
         /*
